@@ -100,8 +100,8 @@ func main() {
 	r.Use(middleware.RedirectSlashes)
 	r.Use(middleware.CleanPath)
 
-	// Middleware stack
-	r.Use(middleware.Logger)
+	// Terminal logs
+	//r.Use(middleware.Logger)
 
 	// Use Gorilla sessions middleware
 	r.Use(sessionMiddleware)

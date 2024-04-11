@@ -94,15 +94,29 @@ func createTables2() {
 }
 
 func insertMigrations() {
+	// Check if the row exists
+	var count int
+	err := DB.QueryRow("SELECT COUNT(*) FROM migrations WHERE table_name = ?", "users").Scan(&count)
+	if err != nil {
+		panic(err.Error())
+	}
 
-	stmt, err := DB.Prepare("INSERT INTO migrations(table_name, created_at, updated_at) VALUES(?, ?, ?)")
-	if err != nil {
-		//return 0, err
+	// If the row doesn't exist, execute the INSERT statement
+	if count == 0 {
+		// Prepare the INSERT statement
+		stmt, err := DB.Prepare("INSERT INTO migrations(table_name, created_at, updated_at) VALUES(?, ?, ?)")
+		if err != nil {
+			panic(err.Error())
+		}
+		defer stmt.Close()
+
+		// Execute the INSERT statement
+		result, err := stmt.Exec("users", time.Now(), time.Now())
+		if err != nil {
+			panic(err.Error())
+		}
+		fmt.Println("Row inserted successfully:", result)
+	} else {
+		fmt.Println("Row already exists!")
 	}
-	defer stmt.Close()
-	result, err := stmt.Exec("users", time.Now(), time.Now())
-	if err != nil {
-		//return 0, err
-	}
-	fmt.Print(result)
 }

@@ -29,7 +29,6 @@ import (
 	"os"
 )
 
-var csrfKey = []byte("secret")
 
 var (
 	upgrader = websocket.Upgrader{
@@ -168,6 +167,8 @@ func sessionMiddleware(next http.Handler) http.Handler {
 func csrfMiddleware(next http.Handler) http.Handler {
 
 	//get this from env
+	key := os.Getenv("APP_KEY")
+   csrfKey := []byte(key)
 
 	csrfMiddleware := csrf.Protect(
 		csrfKey,

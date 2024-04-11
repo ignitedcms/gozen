@@ -13,13 +13,13 @@
 package routes
 
 import (
+	"github.com/go-chi/chi/v5"
 	"gozen/controllers/examples"
 	"gozen/controllers/login"
 	"gozen/controllers/mail"
 	"gozen/controllers/upload"
 	"gozen/controllers/users"
 	"gozen/controllers/welcome"
-	"github.com/go-chi/chi/v5"
 )
 
 func LoadRoutes(r *chi.Mux) {

@@ -13,8 +13,8 @@
 package rendering
 
 import (
-	"gozen/system/templates"
 	"github.com/gorilla/csrf"
+	"gozen/system/templates"
 	"html/template"
 	"net/http"
 )

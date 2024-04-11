@@ -1,8 +1,8 @@
 package main
 
 import (
-	"gozen/db"
 	"github.com/joho/godotenv"
+	"gozen/db"
 	"log"
 )
 

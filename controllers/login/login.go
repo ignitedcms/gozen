@@ -1,12 +1,12 @@
 package login
 
 import (
+	"fmt"
 	"gozen/models/users"
 	"gozen/system/formutils"
 	"gozen/system/hash"
 	"gozen/system/rendering"
 	"gozen/system/validation"
-	"fmt"
 	"net/http"
 )
 

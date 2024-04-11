@@ -13,12 +13,6 @@
 package main
 
 import (
-	"gozen/db"
-	"gozen/routes"
-	//"fibs/system/hash"
-	"gozen/system/rendering"
-	//"fibs/system/session"
-	"gozen/system/templates"
 	"fmt"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -26,14 +20,16 @@ import (
 	"github.com/gorilla/sessions"
 	"github.com/gorilla/websocket"
 	"github.com/joho/godotenv"
+	"gozen/db"
+	"gozen/routes"
+	"gozen/system/rendering"
+	"gozen/system/templates"
 	"log"
 	"net/http"
 	"os"
 )
 
-// var t, _ = hash.GenerateKey()
 var csrfKey = []byte("secret")
-var Store = sessions.NewCookieStore([]byte("secret"))
 
 var (
 	upgrader = websocket.Upgrader{
@@ -151,6 +147,10 @@ func sessionMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Get the session from the request
 		// Call the next handler
+
+	   key := os.Getenv("APP_KEY")
+      Store := sessions.NewCookieStore([]byte(key))
+
 		Store.Options.HttpOnly = true
 
 		session, _ := Store.Get(r, "session-name")

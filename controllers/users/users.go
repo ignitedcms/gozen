@@ -1,12 +1,12 @@
 package users
 
 import (
+	"fmt"
+	"github.com/go-chi/chi/v5"
 	"gozen/models/users"
 	"gozen/system/formutils"
 	"gozen/system/rendering"
 	"gozen/system/validation"
-	"fmt"
-	"github.com/go-chi/chi/v5"
 	"net/http"
 )
 

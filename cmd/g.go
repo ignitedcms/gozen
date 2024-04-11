@@ -37,6 +37,74 @@ func parseFields(fieldsStr string) []StructField {
 	return fields
 }
 
+func parseFields2(fieldsStr string) []StructField {
+	var fields []StructField
+
+	// Split the string by comma to get each field
+	for _, field := range strings.Split(fieldsStr, ",") {
+		// Split each field by colon to get the name and type
+		parts := strings.Split(field, ":")
+		if len(parts) != 2 {
+			continue
+		}
+		fields = append(fields, StructField{
+			Name: parts[0],
+         Type: parts[1],
+		})
+	}
+
+	return fields
+}
+
+func generateCreateTableSQL(tableName string, fields []StructField) string {
+    var sb strings.Builder
+    sb.WriteString(fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (\n", tableName))
+
+    for i, field := range fields {
+        fieldType := getFieldType(field.Type)
+        sb.WriteString(fmt.Sprintf("    %s %s", field.Name, fieldType))
+        if field.Name == "id" {
+            sb.WriteString(" PRIMARY KEY AUTO_INCREMENT")
+        }
+        if i < len(fields)-1 {
+            sb.WriteString(",\n")
+        }
+    }
+
+    sb.WriteString("\n)")
+    return sb.String()
+}
+
+func getFieldType(fieldType string) string {
+    switch fieldType {
+    case "integer":
+        return "INTEGER"
+    case "string":
+        return "VARCHAR(255)"
+    case "datetime":
+        return "DATETIME"
+    default:
+        return fieldType
+    }
+}
+
+func writeToFile(filename string, content string) {
+    file, err := os.Create(filename)
+    if err != nil {
+        fmt.Println("Error creating file:", err)
+        return
+    }
+    defer file.Close()
+
+    _, err = file.WriteString(content)
+    if err != nil {
+        fmt.Println("Error writing to file:", err)
+        return
+    }
+
+    fmt.Println("SQL statement written to", filename)
+}
+
 func main() {
 
 	tablePtr := flag.String("table", "comments", "the name of the table")
@@ -52,6 +120,7 @@ func main() {
 	table := *tablePtr
 	structName := *structNamePtr
 	fields := parseFields(*fieldsPtr)
+	fields2 := parseFields2(*fieldsPtr) //for migrations
 
 	//now we need to dynamically add id and created,updated at
 	// Create a new allFields slice with the desired order
@@ -63,6 +132,20 @@ func main() {
 		StructField{Name: "created_at", Type: "string"},
 		StructField{Name: "updated_at", Type: "string"},
 	)
+
+
+	allFields2 := []StructField{
+		{Name: "id", Type: "string"},
+	}
+	allFields2 = append(allFields2, fields2...)
+	allFields2 = append(allFields2,
+		StructField{Name: "created_at", Type: "datetime"},
+		StructField{Name: "updated_at", Type: "datetime"},
+	)
+
+   sql := generateCreateTableSQL(table, allFields2)
+   writeToFile("db.txt", sql)
+
 
 	//table := "comments"
 	//structName := "comment"

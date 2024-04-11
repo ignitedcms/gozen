@@ -18,6 +18,7 @@ import (
 	_ "github.com/go-sql-driver/mysql" // MySQL driver
 	"log"
 	"os"
+	"time"
 )
 
 var DB *sql.DB // Exported database connection that can be used globally
@@ -89,4 +90,18 @@ func createTables2() {
 		log.Println("Error creating table:", err)
 
 	}
+}
+
+func insertMigrations(){
+   
+	stmt, err := DB.Prepare("INSERT INTO migrations(table_name, created_at, updated_at) VALUES(?, ?, ?)")
+	if err != nil {
+		//return 0, err
+	}
+	defer stmt.Close()
+	result, err := stmt.Exec( "users", time.Now(), time.Now())
+	if err != nil {
+		//return 0, err
+	}
+   fmt.Print(result)
 }

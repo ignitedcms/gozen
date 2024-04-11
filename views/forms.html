@@ -47,12 +47,11 @@
       
          <label for="title">Numbers</label>
 
-         {{ .Data.PostData.numbers }} 
          <select class="form-select" name="numbers" aria-label="Default select example">
             <option >Open</option>
-            <option value="a" {{showSelected "a" (printf "%v" .Data.PostData.numbers) }}>One</option>
-            <option value="b" {{showSelected "b" (printf "%v" .Data.PostData.numbers)}}>Two</option>
-            <option value="c" {{showSelected "c" (printf "%v" .Data.PostData.numbers)}}>Three</option>
+            <option value="1" {{showSelected "1" (printf "%v" .Data.PostData.numbers) }}>1</option>
+            <option value="2" {{showSelected "2" (printf "%v" .Data.PostData.numbers)}}>2</option>
+            <option value="3" {{showSelected "3" (printf "%v" .Data.PostData.numbers)}}>3</option>
          </select>
 
 
@@ -72,7 +71,6 @@
              </label>
            </div>
 
-         {{ .Data.PostData.foo }} 
            <div class="form-group">
               <input type="radio" value="c" class="form-check-input" 
                name="foo" {{showChecked "c" (printf "%v" .Data.PostData.foo) }}>

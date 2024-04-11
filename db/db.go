@@ -49,6 +49,7 @@ func InitDB() {
 
 	createTables()
 	createTables2()
+	insertMigrations()
 }
 
 // Auto increment needs underscore!
@@ -92,16 +93,16 @@ func createTables2() {
 	}
 }
 
-func insertMigrations(){
-   
+func insertMigrations() {
+
 	stmt, err := DB.Prepare("INSERT INTO migrations(table_name, created_at, updated_at) VALUES(?, ?, ?)")
 	if err != nil {
 		//return 0, err
 	}
 	defer stmt.Close()
-	result, err := stmt.Exec( "users", time.Now(), time.Now())
+	result, err := stmt.Exec("users", time.Now(), time.Now())
 	if err != nil {
 		//return 0, err
 	}
-   fmt.Print(result)
+	fmt.Print(result)
 }

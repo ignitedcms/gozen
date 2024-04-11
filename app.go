@@ -29,7 +29,6 @@ import (
 	"os"
 )
 
-
 var (
 	upgrader = websocket.Upgrader{
 		ReadBufferSize:  1024,
@@ -147,8 +146,8 @@ func sessionMiddleware(next http.Handler) http.Handler {
 		// Get the session from the request
 		// Call the next handler
 
-	   key := os.Getenv("APP_KEY")
-      Store := sessions.NewCookieStore([]byte(key))
+		key := os.Getenv("APP_KEY")
+		Store := sessions.NewCookieStore([]byte(key))
 
 		Store.Options.HttpOnly = true
 
@@ -168,7 +167,7 @@ func csrfMiddleware(next http.Handler) http.Handler {
 
 	//get this from env
 	key := os.Getenv("APP_KEY")
-   csrfKey := []byte(key)
+	csrfKey := []byte(key)
 
 	csrfMiddleware := csrf.Protect(
 		csrfKey,

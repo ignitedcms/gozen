@@ -15,13 +15,11 @@ import "net/http"
 import "log"
 import "os"
 
-
-
 // Simply set a session variable
 func SetSession(w http.ResponseWriter, r *http.Request, n string, t string) {
 
-   key := os.Getenv("APP_KEY")
-   Store := sessions.NewCookieStore([]byte(key))
+	key := os.Getenv("APP_KEY")
+	Store := sessions.NewCookieStore([]byte(key))
 
 	session, _ := Store.Get(r, "session-name")
 	session.Values[n] = t
@@ -35,8 +33,8 @@ func SetSession(w http.ResponseWriter, r *http.Request, n string, t string) {
 
 // Retrieve the session
 func GetSession(r *http.Request, t string) string {
-   key := os.Getenv("APP_KEY")
-   Store := sessions.NewCookieStore([]byte(key))
+	key := os.Getenv("APP_KEY")
+	Store := sessions.NewCookieStore([]byte(key))
 	session, _ := Store.Get(r, "session-name")
 	b := session.Values[t].(string)
 	return b
@@ -44,8 +42,8 @@ func GetSession(r *http.Request, t string) string {
 
 // Destroy all sessions
 func DestroySession(w http.ResponseWriter, r *http.Request) {
-   key := os.Getenv("APP_KEY")
-   Store := sessions.NewCookieStore([]byte(key))
+	key := os.Getenv("APP_KEY")
+	Store := sessions.NewCookieStore([]byte(key))
 
 	session, _ := Store.Get(r, "session-name")
 	session.Options.MaxAge = -1

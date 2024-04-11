@@ -49,7 +49,7 @@ func parseFields2(fieldsStr string) []StructField {
 		}
 		fields = append(fields, StructField{
 			Name: parts[0],
-         Type: parts[1],
+			Type: parts[1],
 		})
 	}
 
@@ -57,52 +57,52 @@ func parseFields2(fieldsStr string) []StructField {
 }
 
 func generateCreateTableSQL(tableName string, fields []StructField) string {
-    var sb strings.Builder
-    sb.WriteString(fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (\n", tableName))
+	var sb strings.Builder
+	sb.WriteString(fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (\n", tableName))
 
-    for i, field := range fields {
-        fieldType := getFieldType(field.Type)
-        sb.WriteString(fmt.Sprintf("    %s %s", field.Name, fieldType))
-        if field.Name == "id" {
-            sb.WriteString(" PRIMARY KEY AUTO_INCREMENT")
-        }
-        if i < len(fields)-1 {
-            sb.WriteString(",\n")
-        }
-    }
+	for i, field := range fields {
+		fieldType := getFieldType(field.Type)
+		sb.WriteString(fmt.Sprintf("    %s %s", field.Name, fieldType))
+		if field.Name == "id" {
+			sb.WriteString(" PRIMARY KEY AUTO_INCREMENT")
+		}
+		if i < len(fields)-1 {
+			sb.WriteString(",\n")
+		}
+	}
 
-    sb.WriteString("\n)")
-    return sb.String()
+	sb.WriteString("\n)")
+	return sb.String()
 }
 
 func getFieldType(fieldType string) string {
-    switch fieldType {
-    case "integer":
-        return "INTEGER"
-    case "string":
-        return "VARCHAR(255)"
-    case "datetime":
-        return "DATETIME"
-    default:
-        return fieldType
-    }
+	switch fieldType {
+	case "integer":
+		return "INTEGER"
+	case "string":
+		return "VARCHAR(255)"
+	case "datetime":
+		return "DATETIME"
+	default:
+		return fieldType
+	}
 }
 
 func writeToFile(filename string, content string) {
-    file, err := os.Create(filename)
-    if err != nil {
-        fmt.Println("Error creating file:", err)
-        return
-    }
-    defer file.Close()
+	file, err := os.Create(filename)
+	if err != nil {
+		fmt.Println("Error creating file:", err)
+		return
+	}
+	defer file.Close()
 
-    _, err = file.WriteString(content)
-    if err != nil {
-        fmt.Println("Error writing to file:", err)
-        return
-    }
+	_, err = file.WriteString(content)
+	if err != nil {
+		fmt.Println("Error writing to file:", err)
+		return
+	}
 
-    fmt.Println("SQL statement written to", filename)
+	fmt.Println("SQL statement written to", filename)
 }
 
 func main() {
@@ -133,7 +133,6 @@ func main() {
 		StructField{Name: "updated_at", Type: "string"},
 	)
 
-
 	allFields2 := []StructField{
 		{Name: "id", Type: "integer"},
 	}
@@ -143,9 +142,8 @@ func main() {
 		StructField{Name: "updated_at", Type: "datetime"},
 	)
 
-   sql := generateCreateTableSQL(table, allFields2)
-   writeToFile("db.txt", sql)
-
+	sql := generateCreateTableSQL(table, allFields2)
+	writeToFile("db.txt", sql)
 
 	//table := "comments"
 	//structName := "comment"
@@ -453,14 +451,14 @@ func main() {
 	// Write UpdateView function
 	builder2.WriteString("func UpdateView(w http.ResponseWriter, r *http.Request) {\n")
 	builder2.WriteString("\tid := chi.URLParam(r, \"id\")\n")
-	builder2.WriteString("\t"+structName+", err := " + table + ".Read(id)\n")
+	builder2.WriteString("\t" + structName + ", err := " + table + ".Read(id)\n")
 	builder2.WriteString("\tif err != nil {\n")
 	builder2.WriteString("\t\t// Handle error\n")
 	builder2.WriteString("\t\treturn\n")
 	builder2.WriteString("\t}\n")
 	builder2.WriteString("\tdata := map[interface{}]interface{}{\n")
 	builder2.WriteString("\t\t\"Id\":   id,\n")
-	builder2.WriteString("\t\t\""+capitalize(structName)+"\": "+structName+",\n")
+	builder2.WriteString("\t\t\"" + capitalize(structName) + "\": " + structName + ",\n")
 	builder2.WriteString("\t}\n")
 	builder2.WriteString("\trendering.RenderTemplate(w, r, \"" + table + "-update\", data)\n")
 	builder2.WriteString("}\n\n")

@@ -1,0 +1,75 @@
+{{ template "_header.html" }}
+<div class=" h-a lg:bg-[url('/resources/images/graphic.svg')] bg-no-repeat">
+         <dark-mode top="20px"></dark-mode>
+   <div class="px-2 w-[1000px] ">
+      
+      <div class="text-2xl lg:text-4xl mt-4 text-black text-center tracking-tighter text-dark">
+         Congratulations it works!
+      </div>
+      <div class="text-primary text-4xl text-center mt-4">
+         午前 (Gozen)
+      </div>
+      <div class="text-lg text-muted text-center mt-4 text-dark">
+         The Go full stack framework
+         {{.Csrf}}
+      </div>
+
+      <div class="mt-8 px-4">
+         <div class="shadow-sm bg-white border border-slate-300 rounded-xl overflow-hidden dark:bg-darker dark:border-slate-600">
+            <div class="row">
+               <div class="col m-0   min-h-[150px]  p-8">
+                  <div>
+                     <h5 class="text-black text-dark">Efficient Development</h5>
+                     <div class="text-sm text-dark">
+                        Gozen streamlines development, allowing you to focus on what matters without unnecessary complexities.
+                     </div>
+                     <a href="#" class="mt-2 text-sm text-primary underline">Read more</a>
+                  </div>
+               </div>
+               <div class="col m-0  min-h-[150px] rounded-tr-xl p-8">
+                  <div>
+                     <h5 class="text-black text-dark">Speed and Performance</h5>
+                     <div class="text-sm text-dark">
+                        Experience lightning-fast performance optimized for maximum efficiency, ensuring a seamless user experience.
+                     </div>
+                     <a href="#" class="mt-2 text-sm text-primary underline">Read more</a>
+                  </div>
+
+               </div>
+
+
+            </div>
+            <div class="row">
+               <div class="col m-0  min-h-[150px]  p-8">
+                  <div>
+                     <h5 class="text-black text-dark">Seamless Scalability</h5>
+                     <div class="text-sm text-dark">
+                        Gozen effortlessly scales to meet the demands of your growing user base, adapting to your business needs.
+                     </div>
+                     <a href="#" class="mt-2 text-sm text-primary underline">Read more</a>
+                  </div>
+               </div>
+               <div class="col m-0   min-h-[150px] p-8">
+                  <div>
+                     <h5 class="text-black text-dark">Community-Driven Innovation</h5>
+                     <div class="text-sm text-dark">
+                        Join our open-source community and be part of shaping the future of 
+                        go development. 
+                     </div>
+                     <a href="#" class="mt-2 text-sm text-primary underline">Read more</a>
+                  </div>
+               </div>
+
+
+            </div>
+         </div>
+      </div>
+
+      
+      <div class="gap"></div>
+      <div class="gap"></div>
+   </div>
+</div>
+
+{{ template "_footer.html" }}
+

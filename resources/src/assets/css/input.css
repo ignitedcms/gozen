@@ -1,0 +1,130 @@
+@import "tailwindcss/base";
+
+@import "base.css";
+@import "typography.css";
+@import "animations.css";
+@import "forms.css";
+@import "feeds.css";
+@import "full-calendar.css";
+@import "checkbox.css";
+@import "select.css";
+@import "progress-bars.css";
+@import "quill.css";
+@import "range-sliders.css";
+@import "spinner.css";
+@import "switch.css";
+@import "toasts.css";
+@import "splide.min.css";
+@import "carousel.css";
+@import "datatables.css";
+
+
+@import "tailwindcss/components";
+
+
+@import "tailwindcss/utilities";
+
+@layer base {
+
+   
+  :root {
+     --primary: #d6455a;
+     --primary-light: #c9eeff;
+     --light-gray: #F7FAFC;
+     --gray: #cccccc;
+     --dark: #1A1C22;
+     --big-radius:10px;
+     --small-radius:5px;
+     --default-container:1100px;
+     --medium-container:800px;
+     --small-container:600px;
+     --padding:30px;
+     --margin:10px;
+     --font-family:'Instrument Sans',sans-serif;
+     --font-size:16px;
+     --line-height:25px;
+     --font-color:#666666;
+     --form-focus-color:#2866f7;
+     --desktop:1200px;
+     --tablet:900px;
+     --mobile:500px;
+
+    /* ... */
+  }
+
+  .btn-white{
+     @apply inline-block relative 
+      text-sm
+      text-black
+      px-3
+      py-2
+      dark:bg-darkest
+      dark:border-slate-600
+      dark:text-white
+      dark:hover:bg-dark
+      rounded-[--small-radius]
+      bg-white border border-[--gray]
+
+      hover:bg-gray-200 transition ease-in-out duration-300
+  }
+
+  .bg-light-gray{
+     @apply bg-[--light-gray]
+  }
+  .bg-gray{
+     @apply bg-[--gray]
+  }
+
+  .bg-primary{
+     @apply bg-[--primary]
+  }
+  .bg-dark{
+     @apply bg-[--dark]
+  }
+  .bg-darker{
+     @apply bg-[#1A1D27]
+  }
+  .bg-darkest{
+     @apply bg-[#15171F]
+  }
+
+  .text-dark{
+     @apply
+     dark:text-white
+  }
+
+  .form-dark{
+      @apply dark:bg-darkest dark:border-slate-600 dark:text-white
+      dark:focus:text-white
+  }
+
+  .panel {
+     @apply bg-white p-6 rounded-xl 
+     shadow-sm border border-slate-300
+     dark:bg-dark
+     dark:border-slate-600
+     dark:shadow-none
+  }
+
+  .highlight{
+     @apply inline bg-gradient-to-r from-slate-50  to-slate-200
+  }
+
+  .no-margin{
+     margin:0 !important;
+  }
+
+   /*We can remove this later*/
+   .current-date {
+     background-color: #cccccc !important;
+     color: #333 !important;
+     border-radius: var(--small-radius);
+   }
+
+   .focused {
+     background-color: var(--primary) !important;
+     color: #fff !important;
+     border-radius: var(--small-radius);
+   }
+
+}

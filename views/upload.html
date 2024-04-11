@@ -1,0 +1,15 @@
+{{ template "_header.html" }}
+<div class="">
+   <div class="gap"></div>
+   <div class="default-container">
+      <h4>Simple file upload</h4>
+      <form action="/upload" method="post" enctype="multipart/form-data">
+         {{ .Csrf }}
+         <file-upload name="file"> </file-upload>
+         <button-component variant="outline" class="mt-4">
+            Upload
+         </button-component>
+      </form>
+   </div>
+</div>
+{{ template "_footer.html" }}

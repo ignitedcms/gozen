@@ -1,0 +1,44 @@
+.day {
+  border: 1px solid #ccc;
+  height: 158px;
+  width: 14.2757142857%;
+  padding: 5px;
+  float: left;
+  background-color: #ffffff;
+  margin-top: -1px;
+  margin-left: -1px;
+  transition: all 0.4s;
+  cursor: pointer;
+}
+.day-week {
+  height: 98px;
+}
+.day-disabled {
+  background-color: #F7FAFC;
+  border: 1px solid #ccc;
+}
+.day-headers {
+  border: 1px solid #ccc;
+  height: 38px;
+  width: 14.2757142857%;
+  padding: 5px;
+  float: left;
+  text-align: center;
+  background-color: #ffffff;
+  margin-top: -1px;
+  margin-left: -1px;
+  transition: all 0.4s;
+  cursor: pointer;
+}
+
+.day:hover {
+  /*background: rgb(243, 243, 243);*/
+}
+
+@media (max-width: 768px) {
+  .day {
+    height: 70px;
+  }
+}
+
+/*# sourceMappingURL=full-calendar.css.map */

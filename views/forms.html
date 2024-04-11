@@ -1,0 +1,99 @@
+{{ template "_header.html" }}
+<div class="">
+   <div class="gap"></div>
+   <div class="default-container">
+
+      {{ if .Data.FlashData }}
+      <div class="toasts">
+         <toast ref="toast">
+         <div class="p-5">
+            <div class="text-danger dark:text-white">Error</div>
+            <div class="text-danger small dark:text-white">
+               {{ .Data.FlashData }}
+            </div>
+         </div>
+         </toast>
+      </div>
+
+      {{end}}
+
+
+
+      <!--.Data.PostData.name-->
+      {{ .Data.Foo }}
+      <form action="/forms" method="post">
+         {{ .Csrf }}
+         <label for="name">First name:</label><br>
+         <input 
+                type="text" 
+                class="form-control" 
+                name="name" 
+                value="{{ .Data.PostData.name }}" autocomplete="off"
+         >
+           <div class="small text-danger">
+              {{ .Data.PostDataErrors.name }}
+           </div>
+         <label for="email">Email</label><br>
+         <input 
+                type="text" 
+                class="form-control"  
+                name="email" 
+                value="{{ .Data.PostData.email }}" 
+                autocomplete="off"
+                >
+                <div class="small text-danger">
+                   {{ .Data.PostDataErrors.email }}
+                </div>
+      
+         <label for="title">Numbers</label>
+
+         {{ .Data.PostData.numbers }} 
+         <select class="form-select" name="numbers" aria-label="Default select example">
+            <option >Open</option>
+            <option value="a" {{showSelected "a" (printf "%v" .Data.PostData.numbers) }}>One</option>
+            <option value="b" {{showSelected "b" (printf "%v" .Data.PostData.numbers)}}>Two</option>
+            <option value="c" {{showSelected "c" (printf "%v" .Data.PostData.numbers)}}>Three</option>
+         </select>
+
+
+         <div class="mt-4"></div>
+         <label for="title">Animals</label>
+           <div>
+             <input type="checkbox" name="animals" value="dog"
+                    class="form-check-input" >
+             <label for="the label" class="ml-2">
+                Dog
+             </label>
+             <br>
+             <input type="checkbox" name="animals" value="cat"
+                    class="form-check-input" >
+             <label for="the label" class="ml-2">
+                Cat
+             </label>
+           </div>
+
+         {{ .Data.PostData.foo }} 
+           <div class="form-group">
+              <input type="radio" value="c" class="form-check-input" 
+               name="foo" {{showChecked "c" (printf "%v" .Data.PostData.foo) }}>
+              <label for="c">c </label>
+              <input type="radio" value="d" class="form-check-input"
+              name="foo" {{showChecked "d" (printf "%v" .Data.PostData.foo) }}>
+              <label for="d">d </label>
+           </div>
+
+
+
+
+         <button-component variant="outline" class="mt-4">
+            Submit
+         </button-component>
+      </form>
+      <div class="row">
+         <div class="col">
+            <div class="form-group"></div>
+         </div>
+      </div>
+   </div>
+</div>
+{{ template "_footer.html" }}

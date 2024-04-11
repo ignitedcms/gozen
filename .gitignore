@@ -1,0 +1,4 @@
+.DS_store
+tmp/main
+tmp/build-errors.log
+

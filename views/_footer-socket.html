@@ -1,0 +1,24 @@
+   </div>
+    <script>
+        const socket = new WebSocket("ws://localhost:3000/ws");
+
+        socket.onopen = (event) => {
+            console.log("WebSocket connection opened");
+        };
+
+        socket.onmessage = (event) => {
+            const output = document.getElementById("output");
+            output.innerHTML += `<p>Received: ${event.data}</p>`;
+        };
+
+        function sendMessage() {
+            const messageInput = document.getElementById("messageInput");
+            const message = messageInput.value;
+            socket.send(message);
+            messageInput.value = "";
+        }
+    </script>
+</body>
+</html>
+
+

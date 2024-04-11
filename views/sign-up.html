@@ -1,0 +1,55 @@
+{{ template "_header.html" }}
+<div class="gap"></div>
+<div class="gap"></div>
+<div class="small-container">
+{{ if .Data.FlashData }}
+    <div class="toasts">
+        <toast ref="toast">
+            <div class="p-5">
+                <div class="text-danger dark:text-white">Error</div>
+                <div class="text-danger small dark:text-white">
+                    {{ .Data.FlashData }}
+                </div>
+            </div>
+        </toast>
+    </div>
+{{ end }}
+   <div class="panel">
+      <div class="row">
+         <div class="col">
+            <h4 class="text-center">Signup</h4>
+            <form method="POST" action="/signup">
+               {{ .Csrf }}
+               <div class="form-group">
+                  <label for="title">Email</label>
+                  <div class="small text-muted">Enter a valid email address</div>
+                  <input 
+                       class="form-control" 
+                       type="text"
+                       name="email" 
+                       value="{{ .Data.PostData.email }}"
+                       autocomplete="off"
+                       placeholder="" />
+
+                    <div class="small text-danger">{{ .Data.PostDataErrors.email }}</div>
+               </div>
+               <div class="form-group">
+                  <password name="password"></password>
+                    <div class="small text-danger">{{ .Data.PostDataErrors.password }}</div>
+               </div>
+               <div class="form-group">
+                  <button-component variant="primary" class="w-full">
+                     Sign up
+                  </button-component>
+               </div>
+            </form>
+            <div class="text-center mt-4">
+               <a href="/login" class="underline text-primary">login</a>
+            </div>
+         </div>
+      </div>
+   </div>
+
+</div>
+{{ template "_footer.html" }}
+

@@ -1,0 +1,24 @@
+.progress {
+  display: flex;
+  height: 9px;
+  margin-top: 10px;
+  overflow: hidden;
+  background-color: #f2f2f2;
+  border-radius: 20px;
+}
+.progress-bar {
+  color: #fff;
+  text-align: center;
+  transition: width 0.6s ease;
+}
+.progress-bar-primary {
+  background-color: var(--primary);
+}
+.progress-bar-white {
+  background-color: #fff !important;
+}
+.progress-bar-light {
+  background-color: #fff !important;
+}
+
+/*# sourceMappingURL=progress-bars.css.map */

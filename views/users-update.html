@@ -1,0 +1,32 @@
+{{ template "_header.html" }}
+<div class="gap"></div>
+<div class="default-container">
+    <div class="row">
+        <div class="col">
+            <a href="/users" class="text-primary underline">users</a>
+            <h3>Update Users</h3>
+            <form method="POST" action="/users/update/{{.Data.Id}}">
+                {{.Csrf}}
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input class="form-control" name="name" value="{{.Data.Users.Name}}" placeholder="" />
+                    <div class="small text-danger"></div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input class="form-control" name="email" value="{{.Data.Users.Email}}" placeholder="" />
+                    <div class="small text-danger"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input class="form-control" name="password" value="{{.Data.Users.Password}}" placeholder="" />
+                    <div class="small text-danger"></div>
+                </div>
+                <div class="form-group">
+                    <button-component variant="primary">Update</button-component>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{ template "_footer.html" }}

@@ -1,2 +1,2 @@
-# gozen
- go full stack framework
+# Gozen
+ Go micro framework

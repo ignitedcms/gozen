@@ -1,0 +1,118 @@
+/*                                                                          
+|---------------------------------------------------------------            
+| IgnitedCMS
+|---------------------------------------------------------------            
+|                                                                           
+| Overide css for datatables
+|                                                                           
+*/
+/*                                                                          
+|---------------------------------------------------------------            
+| Next and previous page options for datatables
+|---------------------------------------------------------------            
+*/
+.paginate_disabled_previous {
+  background-color: #ffffff;
+  color: #666666;
+  border: 1px solid #ccc;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.5s;
+  user-select: none;
+}
+
+.paginate_enabled_previous {
+  background-color: #ffffff;
+  color: #666666;
+  border: 1px solid #ccc;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.5s;
+  user-select: none;
+}
+
+.paginate_disabled_next {
+  background-color: #ffffff;
+  color: #666666;
+  border: 1px solid #ccc;
+  margin-left: 10px;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.5s;
+  user-select: none;
+}
+
+.paginate_enabled_next {
+  background-color: #ffffff;
+  margin-left: 10px;
+  color: #666666;
+  border: 1px solid #ccc;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.5s;
+  user-select: none;
+}
+
+.paginate_disabled_previous:hover,
+.paginate_enabled_previous:hover,
+.paginate_disabled_next:hover,
+.paginate_enabled_next:hover {
+  color: #333;
+  background-color: rgb(243, 243, 243);
+}
+
+.paging_two_button {
+  margin-top: 20px;
+}
+
+/*                                                                          
+|---------------------------------------------------------------            
+| Number of rows on datatables
+|---------------------------------------------------------------            
+*/
+.dataTables_length {
+  padding: 15px;
+  max-width: 200px;
+  float: left;
+}
+
+td {
+  vertical-align: middle;
+}
+
+/*                                                                          
+|---------------------------------------------------------------            
+| Search bar styles on datatables                                                
+|---------------------------------------------------------------            
+*/
+table.dataTable thead th,
+table.dataTable tfoot th {
+  font-weight: normal !important;
+  color: #000;
+}
+
+/*# sourceMappingURL=datatables.css.map */

@@ -1,0 +1,18 @@
+{{ template "_header.html" }}
+<div class="gap"></div>
+<div class="gap"></div>
+<div class="default-container">
+   <h3>Socket example</h3>
+   <div class="mb-4 text-sm">
+      Open up two tabs and watch how it updates without
+      a page refresh
+   </div>
+   <input type="text" class="form-control"  id="messageInput" placeholder="Enter a message">
+
+   <div class="mt-4 ">
+      <button onclick="sendMessage()" class="btn-white">Send Message</button>
+   </div>
+   <div id="output" class="mt-8 min-h-[200px] p-8 bg-slate-200 border rounded-xl"></div>
+</div>
+{{ template "_footer-socket.html" }}
+

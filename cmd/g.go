@@ -135,7 +135,7 @@ func main() {
 
 
 	allFields2 := []StructField{
-		{Name: "id", Type: "string"},
+		{Name: "id", Type: "integer"},
 	}
 	allFields2 = append(allFields2, fields2...)
 	allFields2 = append(allFields2,

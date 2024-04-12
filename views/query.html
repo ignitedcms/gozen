@@ -46,13 +46,14 @@
    {{range $index, $item := .Data}}
    <div id="draggable-{{$index}}" class="bg-white border border-[--gray] rounded-md shadow-md cursor-pointer">
       <div class="">{{.Name}}</div>
-      {{.Columns}}
+      {{range .Columns}}
       <div class="relative">
          <div class="node-left"></div>
          <div class="node-right"></div>
          <input type="checkbox" name="" class="form-check-input">
-         <label for="the label">id</label>
+         <label for="the label">{{.}}</label>
       </div>
+      {{end}}
 
    </div>
    {{end}}

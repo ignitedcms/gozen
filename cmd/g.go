@@ -314,7 +314,7 @@ func main() {
 	for _, field := range fields {
 		builder.WriteString(fmt.Sprintf("                <div class=\"form-group\">\n"))
 		builder.WriteString(fmt.Sprintf("                    <label for=\"%s\">%s</label>\n", field.Name, capitalize(field.Name)))
-		builder.WriteString(fmt.Sprintf("                    <input class=\"form-control\" name=\"%s\" value=\"{{.Data.%s.%s}}\" placeholder=\"\" />\n", field.Name, capitalize(table), capitalize(field.Name)))
+		builder.WriteString(fmt.Sprintf("                    <input class=\"form-control\" name=\"%s\" value=\"{{.Data.%s.%s}}\" placeholder=\"\" />\n", field.Name, capitalize(structName), capitalize(field.Name)))
 		builder.WriteString(fmt.Sprintf("                    <div class=\"small text-danger\"></div>\n"))
 		builder.WriteString(fmt.Sprintf("                </div>\n"))
 	}

@@ -24,16 +24,16 @@ import (
 // index page
 func Index(w http.ResponseWriter, r *http.Request) {
 
-	tableInfos, err := query.GetAll()
+	TableInfos, err := query.GetAll()
 	if err != nil {
 		// Handle error
 		return
 	}
 
-	for _, tableInfo := range tableInfos {
+	for _, tableInfo := range TableInfos {
 		fmt.Printf("Table: %s\nColumns: %v\n", tableInfo.Name, tableInfo.Columns)
 	}
 
 	// Render the template and write it to the response
-	rendering.RenderTemplate(w, r, "query", nil)
+	rendering.RenderTemplate(w, r, "query", TableInfos)
 }

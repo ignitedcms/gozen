@@ -40,7 +40,13 @@
       </script>
    </head>
 <body class="p-8 bg-[--light-gray]">
- 
+
+   {{range .Data}}
+   {{.Name}}
+   {{.Columns}}
+   {{end}}
+
+
 <div id="draggable" class="bg-white border border-[--gray] rounded-md shadow-md cursor-pointer">
   <div class="">users</div>
   <div class="relative">

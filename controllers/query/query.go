@@ -13,7 +13,7 @@
 package query
 
 import (
-	//"fmt"
+	"fmt"
 	"gozen/models/query"
 	"gozen/system/rendering"
 	//"gozen/system/formutils"
@@ -24,8 +24,16 @@ import (
 // index page
 func Index(w http.ResponseWriter, r *http.Request) {
 
-	query.GetAll()
+	tableInfos, err := query.GetAll()
+	if err != nil {
+		// Handle error
+		return
+	}
+
+	for _, tableInfo := range tableInfos {
+		fmt.Printf("Table: %s\nColumns: %v\n", tableInfo.Name, tableInfo.Columns)
+	}
 
 	// Render the template and write it to the response
-   rendering.RenderTemplate(w, r, "query", nil)
+	rendering.RenderTemplate(w, r, "query", nil)
 }

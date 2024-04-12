@@ -6,6 +6,7 @@
       <title>Query builder</title>
 
       <link rel="stylesheet" href="/resources/css/output.css">
+      <script src="/resources/js/vue2.js"></script>
       <style>
         #draggable-0 { width: 200px; height: 250px; padding: 0.5em; }
         #draggable-1 { width: 200px; height: 250px; padding: 0.5em; }
@@ -14,20 +15,22 @@
            position:absolute;
            height:20px;
            width:20px;
+           background-color:#fff;
            left:-30px;
            top:2px;
            border-radius:50px;
-           border:solid 1px gray;
+           border:solid 2px #038cfc;
 
         }
         .node-right{
            position:absolute;
            height:20px;
            width:20px;
+           background-color:#fff;
            right:-30px;
            top:2px;
            border-radius:50px;
-           border:solid 1px gray;
+           border:solid 2px #038cfc;
 
         }
       </style>
@@ -42,7 +45,7 @@
       </script>
    </head>
 <body class="p-8 bg-[--light-gray]">
-
+   <div id="app">
 
 
    {{range $index, $item := .Data}}
@@ -50,8 +53,8 @@
       <div class="">{{.Name}}</div>
       {{range .Columns}}
       <div class="relative">
-         <div class="node-left"></div>
-         <div class="node-right"></div>
+         <div class="node-left" @click="alert('{{.}}')"></div>
+         <div class="node-right" @click="change" :style="{backgroundColor:circle}"></div>
          <input type="checkbox" name="" class="form-check-input">
          <label for="the label">{{.}}</label>
       </div>
@@ -59,8 +62,37 @@
 
    </div>
    {{end}}
+
  
  
+   </div>
+   <script> 
+      var app = new Vue(
+      {
+         el: '#app',
+         data:{
+            circle:'white',
+            foo:{{.Data}}
+         },
+         methods:
+         {
+            change()
+            {
+               if(this.circle == 'white')
+               {
+                  this.circle = 'green'
+               } 
+               else
+               {
+                  this.circle = 'white'
+               }
+            }
+         },
+         mounted()
+         {
+         }
+      });   
+   </script> 
  
 </body>
 </html>

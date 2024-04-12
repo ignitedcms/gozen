@@ -1,4 +1,4 @@
-// go run % -table=comments -struct=comment -fields=name:string,email:string
+// go run % students student name:string,email:string
 // omit the id,created_at,updated_at as these are generated automatically
 package main
 

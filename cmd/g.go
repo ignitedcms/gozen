@@ -109,8 +109,6 @@ func main() {
 
 	tablePtr := flag.String("table", "comments", "the name of the table")
 	structNamePtr := flag.String("struct", "comment", "the name of the struct")
-
-	// Define a slice of StructField pointers
 	fieldsPtr := flag.String("fields", "", "the fields of the struct, comma-separated")
 
 	// Parse the command-line arguments

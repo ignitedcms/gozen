@@ -20,9 +20,14 @@ import (
 	"gozen/controllers/upload"
 	"gozen/controllers/users"
 	"gozen/controllers/welcome"
+	"gozen/controllers/query"
 )
 
 func LoadRoutes(r *chi.Mux) {
+
+   //experimental query builder
+	r.Get("/query", query.Index)
+
 
 	r.Get("/", welcome.Index)
 	r.Get("/examples", examples.Index)

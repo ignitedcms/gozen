@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>jQuery UI Draggable - Default functionality</title>
+
+      <link rel="stylesheet" href="/resources/css/output.css">
+      <style>
+        #draggable { width: 200px; height: 250px; padding: 0.5em; }
+        #draggable2 { width: 200px; height: 250px; padding: 0.5em; }
+      </style>
+      <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+      <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+      <script>
+         $( function() {
+            $( "#draggable" ).draggable();
+            $( "#draggable2" ).draggable();
+         } );
+      </script>
+   </head>
+<body class="p-8 bg-[--light-gray]">
+ 
+<div id="draggable" class="bg-white border border-[--gray] rounded-md shadow-md cursor-pointer">
+  <div class="">users</div>
+  <div>
+    <input type="checkbox" name="" class="form-check-input">
+    <label for="the label">id</label>
+  </div>
+  <div>
+    <input type="checkbox" name="" class="form-check-input" >
+    <label for="the label">name</label>
+  </div>
+</div>
+<div id="draggable2" class="bg-white border border-[--gray] rounded-md shadow-md cursor-pointer">
+  <div class="">migrations</div>
+  <div>
+    <input type="checkbox" name="" class="form-check-input">
+    <label for="the label">id</label>
+  </div>
+  <div>
+    <input type="checkbox" name="" class="form-check-input" >
+    <label for="the label">table_name</label>
+  </div>
+</div>
+ 
+ 
+ 
+</body>
+</html>

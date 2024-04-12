@@ -61,8 +61,10 @@ func SendMail(w http.ResponseWriter, r *http.Request) {
 	// Send email
 	err = smtp.SendMail(smtpHost+":"+smtpPort, auth, senderEmail, []string{recipientEmail}, message)
 	if err != nil {
+		w.Write([]byte("Error sending email, check credentials:"))
 		log.Println("Error sending email:", err)
 	} else {
+		w.Write([]byte("Email sent successfully!"))
 		log.Println("Email sent successfully!")
 	}
 }

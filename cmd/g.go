@@ -107,20 +107,19 @@ func writeToFile(filename string, content string) {
 
 func main() {
 
+	if len(os.Args) < 4 {
+		fmt.Println("Usage: go run your_program.go table struct fields")
+		return
+	}
 
-   if len(os.Args) < 4 {
-        fmt.Println("Usage: go run your_program.go table struct fields")
-        return
-    }
-
-    table := os.Args[1]
-    structName := os.Args[2]
-    fieldsStr := os.Args[3]
+	table := os.Args[1]
+	structName := os.Args[2]
+	fieldsStr := os.Args[3]
 
 	fields := parseFields(fieldsStr)
 	fields2 := parseFields2(fieldsStr) //for migrations
 
-   fmt.Printf("Table: %s\nStruct: %s\nFields: %v\n", table, structName, fields)
+	fmt.Printf("Table: %s\nStruct: %s\nFields: %v\n", table, structName, fields)
 
 	//now we need to dynamically add id and created,updated at
 	// Create a new allFields slice with the desired order

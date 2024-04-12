@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"net/smtp"
+	"os"
 	//"path/filepath"
 )
 
@@ -17,22 +18,23 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	rendering.RenderTemplate(w, r, "mail/index", nil)
 }
 
-
 func MailView(w http.ResponseWriter, r *http.Request) {
 	rendering.RenderTemplate(w, r, "mail", nil)
 }
 
 func SendMail(w http.ResponseWriter, r *http.Request) {
+
 	// SMTP server configuration
-	smtpHost := "sandbox.smtp.mailtrap.io"
-	smtpPort := "25" // or 465 for SSL/TLS
+	smtpHost := os.Getenv("MAIL_HOST")
+	smtpPort := os.Getenv("MAIL_PORT")
 
 	// Sender email authentication
-	senderEmail := ""
-	senderPassword := ""
+	senderEmail := os.Getenv("MAIL_USERNAME")
+	senderPassword := os.Getenv("MAIL_PASSWORD")
 
 	// Recipient email address
-	recipientEmail := "foo@mail.com"
+	// Obtained from form
+	recipientEmail := "test@mail.com"
 
 	// Path to HTML template file
 	templatePath := "mail/email_template.html"

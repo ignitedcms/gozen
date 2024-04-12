@@ -5,6 +5,9 @@ package main
 import (
 	//"flag"
 	"fmt"
+	"github.com/joho/godotenv"
+	"gozen/db"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -88,21 +91,20 @@ func getFieldType(fieldType string) string {
 	}
 }
 
-func writeToFile(filename string, content string) {
-	file, err := os.Create(filename)
-	if err != nil {
-		fmt.Println("Error creating file:", err)
-		return
-	}
-	defer file.Close()
+func migrateSql(table string, sql string) {
 
-	_, err = file.WriteString(content)
+	err := godotenv.Load()
 	if err != nil {
-		fmt.Println("Error writing to file:", err)
-		return
+		log.Fatal("Error loading .env file")
 	}
+	db.InitDB()
 
-	fmt.Println("SQL statement written to", filename)
+	_, err = db.DB.Exec(sql)
+
+	if err != nil {
+		fmt.Println("Error creating table:", err)
+
+	}
 }
 
 func main() {
@@ -142,7 +144,8 @@ func main() {
 	)
 
 	sql := generateCreateTableSQL(table, allFields2)
-	writeToFile("db.txt", sql)
+
+	migrateSql(table, sql)
 
 	//table := "comments"
 	//structName := "comment"

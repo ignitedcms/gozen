@@ -17,6 +17,11 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	rendering.RenderTemplate(w, r, "mail/index", nil)
 }
 
+
+func MailView(w http.ResponseWriter, r *http.Request) {
+	rendering.RenderTemplate(w, r, "mail", nil)
+}
+
 func SendMail(w http.ResponseWriter, r *http.Request) {
 	// SMTP server configuration
 	smtpHost := "sandbox.smtp.mailtrap.io"

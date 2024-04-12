@@ -43,7 +43,8 @@ func LoadRoutes(r *chi.Mux) {
 	r.Get("/upload", upload.Index)
 	r.Post("/upload", upload.UploadFile)
 
-	r.Get("/mail", mail.SendMail)
+	r.Get("/mail", mail.MailView)
+	r.Post("/mail", mail.SendMail)
 
 	r.Get("/users", users.Index)
 	r.Get("/users/create", users.CreateView)

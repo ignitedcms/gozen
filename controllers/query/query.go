@@ -1,19 +1,20 @@
-/*                                                                          
-|---------------------------------------------------------------            
+/*
+|---------------------------------------------------------------
 | Query builder
-|---------------------------------------------------------------            
+|---------------------------------------------------------------
 |
 | Experimental build
-| 
+|
 |
 | @license: MIT
 | @version: 1.0
 | @since: 1.0
-*/       
+*/
 package query
 
 import (
 	//"fmt"
+	"gozen/models/query"
 	"gozen/system/rendering"
 	//"gozen/system/formutils"
 	//"gozen/system/validation"
@@ -22,7 +23,9 @@ import (
 
 // index page
 func Index(w http.ResponseWriter, r *http.Request) {
-	// Render the template and write it to the response
-	rendering.RenderTemplate(w, r, "query", nil)
-}
 
+	query.GetAll()
+
+	// Render the template and write it to the response
+   rendering.RenderTemplate(w, r, "query", nil)
+}

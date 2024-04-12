@@ -3,7 +3,7 @@
 package main
 
 import (
-	"flag"
+	//"flag"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -107,18 +107,20 @@ func writeToFile(filename string, content string) {
 
 func main() {
 
-	tablePtr := flag.String("table", "comments", "the name of the table")
-	structNamePtr := flag.String("struct", "comment", "the name of the struct")
-	fieldsPtr := flag.String("fields", "", "the fields of the struct, comma-separated")
 
-	// Parse the command-line arguments
-	flag.Parse()
+   if len(os.Args) < 4 {
+        fmt.Println("Usage: go run your_program.go table struct fields")
+        return
+    }
 
-	// Convert the allFields string to a slice of StructField
-	table := *tablePtr
-	structName := *structNamePtr
-	fields := parseFields(*fieldsPtr)
-	fields2 := parseFields2(*fieldsPtr) //for migrations
+    table := os.Args[1]
+    structName := os.Args[2]
+    fieldsStr := os.Args[3]
+
+	fields := parseFields(fieldsStr)
+	fields2 := parseFields2(fieldsStr) //for migrations
+
+   fmt.Printf("Table: %s\nStruct: %s\nFields: %v\n", table, structName, fields)
 
 	//now we need to dynamically add id and created,updated at
 	// Create a new allFields slice with the desired order

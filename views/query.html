@@ -9,6 +9,26 @@
       <style>
         #draggable { width: 200px; height: 250px; padding: 0.5em; }
         #draggable2 { width: 200px; height: 250px; padding: 0.5em; }
+        .node-left{
+           position:absolute;
+           height:20px;
+           width:20px;
+           left:-30px;
+           top:2px;
+           border-radius:50px;
+           border:solid 1px gray;
+
+        }
+        .node-right{
+           position:absolute;
+           height:20px;
+           width:20px;
+           right:-30px;
+           top:2px;
+           border-radius:50px;
+           border:solid 1px gray;
+
+        }
       </style>
       <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
       <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -23,22 +43,48 @@
  
 <div id="draggable" class="bg-white border border-[--gray] rounded-md shadow-md cursor-pointer">
   <div class="">users</div>
-  <div>
+  <div class="relative">
+     <div class="node-left"></div>
+     <div class="node-right"></div>
     <input type="checkbox" name="" class="form-check-input">
     <label for="the label">id</label>
   </div>
-  <div>
+  <div class="relative">
+     <div class="node-left"></div>
+     <div class="node-right"></div>
     <input type="checkbox" name="" class="form-check-input" >
     <label for="the label">name</label>
+  </div>
+  <div class="relative">
+     <div class="node-left"></div>
+     <div class="node-right"></div>
+    <input type="checkbox" name="" class="form-check-input" >
+    <label for="the label">password</label>
+  </div>
+  <div class="relative">
+     <div class="node-left"></div>
+     <div class="node-right"></div>
+    <input type="checkbox" name="" class="form-check-input" >
+    <label for="the label">created_at</label>
+  </div>
+  <div class="relative">
+     <div class="node-left"></div>
+     <div class="node-right"></div>
+    <input type="checkbox" name="" class="form-check-input" >
+    <label for="the label">updated_at</label>
   </div>
 </div>
 <div id="draggable2" class="bg-white border border-[--gray] rounded-md shadow-md cursor-pointer">
   <div class="">migrations</div>
-  <div>
+  <div class="relative">
+     <div class="node-left"></div>
+     <div class="node-right"></div>
     <input type="checkbox" name="" class="form-check-input">
     <label for="the label">id</label>
   </div>
-  <div>
+  <div class="relative">
+     <div class="node-left"></div>
+     <div class="node-right"></div>
     <input type="checkbox" name="" class="form-check-input" >
     <label for="the label">table_name</label>
   </div>

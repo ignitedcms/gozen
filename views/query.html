@@ -58,8 +58,8 @@
    <div :id="setDraggable(index)" class="bg-white border border-[--gray] rounded-md shadow-md cursor-pointer">
       <div class="">[[t.Table.Name]]</div>
       <div class="relative" v-for="(f,index) in foo[index].Columns">
-         <div class="node-left" @click="setLeft(f.UUID); setJoin(t.Table.Name)"></div>
-         <div class="node-right" @click="setRight(f.UUID); setFrom(t.Table.Name)"></div>
+         <div class="node-left" @click="setLeft(f.UUID); setJoin(t.Table.Name); setTarget(t.Table.Name,f.Name)"></div>
+         <div class="node-right" @click="setRight(f.UUID); setFrom(t.Table.Name); setSource(t.Table.Name,f.Name)"></div>
          <input v-model="items" type="checkbox" :value="setCheckbox(t.Table.Name,f.Name)" class="form-check-input">
          <label for="the label">[[f.Name]]</label>
       </div>
@@ -76,18 +76,10 @@ Target:[[ target ]]</pre>
    <pre class="code mt-4">
 SELECT <span v-for="item in items">[[item]],</span>
 FROM [[from]]
-INNER JOIN [[join]] ON orders.customer_id = customers.id;
+INNER JOIN [[join]] ON [[sourceTable]] = [[targetTable]];
    </pre>
 
-   <div
-      v-for="(div, index) in foo"
-      :key="index"
-      :class="{ 'active': selectedIndex === index }"
-      @click="selectDiv(index)"
-      style="background-color: white; padding: 10px; margin-bottom: 5px;"
-    >
-     [[ div.Name ]]
-    </div>
+   
  
  
    </div>
@@ -103,6 +95,8 @@ INNER JOIN [[join]] ON orders.customer_id = customers.id;
             items:[],
             source:'',
             target:'',
+            sourceTable:'',
+            targetTable:'',
             from:'',
             join:''
          },
@@ -120,8 +114,11 @@ INNER JOIN [[join]] ON orders.customer_id = customers.id;
             setCheckbox(a,b){
                return a + "." + b
             },
-            selectDiv(index) {
-                this.selectedIndex = index;
+            setSource(a,b){
+               this.sourceTable = a + "." + b;
+            },
+            setTarget(a,b){
+               this.targetTable = a + "." + b;
             },
             setRight(id){
                this.source = id;

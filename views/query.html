@@ -12,6 +12,7 @@
         #draggable-1 { width: 200px; height: 250px; padding: 0.5em; }
         #draggable-2 { width: 200px; height: 250px; padding: 0.5em; }
         #draggable-3 { width: 200px; height: 250px; padding: 0.5em; }
+
         .node-left{
            position:absolute;
            height:20px;
@@ -42,15 +43,7 @@
       <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
       <script>
          $( function() {
-            $( "#draggable-0" ).draggable({
-                  drag: function() {
-                       var offset = $(this).offset();
-                       var xPos = offset.left;
-                       var yPos = offset.top;
-                       $('#x').text('x: ' + xPos);
-                       $('#y').text('y: ' + yPos);
-                   }
-               });
+            $( "#draggable-0" ).draggable();
             $( "#draggable-1" ).draggable();
             $( "#draggable-2" ).draggable();
             $( "#draggable-3" ).draggable();
@@ -68,8 +61,8 @@
       <div class="">{{.Table.Name}}</div>
       {{range .Columns}}
       <div class="relative">
-         <div class="node-left" @click="alert('{{.}}')"></div>
-         <div class="node-right" @click="change" :style="{backgroundColor:circle}"></div>
+         <div class="node-left" @click="setRight('{{.UUID}}')"></div>
+         <div class="node-right" @click="setLeft('{{.UUID}}')" ></div>
          <input type="checkbox" name="" class="form-check-input">
          <label for="the label">{{.Name}}</label>
       </div>
@@ -77,6 +70,14 @@
 
    </div>
    {{end}}
+
+   <div class="mt-4">debug</div>
+   <pre class="bg-white">
+   Left: [[ right ]]
+   Right:[[ left ]]
+   </pre>
+
+
 
    <pre class="code mt-4">
 SELECT order.id, customers.customer_name
@@ -104,12 +105,20 @@ INNER JOIN customers ON orders.customer_id = customers.id;
          data:{
             circle:'white',
             selectedIndex:null,
-            foo:{{.Data}}
+            foo:{{.Data}},
+            left:'',
+            right:''
          },
          methods:
          {
             selectDiv(index) {
                 this.selectedIndex = index;
+            },
+            setRight(id){
+               this.right = id;
+            },
+            setLeft(id){
+               this.left = id;
             },
             change()
             {

@@ -4,7 +4,12 @@ import (
 	"gozen/db"
 	//"time"
 	"fmt"
+	"github.com/google/uuid"
 )
+
+func randomFilename() string {
+	return uuid.New().String()
+}
 
 type TableInfo struct {
 	Name    string

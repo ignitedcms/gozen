@@ -31,7 +31,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//for _, tableInfo := range TableInfos {
-		//fmt.Printf("Table: %s\nColumns: %v\n", tableInfo.Name, tableInfo.Columns)
+	//fmt.Printf("Table: %s\nColumns: %v\n", tableInfo.Name, tableInfo.Columns)
 	//}
 
 	// Render the template and write it to the response

@@ -11,6 +11,7 @@
         #draggable-0 { width: 200px; height: 250px; padding: 0.5em; }
         #draggable-1 { width: 200px; height: 250px; padding: 0.5em; }
         #draggable-2 { width: 200px; height: 250px; padding: 0.5em; }
+        #draggable-3 { width: 200px; height: 250px; padding: 0.5em; }
         .node-left{
            position:absolute;
            height:20px;
@@ -44,6 +45,7 @@
             $( "#draggable-0" ).draggable();
             $( "#draggable-1" ).draggable();
             $( "#draggable-2" ).draggable();
+            $( "#draggable-3" ).draggable();
          } );
       </script>
    </head>
@@ -67,9 +69,9 @@
    {{end}}
 
    <pre class="code mt-4">
-SELECT Orders.OrderID, Customers.CustomerName
-FROM Orders
-INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID;
+SELECT order.id, customers.customer_name
+FROM orders
+INNER JOIN customers ON orders.customer_id = customers.id;
    </pre>
 
    <div

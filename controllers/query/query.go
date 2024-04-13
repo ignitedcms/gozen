@@ -13,9 +13,9 @@
 package query
 
 import (
-	//"fmt"
+	"fmt"
 	"gozen/models/query"
-	"gozen/system/rendering"
+	//"gozen/system/rendering"
 	//"gozen/system/formutils"
 	//"gozen/system/validation"
 	"net/http"
@@ -24,16 +24,21 @@ import (
 // index page
 func Index(w http.ResponseWriter, r *http.Request) {
 
-	TableInfos, err := query.GetAll()
+	tableInfos, err := query.GetAll()
 	if err != nil {
 		// Handle error
 		return
 	}
 
-	//for _, tableInfo := range TableInfos {
-	//fmt.Printf("Table: %s\nColumns: %v\n", tableInfo.Name, tableInfo.Columns)
-	//}
+	for _, tableInfo := range tableInfos {
+		fmt.Printf("Table: %s (UUID: %s)\n", tableInfo.Table.Name, tableInfo.Table.UUID)
+		fmt.Println("Columns:")
+		for _, column := range tableInfo.Columns {
+			fmt.Printf("- %s (UUID: %s)\n", column.Name, column.UUID)
+		}
+		fmt.Println()
+	}
 
 	// Render the template and write it to the response
-	rendering.RenderTemplate(w, r, "query", TableInfos)
+	//rendering.RenderTemplate(w, r, "query", TableInfos)
 }

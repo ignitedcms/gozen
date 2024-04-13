@@ -12,8 +12,14 @@ func randomFilename() string {
 }
 
 type TableInfo struct {
-	Name    string
-	Columns []string
+	Table struct {
+		Name string
+		UUID string
+	}
+	Columns []struct {
+		Name string
+		UUID string
+	}
 }
 
 func GetAll() ([]TableInfo, error) {
@@ -37,7 +43,14 @@ func GetAll() ([]TableInfo, error) {
 	// For each table, get the list of column names
 	var tableInfos []TableInfo
 	for _, table := range tables {
-		columns := make([]string, 0)
+		tableInfo := TableInfo{}
+		tableInfo.Table.Name = table
+		tableInfo.Table.UUID = uuid.New().String()
+
+		columns := make([]struct {
+			Name string
+			UUID string
+		}, 0)
 
 		rows, err := db.DB.Query(fmt.Sprintf("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '%s' AND TABLE_SCHEMA = DATABASE()", table))
 		if err != nil {
@@ -50,13 +63,17 @@ func GetAll() ([]TableInfo, error) {
 			if err := rows.Scan(&column); err != nil {
 				return nil, err
 			}
-			columns = append(columns, column)
+			columnInfo := struct {
+				Name string
+				UUID string
+			}{
+				Name: column,
+				UUID: uuid.New().String(),
+			}
+			columns = append(columns, columnInfo)
 		}
 
-		tableInfo := TableInfo{
-			Name:    table,
-			Columns: columns,
-		}
+		tableInfo.Columns = columns
 		tableInfos = append(tableInfos, tableInfo)
 	}
 

@@ -63,7 +63,7 @@
       <div class="relative">
          <div class="node-left" @click="setLeft('{{.UUID}}')"></div>
          <div class="node-right" @click="setRight('{{.UUID}}')" ></div>
-         <input type="checkbox" name="" class="form-check-input">
+         <input v-model="items" type="checkbox" value="{{.Name}}" class="form-check-input">
          <label for="the label">{{.Name}}</label>
       </div>
       {{end}}
@@ -73,8 +73,10 @@
 
    <div class="mt-4">debug</div>
    <pre class="bg-white">
-   Left: [[ source ]]
-   Right:[[ target ]]
+   Source: [[ source ]]
+   Target:[[ target ]]
+
+   [[ items ]]
    </pre>
 
 
@@ -106,6 +108,7 @@ INNER JOIN customers ON orders.customer_id = customers.id;
             circle:'white',
             selectedIndex:null,
             foo:{{.Data}},
+            items:[],
             source:'',
             target:''
          },

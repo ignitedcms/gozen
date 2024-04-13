@@ -52,37 +52,29 @@
    </head>
 <body class="p-8 bg-[--light-gray]">
    <div id="app">
-   <div id="x"></div>
-   <div id="y"></div>
 
 
-   {{range $index, $item := .Data}}
-   <div id="draggable-{{$index}}" class="bg-white border border-[--gray] rounded-md shadow-md cursor-pointer">
-      <div class="">{{.Table.Name}}</div>
-      {{range .Columns}}
-      <div class="relative">
-         <div class="node-left" @click="setLeft('{{.UUID}}')"></div>
-         <div class="node-right" @click="setRight('{{.UUID}}')" ></div>
-         <input v-model="items" type="checkbox" value="{{.Name}}" class="form-check-input">
-         <label for="the label">{{.Name}}</label>
+   <div v-for="(t,index) in foo">
+   <div :id="setDraggable(index)" class="bg-white border border-[--gray] rounded-md shadow-md cursor-pointer">
+      <div class="">[[t.Table.Name]]</div>
+      <div class="relative" v-for="(f,index) in foo[index].Columns">
+         <div class="node-left" @click="setLeft(f.UUID)"></div>
+         <div class="node-right" @click="setRight(f.UUID)" ></div>
+         <input v-model="items" type="checkbox" :value="setCheckbox(t.Table.Name,f.Name)" class="form-check-input">
+         <label for="the label">[[f.Name]]</label>
       </div>
-      {{end}}
 
    </div>
-   {{end}}
+   </div>
 
    <div class="mt-4">debug</div>
-   <pre class="bg-white">
-   Source: [[ source ]]
-   Target:[[ target ]]
-
-   [[ items ]]
-   </pre>
+   <pre class="code">Source: [[ source ]]
+Target:[[ target ]]</pre>
 
 
 
    <pre class="code mt-4">
-SELECT order.id, customers.customer_name
+SELECT <span v-for="item in items">[[item]],</span>
 FROM orders
 INNER JOIN customers ON orders.customer_id = customers.id;
    </pre>
@@ -114,6 +106,12 @@ INNER JOIN customers ON orders.customer_id = customers.id;
          },
          methods:
          {
+            setDraggable(a){
+              return "draggable-" + a
+            },
+            setCheckbox(a,b){
+               return a + "." + b
+            },
             selectDiv(index) {
                 this.selectedIndex = index;
             },

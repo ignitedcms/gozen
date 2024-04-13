@@ -62,15 +62,16 @@
    <div id="x"></div>
    <div id="y"></div>
 
+
    {{range $index, $item := .Data}}
    <div id="draggable-{{$index}}" class="bg-white border border-[--gray] rounded-md shadow-md cursor-pointer">
-      <div class="">{{.Name}}</div>
+      <div class="">{{.Table.Name}}</div>
       {{range .Columns}}
       <div class="relative">
          <div class="node-left" @click="alert('{{.}}')"></div>
          <div class="node-right" @click="change" :style="{backgroundColor:circle}"></div>
          <input type="checkbox" name="" class="form-check-input">
-         <label for="the label">{{.}}</label>
+         <label for="the label">{{.Name}}</label>
       </div>
       {{end}}
 

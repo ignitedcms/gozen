@@ -84,12 +84,10 @@ Target:[[ target ]]</pre>
 
 
    <pre class="code mt-4">
-SELECT <span v-for="item in items">[[item]],</span>
+SELECT <span>[[selectStatement]] </span> 
 FROM [[from]]
 INNER JOIN [[join]] ON [[sourceTable]] = [[targetTable]];
    </pre>
-
-   
  
  
    </div>
@@ -114,7 +112,6 @@ INNER JOIN [[join]] ON [[sourceTable]] = [[targetTable]];
          },
          methods:
          {
-
             allowConnection(){
                this.connection = !this.connection
             },
@@ -152,6 +149,11 @@ INNER JOIN [[join]] ON [[sourceTable]] = [[targetTable]];
                {
                   this.circle = 'white'
                }
+            }
+         },
+         computed: {
+            selectStatement() {
+               return this.items.join(', ');
             }
          },
          mounted()

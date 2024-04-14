@@ -53,6 +53,16 @@
 <body class="p-8 bg-[--light-gray]">
    <div id="app">
 
+      <div>
+
+         [[ connection ]]
+         <button type="submit" class="border border-black" @click="allowConnection">
+            Create connection
+         </button>
+         
+
+      </div>
+
 
    <div v-for="(t,index) in foo">
    <div :id="setDraggable(index)" class="bg-white border border-[--gray] rounded-md shadow-md cursor-pointer">
@@ -98,10 +108,16 @@ INNER JOIN [[join]] ON [[sourceTable]] = [[targetTable]];
             sourceTable:'',
             targetTable:'',
             from:'',
-            join:''
+            join:'',
+            connection:false
+
          },
          methods:
          {
+
+            allowConnection(){
+               this.connection = !this.connection
+            },
             setFrom(a){
                this.from = a   
             },

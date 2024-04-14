@@ -114,6 +114,11 @@ INNER JOIN [[join]] ON [[sourceTable]] = [[targetTable]];
          {
             allowConnection(){
                this.connection = !this.connection
+               if(this.connection == false)
+               {
+                  this.source = "";
+                  this.target = "";
+               }
             },
             setFrom(a){
                this.from = a   

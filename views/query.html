@@ -119,7 +119,7 @@ INNER JOIN [[join]] ON [[sourceTable]] = [[targetTable]];
                this.from = a   
             },
             setJoin(a){
-               this.join =a
+               this.join = a
             },
             setDraggable(a){
               return "draggable-" + a
@@ -128,16 +128,26 @@ INNER JOIN [[join]] ON [[sourceTable]] = [[targetTable]];
                return a + "." + b
             },
             setSource(a,b){
-               this.sourceTable = a + "." + b;
+               if (this.connection){
+                  this.sourceTable = a + "." + b;
+               }
             },
             setTarget(a,b){
-               this.targetTable = a + "." + b;
+               if (this.connection){
+                  this.targetTable = a + "." + b;
+               }
             },
             setRight(id){
-               this.source = id;
+               if(this.connection)
+               {
+                  this.source = id;
+               }
             },
             setLeft(id){
-               this.target = id;
+               if(this.connection)
+               {
+                  this.target = id;
+               }
             },
             change()
             {

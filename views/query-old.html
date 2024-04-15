@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Query builder</title>
+
+      <link rel="stylesheet" href="/resources/css/output.css">
+      <script src="/resources/js/vue2.js"></script>
+      <style>
+        #draggable-0 { width: 200px; height: 250px; padding: 0.5em; }
+        #draggable-1 { width: 200px; height: 250px; padding: 0.5em; }
+        #draggable-2 { width: 200px; height: 250px; padding: 0.5em; }
+        #draggable-3 { width: 200px; height: 250px; padding: 0.5em; }
+
+        .node-left{
+           position:absolute;
+           height:20px;
+           width:20px;
+           background-color:#fff;
+           left:-30px;
+           top:2px;
+           border-radius:50px;
+           border:solid 2px #038cfc;
+
+        }
+        .node-right{
+           position:absolute;
+           height:20px;
+           width:20px;
+           background-color:#fff;
+           right:-30px;
+           top:2px;
+           border-radius:50px;
+           border:solid 2px #038cfc;
+
+        }
+        .active {
+           background-color: green !important;
+         }
+      </style>
+      <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+      <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+      <script>
+         $( function() {
+            $( "#draggable-0" ).draggable();
+            $( "#draggable-1" ).draggable();
+            $( "#draggable-2" ).draggable();
+            $( "#draggable-3" ).draggable();
+         } );
+      </script>
+   </head>
+<body class="p-8 bg-[--light-gray]">
+   <div id="app">
+
+      <div>
+
+         [[ connection ]]
+         <button type="submit" class="border border-black" @click="allowConnection">
+            Create connection
+         </button>
+         
+
+      </div>
+
+
+   <div v-for="(t,index) in foo">
+   <div :id="setDraggable(index)" class="bg-white border border-[--gray] rounded-md shadow-md cursor-pointer">
+      <div class="">[[t.Table.Name]]</div>
+      <div class="relative" v-for="(f,index) in foo[index].Columns">
+         <div class="node-left" @click="setLeft(f.UUID); setJoin(t.Table.Name); setTarget(t.Table.Name,f.Name)"></div>
+         <div class="node-right" @click="setRight(f.UUID); setFrom(t.Table.Name); setSource(t.Table.Name,f.Name)"></div>
+         <input v-model="items" type="checkbox" :value="setCheckbox(t.Table.Name,f.Name)" class="form-check-input">
+         <label for="the label">[[f.Name]]</label>
+      </div>
+
+   </div>
+   </div>
+
+   <div class="mt-4">debug</div>
+   <pre class="code">Source: [[ source ]]
+Target:[[ target ]]</pre>
+
+
+
+   <pre class="code mt-4">
+SELECT <span>[[selectStatement]] </span> 
+FROM [[from]]
+INNER JOIN [[join]] ON [[sourceTable]] = [[targetTable]];
+   </pre>
+ 
+ 
+   </div>
+   <script> 
+      var app = new Vue(
+      {
+         el: '#app',
+         delimiters: ['[[', ']]'],
+         data:{
+            circle:'white',
+            selectedIndex:null,
+            foo:{{.Data}},
+            items:[],
+            source:'',
+            target:'',
+            sourceTable:'',
+            targetTable:'',
+            from:'',
+            join:'',
+            connection:false
+
+         },
+         methods:
+         {
+            allowConnection(){
+               this.connection = !this.connection
+               if(this.connection == false)
+               {
+                  this.source = "";
+                  this.target = "";
+               }
+            },
+            setFrom(a){
+               this.from = a   
+            },
+            setJoin(a){
+               this.join = a
+            },
+            setDraggable(a){
+              return "draggable-" + a
+            },
+            setCheckbox(a,b){
+               return a + "." + b
+            },
+            setSource(a,b){
+               if (this.connection){
+                  this.sourceTable = a + "." + b;
+               }
+            },
+            setTarget(a,b){
+               if (this.connection){
+                  this.targetTable = a + "." + b;
+               }
+            },
+            setRight(id){
+               if(this.connection)
+               {
+                  this.source = id;
+               }
+            },
+            setLeft(id){
+               if(this.connection)
+               {
+                  this.target = id;
+               }
+            },
+            change()
+            {
+               if(this.circle == 'white')
+               {
+                  this.circle = 'green'
+               } 
+               else
+               {
+                  this.circle = 'white'
+               }
+            }
+         },
+         computed: {
+            selectStatement() {
+               return this.items.join(', ');
+            }
+         },
+         mounted()
+         {
+         }
+      });   
+   </script> 
+ 
+</body>
+</html>

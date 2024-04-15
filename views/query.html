@@ -5,6 +5,9 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Query builder</title>
 
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+
       <link rel="stylesheet" href="/resources/css/output.css">
       <script src="/resources/js/vue2.js"></script>
       <style>
@@ -38,19 +41,31 @@
         .active {
            background-color: green !important;
          }
+
+        #drawing-area {
+           width: 100%;
+           border: 1px solid #ccc;
+           position: relative;
+        }
+
+        .point {
+           width: 5px;
+           height: 5px;
+           background-color: blue;
+           position: absolute;
+           border-radius: 50%;
+           cursor: pointer;
+        }
+        .line {
+           position: absolute;
+           background-color: black;
+           transform-origin: 0 0;
+        }
+
       </style>
-      <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-      <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-      <script>
-         $( function() {
-            $( "#draggable-0" ).draggable();
-            $( "#draggable-1" ).draggable();
-            $( "#draggable-2" ).draggable();
-            $( "#draggable-3" ).draggable();
-         } );
-      </script>
+      
    </head>
-<body class="p-8 bg-[--light-gray]">
+<body class="p-8 bg-[--light-gray]" id="drawing-area">
    <div id="app">
 
       <div>
@@ -176,6 +191,58 @@ INNER JOIN [[join]] ON [[sourceTable]] = [[targetTable]];
          }
       });   
    </script> 
+   <script>
+      var points = [];
+      var lines = [];
+
+      $('#drawing-area').click(function(e) {
+         var x = e.pageX - $(this).offset().left;
+         var y = e.pageY - $(this).offset().top;
+
+         var $point = $('<div class="point"></div>').css({
+            left: x + 'px',
+            top: y + 'px'
+         }).appendTo(this);
+
+         points.push({
+            x: x,
+            y: y,
+            $element: $point
+         });
+
+         if (points.length === 2) {
+            drawLine(points[0], points[1]);
+            points = [];
+         }
+      });
+
+      function drawLine(point1, point2) {
+         var $line = $('<div class="line"></div>').appendTo('#drawing-area');
+
+         var dx = point2.x - point1.x;
+         var dy = point2.y - point1.y;
+         var length = Math.sqrt(dx * dx + dy * dy);
+         var angle = Math.atan2(dy, dx);
+
+         $line.css({
+            width: length + 'px',
+            height: '1px',
+            left: point1.x + 'px',
+            top: point1.y + 'px',
+            transform: 'rotate(' + angle + 'rad)'
+         });
+
+         lines.push($line);
+      }
+
+
+      $( function() {
+         $( "#draggable-0" ).draggable();
+         $( "#draggable-1" ).draggable();
+         $( "#draggable-2" ).draggable();
+         $( "#draggable-3" ).draggable();
+      } );
+   </script>
  
 </body>
 </html>

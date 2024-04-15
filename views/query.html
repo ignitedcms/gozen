@@ -132,14 +132,18 @@ INNER JOIN [[join]] ON [[sourceTable]] = [[targetTable]];
                methods:
                {
                   handleClick(e) {
-                     const rect = this.$refs.drawingArea.getBoundingClientRect();
-                     const x = e.clientX - rect.left;
-                     const y = e.clientY - rect.top;
-                     this.points.push({ id: this.points.length, x, y });
 
-                     if (this.points.length === 2) {
-                        this.drawLine(this.points[0], this.points[1]);
-                        this.points = [];
+                     if(this.connection)
+                     {
+                        const rect = this.$refs.drawingArea.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        this.points.push({ id: this.points.length, x, y });
+
+                        if (this.points.length === 2) {
+                           this.drawLine(this.points[0], this.points[1]);
+                           this.points = [];
+                        }
                      }
                   },
                   drawLine(point1, point2) {

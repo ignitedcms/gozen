@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Draggable Squares with Connecting Line</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    #square1, #square2 {
+      width: 10px;
+      height: 10px;
+      background-color: #ccc;
+      position: absolute;
+    }
+    canvas {
+      position: absolute;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="square1"></div>
+  <div id="square2"></div>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    $(function() {
+      var $square1 = $("#square1");
+      var $square2 = $("#square2");
+      var canvas = document.getElementById("canvas");
+      canvas.width = $(window).width();
+      canvas.height = $(window).height();
+      var ctx = canvas.getContext("2d");
+
+      function drawLine() {
+        var pos1 = $square1.position();
+        var pos2 = $square2.position();
+
+        // Clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw the line
+        ctx.beginPath();
+        ctx.moveTo(pos1.left + 5, pos1.top + 5);
+        ctx.lineTo(pos2.left + 5, pos2.top + 5);
+        ctx.stroke();
+
+        // Update the line length
+        var dx = pos2.left - pos1.left;
+        var dy = pos2.top - pos1.top;
+        var length = Math.sqrt(dx * dx + dy * dy);
+        $(".line-length").text("Line Length: " + length.toFixed(2) + "px");
+      }
+
+      $square1.draggable({
+        drag: drawLine
+      });
+
+      $square2.draggable({
+        drag: drawLine
+      });
+
+      drawLine();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>jQuery UI Drag and Drop Example</title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+  <style>
+    .container {
+      display: flex;
+      height: 500px;
+    }
+    .left, .right {
+      flex: 1;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    .rectangle {
+      width: 100px;
+      height: 50px;
+      background-color: #4CAF50;
+      margin-bottom: 10px;
+      cursor: move;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <div class="rectangle"></div>
+      <div class="rectangle"></div>
+      <div class="rectangle"></div>
+    </div>
+    <div class="right" id="drop-area">
+    </div>
+  </div>
+
+  <script>
+    $(function() {
+      $(".rectangle").draggable();
+      $("#drop-area").droppable({
+        drop: function(event, ui) {
+          alert("Dropped!");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

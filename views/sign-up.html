@@ -21,6 +21,19 @@
             <form method="POST" action="/signup">
                {{ .Csrf }}
                <div class="form-group">
+                  <label for="title">Name</label>
+                  <div class="small text-muted">Your name</div>
+                  <input 
+                       class="form-control" 
+                       type="text"
+                       name="name" 
+                       value="{{ .Data.PostData.name }}"
+                       autocomplete="off"
+                       placeholder="" />
+
+                    <div class="small text-danger">{{ .Data.PostDataErrors.name }}</div>
+               </div>
+               <div class="form-group">
                   <label for="title">Email</label>
                   <div class="small text-muted">Enter a valid email address</div>
                   <input 
@@ -49,7 +62,8 @@
          </div>
       </div>
    </div>
-
 </div>
+<div class="gap"></div>
+
 {{ template "_footer.html" }}
 

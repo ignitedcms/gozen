@@ -84,8 +84,8 @@
                <div :id="setDraggable(index)" class="bg-white border border-[--gray] rounded-md shadow-md cursor-pointer">
                   <div class="">[[t.Table.Name]]</div>
                   <div class="relative" v-for="(f,index) in foo[index].Columns">
-                     <div class="node-left" @click="setLeft(f.UUID); setJoin(t.Table.Name); setTarget(t.Table.Name,f.Name)"></div>
-                     <div class="node-right" @click="setRight(f.UUID); setFrom(t.Table.Name); setSource(t.Table.Name,f.Name)"></div>
+                     <div class="node-left" @click="checkIfGood(t.Table.Name);    setLeft(f.UUID); setJoin(t.Table.Name); setTarget(t.Table.Name,f.Name)"></div>
+                     <div class="node-right" @click="checkIfGood(t.Table.Name);   setRight(f.UUID); setFrom(t.Table.Name); setSource(t.Table.Name,f.Name)"></div>
                      <input v-model="items" type="checkbox" :value="setCheckbox(t.Table.Name,f.Name)" class="form-check-input">
                      <label for="the label">[[f.Name]]</label>
                   </div>
@@ -94,8 +94,8 @@
             </div>
 
             <div class="mt-4">debug</div>
-            [[ltable]]
-            [[rtable]]
+            left:[[ltable]]
+            right:[[rtable]]
             
 
 
@@ -134,6 +134,21 @@ INNER JOIN [[join]] ON [[sourceTable]] = [[targetTable]];
                },
                methods:
                {
+                  //check if connection is legal
+                  checkIfGood(a){
+
+                     x = this.ltable;
+                     y = this.rtable;
+
+                     if(a != x && a != y)
+                     {
+                        alert('ok')
+                     }
+                     else{
+                        alert('failed')
+                     }
+                  },
+
                   handleClick(e) {
 
                      //if(this.connection)

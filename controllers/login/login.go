@@ -5,6 +5,7 @@ import (
 	"gozen/models/users"
 	"gozen/system/formutils"
 	"gozen/system/hash"
+	"gozen/system/mail"
 	"gozen/system/rendering"
 	"gozen/system/validation"
 	"net/http"
@@ -31,7 +32,9 @@ func ForgotView(w http.ResponseWriter, r *http.Request) {
 func Forgot(w http.ResponseWriter, r *http.Request) {
 	//logic to check and send password reset
 	//token
-	http.Redirect(w, r, "/dashboard", http.StatusFound)
+	email := r.FormValue("email")
+	mail.Test(email)
+	//http.Redirect(w, r, "/dashboard", http.StatusFound)
 }
 
 // post

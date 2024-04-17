@@ -3693,6 +3693,14 @@ table.dataTable tfoot th {
   height: 100vh;
 }
 
+.h-\[90px\] {
+  height: 90px;
+}
+
+.h-\[50px\] {
+  height: 50px;
+}
+
 .max-h-\[300px\] {
   max-height: 300px;
 }
@@ -3923,6 +3931,16 @@ table.dataTable tfoot th {
 .border-slate-600 {
   --tw-border-opacity: 1;
   border-color: rgb(71 85 105 / var(--tw-border-opacity));
+}
+
+.border-slate-100 {
+  --tw-border-opacity: 1;
+  border-color: rgb(241 245 249 / var(--tw-border-opacity));
+}
+
+.border-slate-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(226 232 240 / var(--tw-border-opacity));
 }
 
 .border-b-\[--gray\] {

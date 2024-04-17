@@ -131,24 +131,12 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	//else success
 	//check if already in db
 
-	query, err := users.GetHash(email)
-	//no record found
-	if err != nil {
-		fmt.Print(err)
-	} else {
-
-		if query.Email != email {
 
 			p, _ := hash.HashPassword(password)
 
 			t, _ := users.Create(name, email, p)
 			fmt.Print(t)
-			fmt.Print(query)
 
 			http.Redirect(w, r, "/dashboard", http.StatusFound)
-		} else {
 
-			fmt.Print("Already taken")
-		}
-	}
 }

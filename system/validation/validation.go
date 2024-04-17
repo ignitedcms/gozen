@@ -14,11 +14,9 @@ package validation
 
 import (
 	"fmt"
-	//"net/http"
 	"regexp"
 	"strconv"
 	"strings"
-	//"net/mail"
 )
 
 type ValidationError struct {

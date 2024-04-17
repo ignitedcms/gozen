@@ -46,14 +46,14 @@ func Forgot(w http.ResponseWriter, r *http.Request) {
 	}
 
 	query, err := users.GetHash(email)
-   //no record found
+	//no record found
 	if err != nil {
 		fmt.Print(err)
 	} else {
 		fmt.Print(query.Email)
 
-      to := query.Email
-      mail.Test(to)
+		to := query.Email
+		mail.Test(to)
 	}
 
 	//http.Redirect(w, r, "/dashboard", http.StatusFound)
@@ -129,12 +129,26 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//else success
+	//check if already in db
 
-	p, _ := hash.HashPassword(password)
+	query, err := users.GetHash(email)
+	//no record found
+	if err != nil {
+		fmt.Print(err)
+	} else {
 
-	t, _ := users.Create(name, email, p)
-	fmt.Print(t)
+		if query.Email != email {
 
-	http.Redirect(w, r, "/dashboard", http.StatusFound)
+			p, _ := hash.HashPassword(password)
 
+			t, _ := users.Create(name, email, p)
+			fmt.Print(t)
+			fmt.Print(query)
+
+			http.Redirect(w, r, "/dashboard", http.StatusFound)
+		} else {
+
+			fmt.Print("Already taken")
+		}
+	}
 }

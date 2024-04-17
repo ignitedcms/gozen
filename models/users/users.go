@@ -73,7 +73,7 @@ func All() ([]User, error) {
 	var result []User
 	for rows.Next() {
 		var u User
-		err := rows.Scan(&u.Id, &u.Name, &u.Email, &u.Password,&u.Token, &u.Created_at, &u.Updated_at)
+		err := rows.Scan(&u.Id, &u.Name, &u.Email, &u.Password, &u.Token, &u.Created_at, &u.Updated_at)
 		if err != nil {
 			return nil, err
 		}
@@ -85,7 +85,7 @@ func All() ([]User, error) {
 // ReadUser reads a single User from the database by its ID
 func Read(id string) (*User, error) {
 	var result User
-	err := db.DB.QueryRow("SELECT id, name, email, password,token, created_at, updated_at FROM users WHERE id = ?", id).Scan(&result.Id, &result.Name, &result.Email, &result.Password,&result.Token, &result.Created_at, &result.Updated_at)
+	err := db.DB.QueryRow("SELECT id, name, email, password,token, created_at, updated_at FROM users WHERE id = ?", id).Scan(&result.Id, &result.Name, &result.Email, &result.Password, &result.Token, &result.Created_at, &result.Updated_at)
 	if err != nil {
 		return nil, err
 	}

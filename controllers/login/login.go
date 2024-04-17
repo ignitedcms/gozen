@@ -131,12 +131,11 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	//else success
 	//check if already in db
 
+	p, _ := hash.HashPassword(password)
 
-			p, _ := hash.HashPassword(password)
+	t, _ := users.Create(name, email, p)
+	fmt.Print(t)
 
-			t, _ := users.Create(name, email, p)
-			fmt.Print(t)
-
-			http.Redirect(w, r, "/dashboard", http.StatusFound)
+	http.Redirect(w, r, "/dashboard", http.StatusFound)
 
 }

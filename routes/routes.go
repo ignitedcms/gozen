@@ -19,7 +19,6 @@ import (
 	"gozen/controllers/mail"
 	"gozen/controllers/query"
 	"gozen/controllers/upload"
-	"gozen/controllers/users"
 	"gozen/controllers/welcome"
 )
 
@@ -50,10 +49,10 @@ func LoadRoutes(r *chi.Mux) {
 	r.Get("/mail", mail.MailView)
 	r.Post("/mail", mail.SendMail)
 
-	r.Get("/users", users.Index)
-	r.Get("/users/create", users.CreateView)
-	r.Post("/users/create", users.Create)
-	r.Get("/users/update/{id}", users.UpdateView)
-	r.Post("/users/update/{id}", users.Update)
-	r.Get("/users/delete/{id}", users.Destroy) //warning change to post later
+	//r.Get("/users", users.Index)
+	//r.Get("/users/create", users.CreateView)
+	//r.Post("/users/create", users.Create)
+	//r.Get("/users/update/{id}", users.UpdateView)
+	//r.Post("/users/update/{id}", users.Update)
+	//r.Get("/users/delete/{id}", users.Destroy) 
 }

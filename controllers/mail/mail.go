@@ -1,12 +1,11 @@
 package mail
 
 import (
-	//"fibs/system/formutils"
-	"gozen/system/mail"
+	"fmt"
+	"gozen/models/users"
+	//"gozen/system/mail"
 	"gozen/system/rendering"
-	//"fibs/system/validation"
 	"net/http"
-	//"path/filepath"
 )
 
 // index page for mail
@@ -20,7 +19,15 @@ func MailView(w http.ResponseWriter, r *http.Request) {
 }
 
 func SendMail(w http.ResponseWriter, r *http.Request) {
-	to := "test@mail.com"
-	mail.Test(to)
 
+	query, err := users.GetHash("foo@mail.com")
+   //no record found
+	if err != nil {
+		fmt.Print(err)
+	} else {
+		fmt.Print(query.Email)
+
+      to := query.Email
+      //mail.Test(to)
+	}
 }

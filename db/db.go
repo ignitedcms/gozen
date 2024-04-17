@@ -63,6 +63,7 @@ func createTables() {
       name VARCHAR(255),
       email VARCHAR(255),
       password VARCHAR(512),
+      token VARCHAR(512),
       created_at DATETIME,
       updated_at DATETIME  
    )

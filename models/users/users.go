@@ -12,18 +12,19 @@ type User struct {
 	Name       string
 	Email      string
 	Password   string
+	Token      string
 	Created_at string
 	Updated_at string
 }
 
 // Insert inserts a new User into the database
 func Create(name string, email string, password string) (int64, error) {
-	stmt, err := db.DB.Prepare("INSERT INTO users(name, email, password, created_at, updated_at) VALUES(?, ?, ?, ?, ?)")
+	stmt, err := db.DB.Prepare("INSERT INTO users(name, email, password,token, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?)")
 	if err != nil {
 		return 0, err
 	}
 	defer stmt.Close()
-	result, err := stmt.Exec(name, email, password, time.Now(), time.Now())
+	result, err := stmt.Exec(name, email, password, "fdsfds", time.Now(), time.Now())
 	if err != nil {
 		return 0, err
 	}
@@ -64,7 +65,7 @@ func Delete(id string) error {
 
 // All returns all Users from the database
 func All() ([]User, error) {
-	rows, err := db.DB.Query("SELECT id, name, email, password, created_at, updated_at FROM users")
+	rows, err := db.DB.Query("SELECT id, name, email, password, token,created_at, updated_at FROM users")
 	if err != nil {
 		return nil, err
 	}
@@ -72,7 +73,7 @@ func All() ([]User, error) {
 	var result []User
 	for rows.Next() {
 		var u User
-		err := rows.Scan(&u.Id, &u.Name, &u.Email, &u.Password, &u.Created_at, &u.Updated_at)
+		err := rows.Scan(&u.Id, &u.Name, &u.Email, &u.Password,&u.Token, &u.Created_at, &u.Updated_at)
 		if err != nil {
 			return nil, err
 		}
@@ -84,7 +85,7 @@ func All() ([]User, error) {
 // ReadUser reads a single User from the database by its ID
 func Read(id string) (*User, error) {
 	var result User
-	err := db.DB.QueryRow("SELECT id, name, email, password, created_at, updated_at FROM users WHERE id = ?", id).Scan(&result.Id, &result.Name, &result.Email, &result.Password, &result.Created_at, &result.Updated_at)
+	err := db.DB.QueryRow("SELECT id, name, email, password,token, created_at, updated_at FROM users WHERE id = ?", id).Scan(&result.Id, &result.Name, &result.Email, &result.Password,&result.Token, &result.Created_at, &result.Updated_at)
 	if err != nil {
 		return nil, err
 	}

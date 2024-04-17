@@ -1,6 +1,20 @@
 {{ template "_header.html" }}
 <div class="gap"></div>
 <div class="default-container">
+
+      {{ if .Data.FlashData }}
+      <div class="toasts">
+         <toast ref="toast">
+         <div class="p-5">
+            <div class="text-danger dark:text-white">Error</div>
+            <div class="text-danger small dark:text-white">
+               {{ .Data.FlashData }}
+            </div>
+         </div>
+         </toast>
+      </div>
+
+      {{end}}
    <div class="row">
       <div class="col-12">
          <div class="">
@@ -17,6 +31,10 @@
                     type="text"
                     name="email" 
                     placeholder="A valid email address" />
+
+               <div class="small text-danger">
+                   {{ .Data.PostDataErrors.email }}
+                </div>               
 
                <div class="form-group">
                   <button-component variant="primary">

@@ -17,7 +17,10 @@ func Index(w http.ResponseWriter, r *http.Request) {
 }
 
 func MailView(w http.ResponseWriter, r *http.Request) {
-	rendering.RenderTemplate(w, r, "mail", nil)
+	data := formutils.TemplateData{
+		Foo: "hi", //some data mostly a model
+	}
+	rendering.RenderTemplate(w, r, "mail", data)
 }
 
 func SendMail(w http.ResponseWriter, r *http.Request) {

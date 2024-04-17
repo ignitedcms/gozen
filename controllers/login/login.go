@@ -30,10 +30,32 @@ func ForgotView(w http.ResponseWriter, r *http.Request) {
 //we need to send an email reset if password is found
 
 func Forgot(w http.ResponseWriter, r *http.Request) {
-	//logic to check and send password reset
-	//token
+
+	validator := &validation.Validator{}
+
+	validator.Required("email", r.FormValue("email")).
+		Email("email", r.FormValue("email"))
+
 	email := r.FormValue("email")
-	mail.Test(email)
+
+	postData := formutils.SetAndGetPostData(w, r)
+
+	if validator.HasErrors() {
+		formutils.HandleValidationErrors(w, r, validator, postData, "forgot")
+		return
+	}
+
+	query, err := users.GetHash(email)
+   //no record found
+	if err != nil {
+		fmt.Print(err)
+	} else {
+		fmt.Print(query.Email)
+
+      to := query.Email
+      mail.Test(to)
+	}
+
 	//http.Redirect(w, r, "/dashboard", http.StatusFound)
 }
 
@@ -93,10 +115,12 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 
 	validator.Required("email", r.FormValue("email")).
 		Email("email", r.FormValue("email")).
-		Required("password", r.FormValue("password"))
+		Required("password", r.FormValue("password")).
+		Required("name", r.FormValue("name"))
 
 	email := r.FormValue("email")
 	password := r.FormValue("password")
+	name := r.FormValue("name")
 
 	postData := formutils.SetAndGetPostData(w, r)
 
@@ -108,7 +132,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 
 	p, _ := hash.HashPassword(password)
 
-	t, _ := users.Create("", email, p)
+	t, _ := users.Create(name, email, p)
 	fmt.Print(t)
 
 	http.Redirect(w, r, "/dashboard", http.StatusFound)

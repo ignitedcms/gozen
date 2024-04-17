@@ -3,7 +3,7 @@ package mail
 import (
 	"fmt"
 	"gozen/models/users"
-	//"gozen/system/mail"
+   "gozen/system/mail"
 	"gozen/system/rendering"
 	"gozen/system/formutils"
 	"gozen/system/validation"
@@ -48,6 +48,6 @@ func SendMail(w http.ResponseWriter, r *http.Request) {
 		fmt.Print(query.Email)
 
       //to := query.Email
-      //mail.Test(to)
+      mail.Test(email)
 	}
 }

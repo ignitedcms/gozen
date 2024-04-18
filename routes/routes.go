@@ -27,6 +27,8 @@ func LoadRoutes(r *chi.Mux) {
 	//experimental query builder
 	r.Get("/query", query.Index)
 
+	r.Get("/spline", query.Spline)
+
 	r.Get("/", welcome.Index)
 	r.Get("/examples", examples.Index)
 	r.Get("/forms", examples.Form)

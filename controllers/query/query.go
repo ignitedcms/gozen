@@ -21,6 +21,12 @@ import (
 	"net/http"
 )
 
+func Spline(w http.ResponseWriter, r *http.Request){
+
+	rendering.RenderTemplate(w, r, "square", nil)
+}
+
+
 // index page
 func Index(w http.ResponseWriter, r *http.Request) {
 

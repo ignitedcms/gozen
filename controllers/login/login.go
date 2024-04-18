@@ -115,7 +115,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 
 	validator.Required("email", r.FormValue("email")).
 		Email("email", r.FormValue("email")).
-		Unique("email", r.FormValue("email"),"users","email").
+		Unique("email", r.FormValue("email"), "users", "email").
 		Required("password", r.FormValue("password")).
 		Required("name", r.FormValue("name"))
 

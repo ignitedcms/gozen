@@ -14,10 +14,10 @@ package validation
 
 import (
 	"fmt"
+	"gozen/db"
 	"regexp"
 	"strconv"
 	"strings"
-	"gozen/db"
 )
 
 type ValidationError struct {
@@ -30,20 +30,20 @@ type Validator struct {
 }
 
 func (v *Validator) Unique(field, value, table, column string) *Validator {
-    // Check if the value is unique in the given table and column
-    query := fmt.Sprintf("SELECT COUNT(*) FROM %s WHERE %s = ?", table, column)
-    var count int
-    err := db.DB.QueryRow(query, value).Scan(&count)
-    if err != nil {
-        v.errors = append(v.errors, ValidationError{Field: field, Message: "Error checking for uniqueness: " + err.Error()})
-        return v
-    }
+	// Check if the value is unique in the given table and column
+	query := fmt.Sprintf("SELECT COUNT(*) FROM %s WHERE %s = ?", table, column)
+	var count int
+	err := db.DB.QueryRow(query, value).Scan(&count)
+	if err != nil {
+		v.errors = append(v.errors, ValidationError{Field: field, Message: "Error checking for uniqueness: " + err.Error()})
+		return v
+	}
 
-    if count > 0 {
-        v.errors = append(v.errors, ValidationError{Field: field, Message: fmt.Sprintf("The value '%s' is not unique in the '%s' table, '%s' column.", value, table, column)})
-    }
+	if count > 0 {
+		v.errors = append(v.errors, ValidationError{Field: field, Message: fmt.Sprintf("The value '%s' is not unique in the '%s' table", value, table)})
+	}
 
-    return v
+	return v
 }
 
 func (v *Validator) Required(field, value string) *Validator {

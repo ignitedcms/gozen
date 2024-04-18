@@ -29,7 +29,6 @@
   <div id="square1"></div>
   <div id="square2"></div>
   <canvas id="canvas"></canvas>
-
   <script>
     $(function() {
       var $square1 = $("#square1");
@@ -46,10 +45,17 @@
         // Clear the canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Draw the line
+        // Draw the smooth spline
         ctx.beginPath();
         ctx.moveTo(pos1.left + 5, pos1.top + 5);
-        ctx.lineTo(pos2.left + 5, pos2.top + 5);
+        ctx.bezierCurveTo(
+          (pos1.left + pos2.left) / 2,
+          pos1.top + 5,
+          (pos1.left + pos2.left) / 2,
+          pos2.top + 5,
+          pos2.left + 5,
+          pos2.top + 5
+        );
         ctx.stroke();
 
         // Update the line length

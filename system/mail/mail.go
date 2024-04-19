@@ -55,13 +55,13 @@ func (m *Mail) LoadTemplate() *Mail {
 	text := string(htmlContent)
 
 	// Perform the string replacement
-	replacedContent := strings.ReplaceAll(text, "{{title}}", "Some other title")
-	replacedContent := strings.ReplaceAll(text, "{{body}}", "Some body text")
-   replacedContent := strings.ReplaceAll(text, "{{anchor}}", "http://localhost:3000/foo")
-   replacedContent := strings.ReplaceAll(text, "{{anchortext}}", "Click here")
+	text = strings.ReplaceAll(text, "{{title}}", "Some other title")
+	text = strings.ReplaceAll(text, "{{body}}", "Some body text")
+   text = strings.ReplaceAll(text, "{{anchor}}", "http://localhost:3000/foo")
+   text = strings.ReplaceAll(text, "{{anchortext}}", "Click here")
 
    //we need to convert back to bytes for it to work
-   replacedBytes := []byte(replacedContent)
+   replacedBytes := []byte(text)
 
 
 	m.htmlContent = replacedBytes

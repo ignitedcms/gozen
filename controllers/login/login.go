@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"gozen/models/users"
 	"gozen/system/hash"
-   "gozen/system/mail"
+	"gozen/system/mail"
 	"gozen/system/templates"
 	"gozen/system/validation"
 	"net/http"
@@ -45,26 +45,17 @@ func Forgot(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	query, err := users.GetHash(email)
-	//no record found
-	if err != nil {
-		fmt.Print(err)
-	} else {
-		fmt.Print(query.Email)
+	recipientEmail := email
+	templatePath := "mail/email_template.html"
 
-		recipientEmail := email
-		templatePath := "mail/email_template.html"
+	result := mail.New().
+		SetRecipient(recipientEmail).
+		SetTemplatePath(templatePath).
+		LoadTemplate().
+		BuildMessage().
+		Send()
 
-		result := mail.New().
-			SetRecipient(recipientEmail).
-			SetTemplatePath(templatePath).
-			LoadTemplate().
-			BuildMessage().
-			Send()
-
-		w.Write(result)
-
-	}
+	w.Write(result)
 
 	//http.Redirect(w, r, "/dashboard", http.StatusFound)
 }

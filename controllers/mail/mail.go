@@ -1,8 +1,6 @@
 package mail
 
 import (
-	"fmt"
-	"gozen/models/users"
 	"gozen/system/mail"
 	"gozen/system/templates"
 	"gozen/system/validation"

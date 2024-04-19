@@ -2,14 +2,14 @@ package welcome
 
 import (
 	"gozen/system/rendering"
-	"gozen/system/sessionstore"
+	"gozen/system/session"
 	"net/http"
 )
 
 // welcome page
 func Index(w http.ResponseWriter, r *http.Request) {
 
-	sessionstore.SetSession(w, r, "foo", "A session test")
+	session.Set(w, r, "foo", "A session test")
 	// Render the template and write it to the response
 	rendering.RenderTemplate(w, r, "welcome", nil)
 }
@@ -27,13 +27,13 @@ func Dashboard(w http.ResponseWriter, r *http.Request) {
 
 func Session(w http.ResponseWriter, r *http.Request) {
 
-	b := sessionstore.GetSession(r, "foo")
+	b := session.Get(r, "foo")
 	w.Write([]byte(b))
 }
 
 func Destroy(w http.ResponseWriter, r *http.Request) {
 
-	sessionstore.DestroySession(w, r)
+	session.Destroy(w, r)
 
 	http.Redirect(w, r, "/login", http.StatusFound)
 }

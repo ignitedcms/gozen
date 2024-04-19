@@ -1,9 +1,22 @@
-// templates.go
+/*
+|---------------------------------------------------------------
+| Templating
+|---------------------------------------------------------------
+|
+| A helper for rendering server side templates
+|
+|
+| @license: MIT
+| @version: 1.0
+| @since: 1.0
+*/
 package templates
 
 import (
+	"github.com/gorilla/csrf"
 	"html/template"
 	"strings"
+	"net/http"
 )
 
 var Template *template.Template
@@ -47,4 +60,24 @@ func LoadTemplates() error {
 // GetTemplate returns the loaded template
 func GetTemplate() *template.Template {
 	return Template
+}
+
+func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, data interface{}) {
+
+	tpl := GetTemplate()
+
+	tmp := tmpl + ".html"
+
+	// Execute the template and write it to the response
+	err := tpl.ExecuteTemplate(w, tmp, struct {
+		Data interface{}
+		Csrf template.HTML
+	}{
+		Data: data,
+		Csrf: csrf.TemplateField(r), // Get CSRF token from the request
+	})
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
 }

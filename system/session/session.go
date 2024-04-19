@@ -61,7 +61,7 @@ func SetOldPostData(w http.ResponseWriter, r *http.Request) {
 	for key, values := range r.PostForm {
 		for _, value := range values {
 			//fmt.Printf("Field: %s, Value: %s\n", key, value)
-			SetSession(w, r, key, value)
+			Set(w, r, key, value)
 		}
 	}
 }
@@ -74,7 +74,7 @@ func GetOldPostData(w http.ResponseWriter, r *http.Request) map[string]interface
 	for key, values := range r.PostForm {
 		for _ = range values {
 			//fmt.Printf("Field: %s, Value: %s\n", key, value)
-			tmp := GetSession(r, key)
+			tmp := Get(r, key)
 			PostData[key] = tmp
 
 		}

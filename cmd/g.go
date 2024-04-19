@@ -389,7 +389,6 @@ func main() {
 	builder2.WriteString("import (\n")
 	builder2.WriteString("\t\"gozen/models/" + table + "\"\n")
 	builder2.WriteString("\t\"gozen/system/templates\"\n")
-	builder2.WriteString("\t\"gozen/system/formutils\"\n")
 	builder2.WriteString("\t\"gozen/system/validation\"\n")
 	builder2.WriteString("\t\"github.com/go-chi/chi/v5\"\n")
 	builder2.WriteString("\t\"net/http\"\n")
@@ -403,15 +402,15 @@ func main() {
 	builder2.WriteString("\t\t// Handle error\n")
 	builder2.WriteString("\t\treturn\n")
 	builder2.WriteString("\t}\n")
-	builder2.WriteString("\ttemplates.RenderTemplate(w, r, \"" + table + "-all\", " + table + ")\n")
+	builder2.WriteString("\ttemplates.Render(w, r, \"" + table + "-all\", " + table + ")\n")
 	builder2.WriteString("}\n\n")
 
 	// Write CreateView function
 	builder2.WriteString("func CreateView(w http.ResponseWriter, r *http.Request) {\n")
-	builder2.WriteString("\tdata := formutils.TemplateData{\n")
+	builder2.WriteString("\tdata := templates.TemplateData{\n")
 	builder2.WriteString("\t\t// You can set data here as needed\n")
 	builder2.WriteString("\t}\n")
-	builder2.WriteString("\ttemplates.RenderTemplate(w, r, \"" + table + "-create\", data)\n")
+	builder2.WriteString("\ttemplates.Render(w, r, \"" + table + "-create\", data)\n")
 	builder2.WriteString("}\n\n")
 
 	// Write Create function
@@ -430,9 +429,9 @@ func main() {
 		}
 	}
 
-	builder2.WriteString("\tpostData := formutils.SetAndGetPostData(w, r)\n")
+	builder2.WriteString("\tpostData := templates.PostData(w, r)\n")
 	builder2.WriteString("\tif validator.HasErrors() {\n")
-	builder2.WriteString("\t\tformutils.HandleValidationErrors(w, r, validator, postData, \"" + table + "-create\")\n")
+	builder2.WriteString("\t\ttemplates.Errors(w, r, validator, postData, \"" + table + "-create\")\n")
 	builder2.WriteString("\t\treturn\n")
 	builder2.WriteString("\t}\n")
 	builder2.WriteString("\t// Else, no validation errors, proceed with creation\n")
@@ -462,7 +461,7 @@ func main() {
 	builder2.WriteString("\t\t\"Id\":   id,\n")
 	builder2.WriteString("\t\t\"" + capitalize(structName) + "\": " + structName + ",\n")
 	builder2.WriteString("\t}\n")
-	builder2.WriteString("\ttemplates.RenderTemplate(w, r, \"" + table + "-update\", data)\n")
+	builder2.WriteString("\ttemplates.Render(w, r, \"" + table + "-update\", data)\n")
 	builder2.WriteString("}\n\n")
 
 	// Write Update function

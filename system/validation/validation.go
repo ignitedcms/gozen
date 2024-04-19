@@ -46,6 +46,23 @@ func (v *Validator) Unique(field, value, table, column string) *Validator {
 	return v
 }
 
+func (v *Validator) Exists(field, value, table, column string) *Validator {
+	// Check if the value exists in the given table and column
+	query := fmt.Sprintf("SELECT COUNT(*) FROM %s WHERE %s = ?", table, column)
+	var count int
+	err := db.DB.QueryRow(query, value).Scan(&count)
+	if err != nil {
+		v.errors = append(v.errors, ValidationError{Field: field, Message: "Error checking for existence: " + err.Error()})
+		return v
+	}
+
+	if count == 0 {
+		v.errors = append(v.errors, ValidationError{Field: field, Message: fmt.Sprintf("The value '%s' does not exist in the '%s' table ", value, table)})
+	}
+
+	return v
+}
+
 func (v *Validator) Required(field, value string) *Validator {
 	if strings.TrimSpace(value) == "" {
 		v.errors = append(v.errors, ValidationError{Field: field, Message: "This field is required."})

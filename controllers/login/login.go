@@ -33,7 +33,8 @@ func Forgot(w http.ResponseWriter, r *http.Request) {
 	v := &validation.Validator{}
 
 	v.Required("email", r.FormValue("email")).
-		Email("email", r.FormValue("email"))
+		Email("email", r.FormValue("email")).
+		Exists("email", r.FormValue("email"), "users", "email")
 
 	email := r.FormValue("email")
 
@@ -129,7 +130,6 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//else success
-	//check if already in db
 
 	p, _ := hash.HashPassword(password)
 

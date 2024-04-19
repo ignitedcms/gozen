@@ -98,7 +98,7 @@ func SetAndGetPostData(w http.ResponseWriter, r *http.Request) map[string]interf
 	return session.GetOldPostData(w, r)
 }
 
-func HandleValidationErrors(w http.ResponseWriter,
+func Errors(w http.ResponseWriter,
 	r *http.Request,
 	validator *validation.Validator,
 	postData map[string]interface{}, templatePath string) {

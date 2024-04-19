@@ -2,7 +2,7 @@ package formutils
 
 import (
 	"gozen/system/rendering"
-	"gozen/system/sessionstore"
+	"gozen/system/session"
 	"gozen/system/validation"
 	"net/http"
 )
@@ -15,8 +15,8 @@ type TemplateData struct {
 }
 
 func SetAndGetPostData(w http.ResponseWriter, r *http.Request) map[string]interface{} {
-	sessionstore.SetOldPostData(w, r)
-	return sessionstore.GetOldPostData(w, r)
+	session.SetOldPostData(w, r)
+	return session.GetOldPostData(w, r)
 }
 
 func HandleValidationErrors(w http.ResponseWriter,

@@ -15,9 +15,7 @@ package hash
 import (
 	"crypto/rand"
 	"encoding/hex"
-	//"fmt"
 	"golang.org/x/crypto/bcrypt"
-	//"log"
 )
 
 func HashPassword(password string) (string, error) {

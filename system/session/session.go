@@ -53,3 +53,33 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func SetOldPostData(w http.ResponseWriter, r *http.Request) {
+
+	//we need to skip the CSRF token
+	//and add an arbitary prefix to
+	//avoid collision
+	for key, values := range r.PostForm {
+		for _, value := range values {
+			//fmt.Printf("Field: %s, Value: %s\n", key, value)
+			SetSession(w, r, key, value)
+		}
+	}
+}
+
+func GetOldPostData(w http.ResponseWriter, r *http.Request) map[string]interface{} {
+
+	//init empty map interface
+	PostData := map[string]interface{}{}
+
+	for key, values := range r.PostForm {
+		for _ = range values {
+			//fmt.Printf("Field: %s, Value: %s\n", key, value)
+			tmp := GetSession(r, key)
+			PostData[key] = tmp
+
+		}
+	}
+
+	return PostData
+}
+

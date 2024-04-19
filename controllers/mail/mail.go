@@ -52,14 +52,12 @@ func SendMail(w http.ResponseWriter, r *http.Request) {
 	recipientEmail := email
 	templatePath := "mail/email_template.html"
 
-	err := mail.New().
+	result := mail.New().
 		SetRecipient(recipientEmail).
 		SetTemplatePath(templatePath).
 		LoadTemplate().
 		BuildMessage().
 		Send()
 
-	if err != nil {
-		// Handle the error
-	}
+      w.Write(result)
 }

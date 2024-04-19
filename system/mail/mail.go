@@ -64,14 +64,14 @@ func (m *Mail) BuildMessage() *Mail {
 	return m
 }
 
-func (m *Mail) Send() error {
+func (m *Mail) Send() []byte {
 	err := smtp.SendMail(m.smtpHost+":"+m.smtpPort, m.auth, m.senderEmail, []string{m.recipientEmail}, m.message)
 	if err != nil {
 		log.Println("Error sending email:", err)
-		return err
+      return []byte(err.Error())
 	}
 	log.Println("Email sent successfully!")
-	return nil
+   return []byte("done")
 }
 
 /*
@@ -79,15 +79,13 @@ func (m *Mail) Send() error {
 recipientEmail := "test@mail.com"
     templatePath := "mail/email_template.html"
 
-    err := mail.New().
+    result := mail.New().
         SetRecipient(recipientEmail).
         SetTemplatePath(templatePath).
         LoadTemplate().
         BuildMessage().
         Send()
 
-    if err != nil {
-        // Handle the error
-    }
+   w.Write(result)
 
 */

@@ -59,5 +59,5 @@ func SendMail(w http.ResponseWriter, r *http.Request) {
 		BuildMessage().
 		Send()
 
-      w.Write(result)
+	w.Write(result)
 }

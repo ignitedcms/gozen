@@ -68,10 +68,10 @@ func (m *Mail) Send() []byte {
 	err := smtp.SendMail(m.smtpHost+":"+m.smtpPort, m.auth, m.senderEmail, []string{m.recipientEmail}, m.message)
 	if err != nil {
 		log.Println("Error sending email:", err)
-      return []byte(err.Error())
+		return []byte(err.Error())
 	}
 	log.Println("Email sent successfully!")
-   return []byte("done")
+	return []byte("done")
 }
 
 /*

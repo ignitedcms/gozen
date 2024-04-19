@@ -1,14 +1,14 @@
-/*                                                                          
-|---------------------------------------------------------------            
+/*
+|---------------------------------------------------------------
 | Mail test
-|---------------------------------------------------------------            
+|---------------------------------------------------------------
 |
-| 
+|
 |
 | @license: MIT
 | @version: 1.0
 | @since: 1.0
-*/       
+*/
 package mail
 
 import (
@@ -49,5 +49,17 @@ func SendMail(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//to := query.Email
-	mail.Test(email)
+	recipientEmail := email
+	templatePath := "mail/email_template.html"
+
+	err := mail.New().
+		SetRecipient(recipientEmail).
+		SetTemplatePath(templatePath).
+		LoadTemplate().
+		BuildMessage().
+		Send()
+
+	if err != nil {
+		// Handle the error
+	}
 }

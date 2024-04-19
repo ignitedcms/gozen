@@ -23,7 +23,7 @@ func Create(name string, email string, password string) (int64, error) {
 		return 0, err
 	}
 	defer stmt.Close()
-	result, err := stmt.Exec(name, email, password, "fdsfds", time.Now(), time.Now())
+	result, err := stmt.Exec(name, email, password, "", time.Now(), time.Now())
 	if err != nil {
 		return 0, err
 	}

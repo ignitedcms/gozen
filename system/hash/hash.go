@@ -16,7 +16,7 @@ import (
 	"crypto/rand"
 	"encoding/hex"
 	"golang.org/x/crypto/bcrypt"
-   "math/big"
+	"math/big"
 )
 
 func HashPassword(password string) (string, error) {
@@ -40,15 +40,15 @@ func GenerateKey() (string, error) {
 }
 
 func RandomString() string {
-   const charset = "abcdefghijklmnopqrstuvwxyz0123456789"
+	const charset = "abcdefghijklmnopqrstuvwxyz0123456789"
 
-    b := make([]byte, 20)
-    for i := range b {
-        n, err := rand.Int(rand.Reader, big.NewInt(int64(len(charset))))
-        if err != nil {
-            panic(err)
-        }
-        b[i] = charset[n.Int64()]
-    }
-    return string(b)
+	b := make([]byte, 20)
+	for i := range b {
+		n, err := rand.Int(rand.Reader, big.NewInt(int64(len(charset))))
+		if err != nil {
+			panic(err)
+		}
+		b[i] = charset[n.Int64()]
+	}
+	return string(b)
 }

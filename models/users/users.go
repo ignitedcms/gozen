@@ -48,13 +48,13 @@ func Update(id string, name string, email string, password string) error {
 	return nil
 }
 
-func SetToken(token string,  email string) error {
+func SetToken(token string, email string) error {
 	stmt, err := db.DB.Prepare("UPDATE users SET token = ? WHERE email = ?")
 	if err != nil {
 		return err
 	}
 	defer stmt.Close()
-	_, err = stmt.Exec(token,email)
+	_, err = stmt.Exec(token, email)
 	if err != nil {
 		return err
 	}

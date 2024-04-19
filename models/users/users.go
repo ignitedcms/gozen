@@ -48,6 +48,19 @@ func Update(id string, name string, email string, password string) error {
 	return nil
 }
 
+func SetToken(token string,  email string) error {
+	stmt, err := db.DB.Prepare("UPDATE users SET token = ? WHERE email = ?")
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(token,email)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // Delete deletes an existing User from the database
 func Delete(id string) error {
 	stmt, err := db.DB.Prepare("DELETE FROM users WHERE id = ?")

@@ -45,6 +45,14 @@ func Forgot(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+   //Let's set the token and update the db
+
+   rand := hash.RandomString()
+   fmt.Print(rand)
+   t := users.SetToken(rand,email)
+   fmt.Print(t)
+
+
 	recipientEmail := email
 	templatePath := "mail/email_template.html"
 

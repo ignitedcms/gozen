@@ -10,12 +10,12 @@ import (
 // index page
 func Index(w http.ResponseWriter, r *http.Request) {
 	// Render the template and write it to the response
-	templates.RenderTemplate(w, r, "examples", nil)
+	templates.Render(w, r, "examples", nil)
 }
 
 func Socket(w http.ResponseWriter, r *http.Request) {
 	// Render the template and write it to the response
-	templates.RenderTemplate(w, r, "socket", nil)
+	templates.Render(w, r, "socket", nil)
 }
 
 func Form(w http.ResponseWriter, r *http.Request) {
@@ -23,7 +23,7 @@ func Form(w http.ResponseWriter, r *http.Request) {
 		Foo: "hi", //some data mostly a model
 	}
 	// Render the template and write it to the response
-	templates.RenderTemplate(w, r, "forms", data)
+	templates.Render(w, r, "forms", data)
 }
 
 // post request
@@ -33,7 +33,7 @@ func FormValidate(w http.ResponseWriter, r *http.Request) {
 	validator.Required("name", r.FormValue("name")).
 		Email("email", r.FormValue("email"))
 
-	postData := templates.SetAndGetPostData(w, r)
+	postData := templates.PostData(w, r)
 
 	//get checkbox postdata
 	fmt.Println(r.FormValue("numbers"))

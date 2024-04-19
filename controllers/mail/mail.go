@@ -12,14 +12,14 @@ import (
 // index page for mail
 func Index(w http.ResponseWriter, r *http.Request) {
 	// Render the template and write it to the response
-	templates.RenderTemplate(w, r, "mail/index", nil)
+	templates.Render(w, r, "mail/index", nil)
 }
 
 func MailView(w http.ResponseWriter, r *http.Request) {
 	data := templates.TemplateData{
 		Foo: "hi", //some data mostly a model
 	}
-	templates.RenderTemplate(w, r, "mail", data)
+	templates.Render(w, r, "mail", data)
 }
 
 func SendMail(w http.ResponseWriter, r *http.Request) {
@@ -32,7 +32,7 @@ func SendMail(w http.ResponseWriter, r *http.Request) {
 	//email := r.FormValue("email")
 	email := r.FormValue("email")
 
-	postData := templates.SetAndGetPostData(w, r)
+	postData := templates.PostData(w, r)
 
 	if validator.HasErrors() {
 		templates.Errors(w, r, validator, postData, "mail")

@@ -10,7 +10,7 @@ import (
 // index page
 func Index(w http.ResponseWriter, r *http.Request) {
 	// Render the template and write it to the response
-	templates.RenderTemplate(w, r, "upload", nil)
+	templates.Render(w, r, "upload", nil)
 }
 
 func UploadFile(w http.ResponseWriter, r *http.Request) {

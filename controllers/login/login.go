@@ -15,7 +15,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	data := templates.TemplateData{
 		Foo: "hi", //some data mostly a model
 	}
-	templates.RenderTemplate(w, r, "login", data)
+	templates.Render(w, r, "login", data)
 }
 
 func ForgotView(w http.ResponseWriter, r *http.Request) {
@@ -23,7 +23,7 @@ func ForgotView(w http.ResponseWriter, r *http.Request) {
 	data := templates.TemplateData{
 		Foo: "hi", //some data mostly a model
 	}
-	templates.RenderTemplate(w, r, "forgot", data)
+	templates.Render(w, r, "forgot", data)
 }
 
 //we need to send an email reset if password is found
@@ -37,7 +37,7 @@ func Forgot(w http.ResponseWriter, r *http.Request) {
 
 	email := r.FormValue("email")
 
-	postData := templates.SetAndGetPostData(w, r)
+	postData := templates.PostData(w, r)
 
 	if validator.HasErrors() {
 		templates.Errors(w, r, validator, postData, "forgot")
@@ -71,7 +71,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("password")
 	email := r.FormValue("email")
 
-	postData := templates.SetAndGetPostData(w, r)
+	postData := templates.PostData(w, r)
 
 	if validator.HasErrors() {
 		templates.Errors(w, r, validator, postData, "login")
@@ -92,7 +92,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	t := hash.CheckPasswordHash(password, foo.Password)
 
 	if !t {
-		formutils.HandleValidationErrors(w, r, validator, postData, "login")
+		templates.Errors(w, r, validator, postData, "login")
 		return
 	}
 
@@ -104,7 +104,7 @@ func SignupView(w http.ResponseWriter, r *http.Request) {
 	data := templates.TemplateData{
 		Foo: "hi", //some data mostly a model
 	}
-	templates.RenderTemplate(w, r, "sign-up", data)
+	templates.Render(w, r, "sign-up", data)
 
 }
 
@@ -122,7 +122,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("password")
 	name := r.FormValue("name")
 
-	postData := templates.SetAndGetPostData(w, r)
+	postData := templates.PostData(w, r)
 
 	if validator.HasErrors() {
 		templates.Errors(w, r, validator, postData, "sign-up")

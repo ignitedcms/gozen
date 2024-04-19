@@ -73,7 +73,7 @@ func GetTemplate() *template.Template {
 	return Template
 }
 
-func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, data interface{}) {
+func Render(w http.ResponseWriter, r *http.Request, tmpl string, data interface{}) {
 
 	tpl := GetTemplate()
 
@@ -93,7 +93,7 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, data in
 
 }
 
-func SetAndGetPostData(w http.ResponseWriter, r *http.Request) map[string]interface{} {
+func PostData(w http.ResponseWriter, r *http.Request) map[string]interface{} {
 	session.SetOldPostData(w, r)
 	return session.GetOldPostData(w, r)
 }
@@ -112,6 +112,6 @@ func Errors(w http.ResponseWriter,
 		PostDataErrors: postDataErrors,
 		FlashData:      "Failed, error occurred",
 	}
-	RenderTemplate(w, r, templatePath, data)
+	Render(w, r, templatePath, data)
 }
 

@@ -23,7 +23,7 @@ import (
 
 func Spline(w http.ResponseWriter, r *http.Request) {
 
-	templates.RenderTemplate(w, r, "square", nil)
+	templates.Render(w, r, "square", nil)
 }
 
 // index page
@@ -45,5 +45,5 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	//}
 
 	// Render the template and write it to the response
-	templates.RenderTemplate(w, r, "query", TableInfos)
+	templates.Render(w, r, "query", TableInfos)
 }

@@ -27,12 +27,13 @@ func InitDB() {
 
 	dbHost := os.Getenv("DB_HOST")
 	dbUser := os.Getenv("DB_USER")
+   dbPort := os.Getenv("DB_PORT")
 	dbPassword := os.Getenv("DB_PASSWORD")
 	dbName := os.Getenv("DB_NAME")
 
 	// MySQL connection string
 	//connString := "user:password@tcp(localhost:3306)/database_name"
-	connString := fmt.Sprintf("%s:%s@tcp(%s)/%s", dbUser, dbPassword, dbHost, dbName)
+   connString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPassword, dbHost, dbPort, dbName)
 
 	// Open a connection
 	var err error

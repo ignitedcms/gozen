@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/smtp"
 	"os"
+   "strings"
 )
 
 type Mail struct {
@@ -49,7 +50,18 @@ func (m *Mail) LoadTemplate() *Mail {
 		log.Fatal("Error reading HTML file:", err)
 		return m
 	}
-	m.htmlContent = htmlContent
+
+   // Convert the byte slice to a string
+	text := string(htmlContent)
+
+	// Perform the string replacement
+	replacedContent := strings.ReplaceAll(text, "{{title}}", "Some other title")
+
+   //we need to convert back to bytes for it to work
+   replacedBytes := []byte(replacedContent)
+
+
+	m.htmlContent = replacedBytes
 	return m
 }
 

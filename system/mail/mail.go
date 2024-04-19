@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/smtp"
 	"os"
-   "strings"
+	"strings"
 )
 
 type Mail struct {
@@ -57,18 +57,17 @@ func (m *Mail) LoadTemplate() *Mail {
 		return m
 	}
 
-   // Convert the byte slice to a string
+	// Convert the byte slice to a string
 	text := string(htmlContent)
 
 	// Perform the string replacement
 	text = strings.ReplaceAll(text, "{{title}}", "Password Reset")
 	text = strings.ReplaceAll(text, "{{body}}", "Please click on the button to reset your password.")
-   text = strings.ReplaceAll(text, "{{anchor}}", m.anchor)
-   text = strings.ReplaceAll(text, "{{anchortext}}", "Click here")
+	text = strings.ReplaceAll(text, "{{anchor}}", m.anchor)
+	text = strings.ReplaceAll(text, "{{anchortext}}", "Click here")
 
-   //we need to convert back to bytes for it to work
-   replacedBytes := []byte(text)
-
+	//we need to convert back to bytes for it to work
+	replacedBytes := []byte(text)
 
 	m.htmlContent = replacedBytes
 	return m

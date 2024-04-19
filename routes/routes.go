@@ -38,6 +38,9 @@ func LoadRoutes(r *chi.Mux) {
 	r.Get("/dashboard", welcome.Dashboard)
 	r.Get("/login", login.Index)
 	r.Post("/login", login.Login)
+
+	r.Get("/hash/{token}", login.ConfirmHash)
+
 	r.Get("/signup", login.SignupView)
 	r.Post("/signup", login.Signup)
 	r.Get("/forgot", login.ForgotView)

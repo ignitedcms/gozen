@@ -2,6 +2,7 @@ package login
 
 import (
 	"fmt"
+	"github.com/go-chi/chi/v5"
 	"gozen/models/users"
 	"gozen/system/hash"
 	"gozen/system/mail"
@@ -9,6 +10,18 @@ import (
 	"gozen/system/validation"
 	"net/http"
 )
+
+func ConfirmHash(w http.ResponseWriter, r *http.Request) {
+
+	token := chi.URLParam(r, "token")
+	fmt.Print(token)
+
+	//Now check if token exists in db
+	//if it does allow user to update
+	//password for given email address
+	//if token does not exist throw error
+
+}
 
 func Index(w http.ResponseWriter, r *http.Request) {
 
@@ -54,7 +67,8 @@ func Forgot(w http.ResponseWriter, r *http.Request) {
 	recipientEmail := email
 	templatePath := "mail/email_template.html"
 
-   anch := "http://localhost:3000/hash/" + rand
+	//Warning get site path from .env!!!
+	anch := "http://localhost:3000/hash/" + rand
 
 	result := mail.New().
 		SetRecipient(recipientEmail).

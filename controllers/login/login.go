@@ -54,9 +54,12 @@ func Forgot(w http.ResponseWriter, r *http.Request) {
 	recipientEmail := email
 	templatePath := "mail/email_template.html"
 
+   anch := "http://localhost:3000/hash/" + rand
+
 	result := mail.New().
 		SetRecipient(recipientEmail).
 		SetTemplatePath(templatePath).
+		SetAnchor(anch).
 		LoadTemplate().
 		BuildMessage().
 		Send()

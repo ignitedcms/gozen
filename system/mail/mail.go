@@ -15,6 +15,7 @@ type Mail struct {
 	senderPassword string
 	recipientEmail string
 	templatePath   string
+	anchor         string
 	htmlContent    []byte
 	message        []byte
 	auth           smtp.Auth
@@ -32,6 +33,11 @@ func (m *Mail) setupFromEnv() {
 	m.senderEmail = os.Getenv("MAIL_USERNAME")
 	m.senderPassword = os.Getenv("MAIL_PASSWORD")
 	m.auth = smtp.PlainAuth("", m.senderEmail, m.senderPassword, m.smtpHost)
+}
+
+func (m *Mail) SetAnchor(anchor string) *Mail {
+	m.anchor = anchor
+	return m
 }
 
 func (m *Mail) SetRecipient(email string) *Mail {
@@ -55,9 +61,9 @@ func (m *Mail) LoadTemplate() *Mail {
 	text := string(htmlContent)
 
 	// Perform the string replacement
-	text = strings.ReplaceAll(text, "{{title}}", "Some other title")
-	text = strings.ReplaceAll(text, "{{body}}", "Some body text")
-   text = strings.ReplaceAll(text, "{{anchor}}", "http://localhost:3000/foo")
+	text = strings.ReplaceAll(text, "{{title}}", "Password Reset")
+	text = strings.ReplaceAll(text, "{{body}}", "Please click on the button to reset your password.")
+   text = strings.ReplaceAll(text, "{{anchor}}", m.anchor)
    text = strings.ReplaceAll(text, "{{anchortext}}", "Click here")
 
    //we need to convert back to bytes for it to work

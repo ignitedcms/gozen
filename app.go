@@ -22,7 +22,6 @@ import (
 	"github.com/joho/godotenv"
 	"gozen/db"
 	"gozen/routes"
-	"gozen/system/rendering"
 	"gozen/system/templates"
 	"log"
 	"net/http"
@@ -120,7 +119,7 @@ func main() {
 
 	// Custom 404 handler
 	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
-		rendering.RenderTemplate(w, r, "404", nil)
+		templates.RenderTemplate(w, r, "404", nil)
 	})
 
 	// Load all routes separately

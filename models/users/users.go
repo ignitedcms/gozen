@@ -2,7 +2,6 @@ package users
 
 import (
 	"gozen/db"
-	//"fmt"
 	"time"
 )
 
@@ -85,7 +84,8 @@ func All() ([]User, error) {
 // ReadUser reads a single User from the database by its ID
 func Read(id string) (*User, error) {
 	var result User
-	err := db.DB.QueryRow("SELECT id, name, email, password,token, created_at, updated_at FROM users WHERE id = ?", id).Scan(&result.Id, &result.Name, &result.Email, &result.Password, &result.Token, &result.Created_at, &result.Updated_at)
+	err := db.DB.QueryRow("SELECT id, name, email, password,token, created_at, updated_at FROM users WHERE id = ?", id).
+		Scan(&result.Id, &result.Name, &result.Email, &result.Password, &result.Token, &result.Created_at, &result.Updated_at)
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +96,8 @@ func Read(id string) (*User, error) {
 
 func GetHash(email string) (*User, error) {
 	var result User
-	err := db.DB.QueryRow("SELECT id, name, email, password, created_at, updated_at FROM users WHERE email = ?", email).Scan(&result.Id, &result.Name, &result.Email, &result.Password, &result.Created_at, &result.Updated_at)
+	err := db.DB.QueryRow("SELECT id, name, email, password, created_at, updated_at FROM users WHERE email = ?", email).
+		Scan(&result.Id, &result.Name, &result.Email, &result.Password, &result.Created_at, &result.Updated_at)
 	if err != nil {
 		return nil, err
 	}

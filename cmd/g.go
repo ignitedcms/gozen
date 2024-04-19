@@ -388,7 +388,7 @@ func main() {
 	builder2.WriteString("package " + table + "\n\n")
 	builder2.WriteString("import (\n")
 	builder2.WriteString("\t\"gozen/models/" + table + "\"\n")
-	builder2.WriteString("\t\"gozen/system/rendering\"\n")
+	builder2.WriteString("\t\"gozen/system/templates\"\n")
 	builder2.WriteString("\t\"gozen/system/formutils\"\n")
 	builder2.WriteString("\t\"gozen/system/validation\"\n")
 	builder2.WriteString("\t\"github.com/go-chi/chi/v5\"\n")
@@ -403,7 +403,7 @@ func main() {
 	builder2.WriteString("\t\t// Handle error\n")
 	builder2.WriteString("\t\treturn\n")
 	builder2.WriteString("\t}\n")
-	builder2.WriteString("\trendering.RenderTemplate(w, r, \"" + table + "-all\", " + table + ")\n")
+	builder2.WriteString("\ttemplates.RenderTemplate(w, r, \"" + table + "-all\", " + table + ")\n")
 	builder2.WriteString("}\n\n")
 
 	// Write CreateView function
@@ -411,7 +411,7 @@ func main() {
 	builder2.WriteString("\tdata := formutils.TemplateData{\n")
 	builder2.WriteString("\t\t// You can set data here as needed\n")
 	builder2.WriteString("\t}\n")
-	builder2.WriteString("\trendering.RenderTemplate(w, r, \"" + table + "-create\", data)\n")
+	builder2.WriteString("\ttemplates.RenderTemplate(w, r, \"" + table + "-create\", data)\n")
 	builder2.WriteString("}\n\n")
 
 	// Write Create function
@@ -462,7 +462,7 @@ func main() {
 	builder2.WriteString("\t\t\"Id\":   id,\n")
 	builder2.WriteString("\t\t\"" + capitalize(structName) + "\": " + structName + ",\n")
 	builder2.WriteString("\t}\n")
-	builder2.WriteString("\trendering.RenderTemplate(w, r, \"" + table + "-update\", data)\n")
+	builder2.WriteString("\ttemplates.RenderTemplate(w, r, \"" + table + "-update\", data)\n")
 	builder2.WriteString("}\n\n")
 
 	// Write Update function

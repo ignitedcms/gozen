@@ -15,17 +15,16 @@ package query
 import (
 	//"fmt"
 	"gozen/models/query"
-	"gozen/system/rendering"
+	"gozen/system/templates"
 	//"gozen/system/formutils"
 	//"gozen/system/validation"
 	"net/http"
 )
 
-func Spline(w http.ResponseWriter, r *http.Request){
+func Spline(w http.ResponseWriter, r *http.Request) {
 
-	rendering.RenderTemplate(w, r, "square", nil)
+	templates.RenderTemplate(w, r, "square", nil)
 }
-
 
 // index page
 func Index(w http.ResponseWriter, r *http.Request) {
@@ -46,5 +45,5 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	//}
 
 	// Render the template and write it to the response
-	rendering.RenderTemplate(w, r, "query", TableInfos)
+	templates.RenderTemplate(w, r, "query", TableInfos)
 }

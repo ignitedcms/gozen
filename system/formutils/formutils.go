@@ -1,8 +1,8 @@
 package formutils
 
 import (
-	"gozen/system/rendering"
 	"gozen/system/session"
+	"gozen/system/templates"
 	"gozen/system/validation"
 	"net/http"
 )
@@ -33,5 +33,5 @@ func HandleValidationErrors(w http.ResponseWriter,
 		PostDataErrors: postDataErrors,
 		FlashData:      "Failed, error occurred",
 	}
-	rendering.RenderTemplate(w, r, templatePath, data)
+	templates.RenderTemplate(w, r, templatePath, data)
 }

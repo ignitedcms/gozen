@@ -3,7 +3,7 @@ package examples
 import (
 	"fmt"
 	"gozen/system/formutils"
-	"gozen/system/rendering"
+	"gozen/system/templates"
 	"gozen/system/validation"
 	"net/http"
 )
@@ -11,12 +11,12 @@ import (
 // index page
 func Index(w http.ResponseWriter, r *http.Request) {
 	// Render the template and write it to the response
-	rendering.RenderTemplate(w, r, "examples", nil)
+	templates.RenderTemplate(w, r, "examples", nil)
 }
 
 func Socket(w http.ResponseWriter, r *http.Request) {
 	// Render the template and write it to the response
-	rendering.RenderTemplate(w, r, "socket", nil)
+	templates.RenderTemplate(w, r, "socket", nil)
 }
 
 func Form(w http.ResponseWriter, r *http.Request) {
@@ -24,7 +24,7 @@ func Form(w http.ResponseWriter, r *http.Request) {
 		Foo: "hi", //some data mostly a model
 	}
 	// Render the template and write it to the response
-	rendering.RenderTemplate(w, r, "forms", data)
+	templates.RenderTemplate(w, r, "forms", data)
 }
 
 // post request

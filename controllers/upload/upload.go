@@ -3,14 +3,14 @@ package upload
 import (
 	"fmt"
 	"gozen/system/fileupload"
-	"gozen/system/rendering"
+	"gozen/system/templates"
 	"net/http"
 )
 
 // index page
 func Index(w http.ResponseWriter, r *http.Request) {
 	// Render the template and write it to the response
-	rendering.RenderTemplate(w, r, "upload", nil)
+	templates.RenderTemplate(w, r, "upload", nil)
 }
 
 func UploadFile(w http.ResponseWriter, r *http.Request) {

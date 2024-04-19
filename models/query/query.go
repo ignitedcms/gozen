@@ -1,10 +1,9 @@
 package query
 
 import (
-	"gozen/db"
-	//"time"
 	"fmt"
 	"github.com/google/uuid"
+	"gozen/db"
 )
 
 func randomFilename() string {

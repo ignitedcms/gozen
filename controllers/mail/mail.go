@@ -5,7 +5,7 @@ import (
 	"gozen/models/users"
 	"gozen/system/formutils"
 	"gozen/system/mail"
-	"gozen/system/rendering"
+	"gozen/system/templates"
 	"gozen/system/validation"
 	"net/http"
 )
@@ -13,14 +13,14 @@ import (
 // index page for mail
 func Index(w http.ResponseWriter, r *http.Request) {
 	// Render the template and write it to the response
-	rendering.RenderTemplate(w, r, "mail/index", nil)
+	templates.RenderTemplate(w, r, "mail/index", nil)
 }
 
 func MailView(w http.ResponseWriter, r *http.Request) {
 	data := formutils.TemplateData{
 		Foo: "hi", //some data mostly a model
 	}
-	rendering.RenderTemplate(w, r, "mail", data)
+	templates.RenderTemplate(w, r, "mail", data)
 }
 
 func SendMail(w http.ResponseWriter, r *http.Request) {

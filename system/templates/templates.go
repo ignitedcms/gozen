@@ -15,8 +15,8 @@ package templates
 import (
 	"github.com/gorilla/csrf"
 	"html/template"
-	"strings"
 	"net/http"
+	"strings"
 )
 
 var Template *template.Template

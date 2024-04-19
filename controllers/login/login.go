@@ -6,7 +6,7 @@ import (
 	"gozen/system/formutils"
 	"gozen/system/hash"
 	"gozen/system/mail"
-	"gozen/system/rendering"
+	"gozen/system/templates"
 	"gozen/system/validation"
 	"net/http"
 )
@@ -16,7 +16,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	data := formutils.TemplateData{
 		Foo: "hi", //some data mostly a model
 	}
-	rendering.RenderTemplate(w, r, "login", data)
+	templates.RenderTemplate(w, r, "login", data)
 }
 
 func ForgotView(w http.ResponseWriter, r *http.Request) {
@@ -24,7 +24,7 @@ func ForgotView(w http.ResponseWriter, r *http.Request) {
 	data := formutils.TemplateData{
 		Foo: "hi", //some data mostly a model
 	}
-	rendering.RenderTemplate(w, r, "forgot", data)
+	templates.RenderTemplate(w, r, "forgot", data)
 }
 
 //we need to send an email reset if password is found
@@ -105,7 +105,7 @@ func SignupView(w http.ResponseWriter, r *http.Request) {
 	data := formutils.TemplateData{
 		Foo: "hi", //some data mostly a model
 	}
-	rendering.RenderTemplate(w, r, "sign-up", data)
+	templates.RenderTemplate(w, r, "sign-up", data)
 
 }
 

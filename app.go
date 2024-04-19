@@ -119,7 +119,7 @@ func main() {
 
 	// Custom 404 handler
 	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
-		templates.RenderTemplate(w, r, "404", nil)
+		templates.Render(w, r, "404", nil)
 	})
 
 	// Load all routes separately

@@ -39,14 +39,6 @@ func SendMail(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	query, err := users.GetHash(email)
-	//no record found
-	if err != nil {
-		fmt.Print(err)
-	} else {
-		fmt.Print(query.Email)
-
-		//to := query.Email
-		mail.Test(email)
-	}
+	//to := query.Email
+	mail.Test(email)
 }

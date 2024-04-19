@@ -66,6 +66,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	v.Required("email", r.FormValue("email")).
 		Email("email", r.FormValue("email")).
+		Exists("email", r.FormValue("email"), "users", "email").
 		Required("password", r.FormValue("password"))
 
 		//email := r.FormValue("email")

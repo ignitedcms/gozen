@@ -17,7 +17,18 @@ import (
 	"html/template"
 	"net/http"
 	"strings"
+   "gozen/system/session"
+	"gozen/system/validation"
+
 )
+
+type TemplateData struct {
+	PostData       map[string]interface{}
+	PostDataErrors map[string]interface{}
+	FlashData      string
+	Foo            string
+}
+
 
 var Template *template.Template
 
@@ -81,3 +92,26 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, data in
 	}
 
 }
+
+func SetAndGetPostData(w http.ResponseWriter, r *http.Request) map[string]interface{} {
+	session.SetOldPostData(w, r)
+	return session.GetOldPostData(w, r)
+}
+
+func HandleValidationErrors(w http.ResponseWriter,
+	r *http.Request,
+	validator *validation.Validator,
+	postData map[string]interface{}, templatePath string) {
+	postDataErrors := make(map[string]interface{})
+	for _, err := range validator.GetErrors() {
+		postDataErrors[err.Field] = err.Message
+	}
+
+	data := TemplateData{
+		PostData:       postData,
+		PostDataErrors: postDataErrors,
+		FlashData:      "Failed, error occurred",
+	}
+	RenderTemplate(w, r, templatePath, data)
+}
+

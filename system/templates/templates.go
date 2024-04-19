@@ -14,12 +14,11 @@ package templates
 
 import (
 	"github.com/gorilla/csrf"
+	"gozen/system/session"
+	"gozen/system/validation"
 	"html/template"
 	"net/http"
 	"strings"
-   "gozen/system/session"
-	"gozen/system/validation"
-
 )
 
 type TemplateData struct {
@@ -28,7 +27,6 @@ type TemplateData struct {
 	FlashData      string
 	Foo            string
 }
-
 
 var Template *template.Template
 
@@ -114,4 +112,3 @@ func Errors(w http.ResponseWriter,
 	}
 	Render(w, r, templatePath, data)
 }
-

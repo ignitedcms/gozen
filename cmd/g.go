@@ -147,23 +147,6 @@ func main() {
 
 	migrateSql(table, sql)
 
-	//table := "comments"
-	//structName := "comment"
-	//allFields := []StructField{
-	//{Name: "id", Type: "string"},
-	//{Name: "name", Type: "string"},
-	//{Name: "email", Type: "string"},
-	//{Name: "password", Type: "string"},
-	//{Name: "created_at", Type: "string"},
-	//{Name: "updated_at", Type: "string"},
-	//}
-
-	//fields := []StructField{
-	//{Name: "name", Type: "string"},
-	//{Name: "email", Type: "string"},
-	//{Name: "password", Type: "string"},
-	//}
-
 	var builder strings.Builder
 
 	// Write HTML template
@@ -415,7 +398,7 @@ func main() {
 
 	// Write Create function
 	builder2.WriteString("func Create(w http.ResponseWriter, r *http.Request) {\n")
-	builder2.WriteString("\tvalidator := &validation.Validator{}\n")
+	builder2.WriteString("\tv := &validation.Validator{}\n")
 
 	// Write form value assignments dynamically
 	for _, field := range fields {
@@ -425,13 +408,13 @@ func main() {
 	// Write validation rules dynamically
 	for _, field := range fields {
 		if field.Type == "string" {
-			builder2.WriteString(fmt.Sprintf("\tvalidator.Required(\"%s\", %s)\n", field.Name, field.Name))
+			builder2.WriteString(fmt.Sprintf("\tv.Required(\"%s\", %s)\n", field.Name, field.Name))
 		}
 	}
 
 	builder2.WriteString("\tpostData := templates.PostData(w, r)\n")
-	builder2.WriteString("\tif validator.HasErrors() {\n")
-	builder2.WriteString("\t\ttemplates.Errors(w, r, validator, postData, \"" + table + "-create\")\n")
+	builder2.WriteString("\tif v.HasErrors() {\n")
+	builder2.WriteString("\t\ttemplates.Errors(w, r, v, postData, \"" + table + "-create\")\n")
 	builder2.WriteString("\t\treturn\n")
 	builder2.WriteString("\t}\n")
 	builder2.WriteString("\t// Else, no validation errors, proceed with creation\n")

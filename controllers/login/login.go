@@ -30,17 +30,17 @@ func ForgotView(w http.ResponseWriter, r *http.Request) {
 
 func Forgot(w http.ResponseWriter, r *http.Request) {
 
-	validator := &validation.Validator{}
+	v := &validation.Validator{}
 
-	validator.Required("email", r.FormValue("email")).
+	v.Required("email", r.FormValue("email")).
 		Email("email", r.FormValue("email"))
 
 	email := r.FormValue("email")
 
 	postData := templates.PostData(w, r)
 
-	if validator.HasErrors() {
-		templates.Errors(w, r, validator, postData, "forgot")
+	if v.HasErrors() {
+		templates.Errors(w, r, v, postData, "forgot")
 		return
 	}
 
@@ -61,9 +61,9 @@ func Forgot(w http.ResponseWriter, r *http.Request) {
 // post
 func Login(w http.ResponseWriter, r *http.Request) {
 
-	validator := &validation.Validator{}
+	v := &validation.Validator{}
 
-	validator.Required("email", r.FormValue("email")).
+	v.Required("email", r.FormValue("email")).
 		Email("email", r.FormValue("email")).
 		Required("password", r.FormValue("password"))
 
@@ -73,8 +73,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	postData := templates.PostData(w, r)
 
-	if validator.HasErrors() {
-		templates.Errors(w, r, validator, postData, "login")
+	if v.HasErrors() {
+		templates.Errors(w, r, v, postData, "login")
 		return
 	}
 
@@ -83,7 +83,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		fmt.Print(err)
-		templates.Errors(w, r, validator, postData, "login")
+		templates.Errors(w, r, v, postData, "login")
 		return
 	}
 
@@ -92,7 +92,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	t := hash.CheckPasswordHash(password, foo.Password)
 
 	if !t {
-		templates.Errors(w, r, validator, postData, "login")
+		templates.Errors(w, r, v, postData, "login")
 		return
 	}
 
@@ -110,9 +110,9 @@ func SignupView(w http.ResponseWriter, r *http.Request) {
 
 // post
 func Signup(w http.ResponseWriter, r *http.Request) {
-	validator := &validation.Validator{}
+	v := &validation.Validator{}
 
-	validator.Required("email", r.FormValue("email")).
+	v.Required("email", r.FormValue("email")).
 		Email("email", r.FormValue("email")).
 		Unique("email", r.FormValue("email"), "users", "email").
 		Required("password", r.FormValue("password")).
@@ -124,8 +124,8 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 
 	postData := templates.PostData(w, r)
 
-	if validator.HasErrors() {
-		templates.Errors(w, r, validator, postData, "sign-up")
+	if v.HasErrors() {
+		templates.Errors(w, r, v, postData, "sign-up")
 		return
 	}
 	//else success

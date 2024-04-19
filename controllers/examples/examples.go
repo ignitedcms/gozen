@@ -28,9 +28,9 @@ func Form(w http.ResponseWriter, r *http.Request) {
 
 // post request
 func FormValidate(w http.ResponseWriter, r *http.Request) {
-	validator := &validation.Validator{}
+	v := &validation.Validator{}
 
-	validator.Required("name", r.FormValue("name")).
+	v.Required("name", r.FormValue("name")).
 		Email("email", r.FormValue("email"))
 
 	postData := templates.PostData(w, r)
@@ -45,8 +45,8 @@ func FormValidate(w http.ResponseWriter, r *http.Request) {
 		fmt.Print(arr[index])
 	}
 
-	if validator.HasErrors() {
-		templates.Errors(w, r, validator, postData, "forms")
+	if v.HasErrors() {
+		templates.Errors(w, r, v, postData, "forms")
 		return
 	}
 	//else success

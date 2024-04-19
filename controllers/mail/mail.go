@@ -24,9 +24,9 @@ func MailView(w http.ResponseWriter, r *http.Request) {
 
 func SendMail(w http.ResponseWriter, r *http.Request) {
 
-	validator := &validation.Validator{}
+	v := &validation.Validator{}
 
-	validator.Required("email", r.FormValue("email")).
+	v.Required("email", r.FormValue("email")).
 		Email("email", r.FormValue("email"))
 
 	//email := r.FormValue("email")
@@ -34,8 +34,8 @@ func SendMail(w http.ResponseWriter, r *http.Request) {
 
 	postData := templates.PostData(w, r)
 
-	if validator.HasErrors() {
-		templates.Errors(w, r, validator, postData, "mail")
+	if v.HasErrors() {
+		templates.Errors(w, r, v, postData, "mail")
 		return
 	}
 

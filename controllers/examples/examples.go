@@ -2,7 +2,6 @@ package examples
 
 import (
 	"fmt"
-	"gozen/system/formutils"
 	"gozen/system/templates"
 	"gozen/system/validation"
 	"net/http"
@@ -20,7 +19,7 @@ func Socket(w http.ResponseWriter, r *http.Request) {
 }
 
 func Form(w http.ResponseWriter, r *http.Request) {
-	data := formutils.TemplateData{
+	data := templates.TemplateData{
 		Foo: "hi", //some data mostly a model
 	}
 	// Render the template and write it to the response
@@ -34,7 +33,7 @@ func FormValidate(w http.ResponseWriter, r *http.Request) {
 	validator.Required("name", r.FormValue("name")).
 		Email("email", r.FormValue("email"))
 
-	postData := formutils.SetAndGetPostData(w, r)
+	postData := templates.SetAndGetPostData(w, r)
 
 	//get checkbox postdata
 	fmt.Println(r.FormValue("numbers"))
@@ -47,7 +46,7 @@ func FormValidate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if validator.HasErrors() {
-		formutils.HandleValidationErrors(w, r, validator, postData, "forms")
+		templates.Errors(w, r, validator, postData, "forms")
 		return
 	}
 	//else success

@@ -3,7 +3,6 @@ package mail
 import (
 	"fmt"
 	"gozen/models/users"
-	"gozen/system/formutils"
 	"gozen/system/mail"
 	"gozen/system/templates"
 	"gozen/system/validation"
@@ -17,7 +16,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 }
 
 func MailView(w http.ResponseWriter, r *http.Request) {
-	data := formutils.TemplateData{
+	data := templates.TemplateData{
 		Foo: "hi", //some data mostly a model
 	}
 	templates.RenderTemplate(w, r, "mail", data)
@@ -33,10 +32,10 @@ func SendMail(w http.ResponseWriter, r *http.Request) {
 	//email := r.FormValue("email")
 	email := r.FormValue("email")
 
-	postData := formutils.SetAndGetPostData(w, r)
+	postData := templates.SetAndGetPostData(w, r)
 
 	if validator.HasErrors() {
-		formutils.HandleValidationErrors(w, r, validator, postData, "mail")
+		templates.Errors(w, r, validator, postData, "mail")
 		return
 	}
 

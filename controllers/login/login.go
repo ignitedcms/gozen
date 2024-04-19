@@ -3,7 +3,6 @@ package login
 import (
 	"fmt"
 	"gozen/models/users"
-	"gozen/system/formutils"
 	"gozen/system/hash"
 	"gozen/system/mail"
 	"gozen/system/templates"
@@ -13,7 +12,7 @@ import (
 
 func Index(w http.ResponseWriter, r *http.Request) {
 
-	data := formutils.TemplateData{
+	data := templates.TemplateData{
 		Foo: "hi", //some data mostly a model
 	}
 	templates.RenderTemplate(w, r, "login", data)
@@ -21,7 +20,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 
 func ForgotView(w http.ResponseWriter, r *http.Request) {
 
-	data := formutils.TemplateData{
+	data := templates.TemplateData{
 		Foo: "hi", //some data mostly a model
 	}
 	templates.RenderTemplate(w, r, "forgot", data)
@@ -38,10 +37,10 @@ func Forgot(w http.ResponseWriter, r *http.Request) {
 
 	email := r.FormValue("email")
 
-	postData := formutils.SetAndGetPostData(w, r)
+	postData := templates.SetAndGetPostData(w, r)
 
 	if validator.HasErrors() {
-		formutils.HandleValidationErrors(w, r, validator, postData, "forgot")
+		templates.Errors(w, r, validator, postData, "forgot")
 		return
 	}
 
@@ -72,10 +71,10 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("password")
 	email := r.FormValue("email")
 
-	postData := formutils.SetAndGetPostData(w, r)
+	postData := templates.SetAndGetPostData(w, r)
 
 	if validator.HasErrors() {
-		formutils.HandleValidationErrors(w, r, validator, postData, "login")
+		templates.Errors(w, r, validator, postData, "login")
 		return
 	}
 
@@ -84,7 +83,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		fmt.Print(err)
-		formutils.HandleValidationErrors(w, r, validator, postData, "login")
+		templates.Errors(w, r, validator, postData, "login")
 		return
 	}
 
@@ -102,7 +101,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 func SignupView(w http.ResponseWriter, r *http.Request) {
 
-	data := formutils.TemplateData{
+	data := templates.TemplateData{
 		Foo: "hi", //some data mostly a model
 	}
 	templates.RenderTemplate(w, r, "sign-up", data)
@@ -123,10 +122,10 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("password")
 	name := r.FormValue("name")
 
-	postData := formutils.SetAndGetPostData(w, r)
+	postData := templates.SetAndGetPostData(w, r)
 
 	if validator.HasErrors() {
-		formutils.HandleValidationErrors(w, r, validator, postData, "sign-up")
+		templates.Errors(w, r, validator, postData, "sign-up")
 		return
 	}
 	//else success

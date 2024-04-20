@@ -177,8 +177,14 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 
 	p, _ := hash.HashPassword(password)
 
+   //get the insert id as int64
+   //remember to convert to string to save in session
 	t, _ := users.Create(name, email, p)
 	fmt.Print(t)
+
+   session.Set(w,r,"userid",t)
+   session.Set(w,r,"loggedin","1")
+
 
 	http.Redirect(w, r, "/dashboard", http.StatusFound)
 

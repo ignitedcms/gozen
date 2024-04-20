@@ -130,7 +130,7 @@ func CheckToken(token string) string {
 		// No rows returned
 		return "error"
 	} else {
-
+      //return userid to set session
 		return id
 	}
 }

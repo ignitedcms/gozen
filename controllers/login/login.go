@@ -15,7 +15,6 @@ import (
 func ConfirmHash(w http.ResponseWriter, r *http.Request) {
 
 	token := chi.URLParam(r, "token")
-	fmt.Print(token)
 
 	//Now check if token exists in db
 	//if it does allow user to update

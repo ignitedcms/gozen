@@ -91,7 +91,7 @@ func (m *Mail) Send() []byte {
 		return []byte(err.Error())
 	}
 	log.Println("Email sent successfully!")
-	return []byte("done")
+	return []byte("Email sent successfully!")
 }
 
 /*

@@ -113,7 +113,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Print(foo.Password)
+	//fmt.Print(foo.Password)
 
 	t := hash.CheckPasswordHash(password, foo.Password)
 

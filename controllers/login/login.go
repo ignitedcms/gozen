@@ -26,6 +26,12 @@ func ConfirmHash(w http.ResponseWriter, r *http.Request) {
 		fmt.Print("invalid token")
 	} else {
 		fmt.Print("change password")
+
+	   session.Set(w, r, "loggedin", "1")
+	   session.Set(w, r, "userid", check)
+	   session.Set(w, r, "name", "it is me")
+
+	   http.Redirect(w, r, "/dashboard", http.StatusFound)
 	}
 
 }

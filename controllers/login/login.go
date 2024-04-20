@@ -23,15 +23,14 @@ func ConfirmHash(w http.ResponseWriter, r *http.Request) {
 
 	check := users.CheckToken(token)
 	if check == "error" {
-		fmt.Print("invalid token")
+      w.Write([]byte("Invalid token"))
 	} else {
 		fmt.Print("change password")
 
 	   session.Set(w, r, "loggedin", "1")
 	   session.Set(w, r, "userid", check)
-	   session.Set(w, r, "name", "it is me")
 
-	   http.Redirect(w, r, "/dashboard", http.StatusFound)
+	   http.Redirect(w, r, "/profile", http.StatusFound)
 	}
 
 }
@@ -138,7 +137,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	//set session to loggedin
 	//set userid
 	session.Set(w, r, "loggedin", "1")
-	session.Set(w, r, "name", "John Doe")
+	session.Set(w, r, "name", foo.Name)
+	session.Set(w, r, "userid", foo.Id)
 
 	http.Redirect(w, r, "/dashboard", http.StatusFound)
 }

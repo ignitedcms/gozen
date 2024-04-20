@@ -10,6 +10,7 @@ import (
 	"gozen/system/templates"
 	"gozen/system/validation"
 	"net/http"
+    "strconv"
 )
 
 func ConfirmHash(w http.ResponseWriter, r *http.Request) {
@@ -182,7 +183,9 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	t, _ := users.Create(name, email, p)
 	fmt.Print(t)
 
-   session.Set(w,r,"userid",t)
+   b := strconv.FormatInt(t, 10)
+
+   session.Set(w,r,"userid",b)
    session.Set(w,r,"loggedin","1")
 
 

@@ -3929,6 +3929,11 @@ table.dataTable tfoot th {
   border-color: rgb(71 85 105 / var(--tw-border-opacity));
 }
 
+.border-slate-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(226 232 240 / var(--tw-border-opacity));
+}
+
 .border-b-\[--gray\] {
   border-bottom-color: var(--gray);
 }

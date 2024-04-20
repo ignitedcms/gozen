@@ -190,7 +190,8 @@ func Password(w http.ResponseWriter, r *http.Request) {
 
 	v := &validation.Validator{}
 
-	v.Required("password", r.FormValue("password"))
+	v.Required("password", r.FormValue("password")).
+	   MinLength("password", r.FormValue("password"), 6)
 
 	password := r.FormValue("password")
 
@@ -202,7 +203,10 @@ func Password(w http.ResponseWriter, r *http.Request) {
 	}
 
 	userid := session.Get(r, "userid")
-	users.UpdatePassword(password, userid)
+
+	p, _ := hash.HashPassword(password)
+
+	users.UpdatePassword(p, userid)
 
 	http.Redirect(w, r, "/dashboard", http.StatusFound)
 }

@@ -1,22 +1,32 @@
 {{ template "_header.html" }}
 <div class="gap"></div>
 <div class="default-container">
+   {{.Data.name}}
    <div class="row">
       <div class="col">
          <h3>Profile information</h3>
+         <div class="small text-muted">
+            Update your account's profile information and email address.
+         </div>
          <form action="/profile" method="POST">
-            {{.Data.name}}
             {{.Csrf}}
             <div class="form-group">
                <input 
                  class="form-control" 
-                 type="password"
-                 name="password" 
-                 placeholder="new password" />
+                 type="text"
+                 name="name" 
+                 placeholder="Name" />
+            </div>
+            <div class="form-group">
+               <input 
+                 class="form-control" 
+                 type="text"
+                 name="email" 
+                 placeholder="Email" />
             </div>
             <div class="form-group">
                <button-component variant="primary">
-                  ok
+                  Save
                </button-component>
             </div>
          </form>
@@ -24,7 +34,37 @@
    </div>
    <div class="row">
       <div class="col">
-         delete account
+         <h3>Update password</h3>
+         <form action="/password" method="POST">
+            {{.Csrf}}
+            <div class="form-group">
+               <input 
+                 class="form-control" 
+                 type="text"
+                 name="password" 
+                 placeholder="" />
+            </div>
+            
+            <div class="form-group">
+               <button-component variant="primary">
+                  Save
+               </button-component>
+            </div>
+         </form>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col">
+         <h3>Delete account</h3>
+         <form action="/delete-account" method="POST">
+            {{.Csrf}}
+            
+            <div class="form-group">
+               <button-component variant="primary">
+                  Yes
+               </button-component>
+            </div>
+         </form>
       </div>
    </div>
 </div>

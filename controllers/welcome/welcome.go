@@ -1,6 +1,7 @@
 package welcome
 
 import (
+	"gozen/models/users"
 	"gozen/system/session"
 	"gozen/system/templates"
 	"net/http"
@@ -12,6 +13,15 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	session.Set(w, r, "foo", "A session test")
 	// Render the template and write it to the response
 	templates.Render(w, r, "welcome", nil)
+}
+
+func DeleteAccount(w http.ResponseWriter, r *http.Request) {
+
+	userid := session.Get(r, "userid")
+
+   users.Delete(userid)
+	http.Redirect(w, r, "/", http.StatusFound)
+
 }
 
 func ProfileView(w http.ResponseWriter, r *http.Request) {

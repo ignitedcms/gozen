@@ -1,4 +1,17 @@
 {{ template "_header.html" }}
+<div class="nav bg-white p-6 shadow-sm border-b border-slate-300">
+   <div class="default-container v-a h-e">
+      <div class="font-medium">
+         Dashboard
+      </div>
+      <div>
+         <drop-down button-title="Action">
+            <item title="Profile" url="/profile"></item>
+            <item title="Logout" url="/destroy"></item>
+         </drop-down>
+      </div>
+   </div>
+</div>
 <div class="gap"></div>
 <div class="default-container">
 
@@ -18,7 +31,7 @@
    
    <div class="row">
       <div class="col">
-         <h3>Update password</h3>
+         <h5>Change password</h5>
          <form action="/password" method="POST">
             {{.Csrf}}
             <div class="form-group">
@@ -41,7 +54,7 @@
    </div>
    <div class="row">
       <div class="col">
-         <h3>Delete account</h3>
+         <h5>Delete account</h5>
          <form action="/delete-account" method="POST">
             {{.Csrf}}
             

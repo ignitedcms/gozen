@@ -19,7 +19,7 @@ Vue.component('drop-down', {
         type="button"
         aria-haspopup="menu"
         :aria-expanded="arr"
-        class="btn-white relative"
+        class="xbtn-white relative"
         @keyup.esc="escapePressed"
         @click="toggle"
         v-click-outside="away"

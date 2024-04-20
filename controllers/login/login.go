@@ -191,7 +191,7 @@ func Password(w http.ResponseWriter, r *http.Request) {
 	v := &validation.Validator{}
 
 	v.Required("password", r.FormValue("password")).
-	   MinLength("password", r.FormValue("password"), 6)
+		MinLength("password", r.FormValue("password"), 6)
 
 	password := r.FormValue("password")
 

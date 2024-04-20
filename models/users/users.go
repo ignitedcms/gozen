@@ -108,7 +108,7 @@ func Read(id string) (*User, error) {
 // Checks if a valid token exists
 func CheckToken(token string) string {
 
-	stmt, err := db.DB.Prepare("SELECT * FROM users WHERE token = ?")
+	stmt, err := db.DB.Prepare("SELECT id FROM users WHERE token = ? LIMIT 1")
 	if err != nil {
 		// Handle error
 		//return
@@ -116,22 +116,22 @@ func CheckToken(token string) string {
 	defer stmt.Close()
 
 	// Replace '?' with the actual condition value
-	rows, err := stmt.Query(token)
+	row := stmt.QueryRow(token)
 	if err != nil {
 		// Handle error
 		//return
 	}
-	defer rows.Close()
+	//defer row.Close()
 
 	// Check if any rows were returned
-	if rows.Next() {
-		// At least one row was returned
-		// You can process the row data here
-      return "1"
-
+	var id string
+	err = row.Scan(&id)
+	if err != nil {
+		// No rows returned
+		return "error"
 	} else {
-		// No rows were returned
-      return "error"
+
+		return id
 	}
 }
 

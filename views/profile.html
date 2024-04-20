@@ -1,7 +1,20 @@
 {{ template "_header.html" }}
 <div class="gap"></div>
 <div class="default-container">
-   {{.Data.name}}
+
+   {{ if .Data.FlashData }}
+   <div class="toasts">
+      <toast ref="toast">
+      <div class="p-5">
+         <div class="text-danger dark:text-white">Error</div>
+         <div class="text-danger small dark:text-white">
+            {{ .Data.FlashData }}
+         </div>
+      </div>
+      </toast>
+   </div>
+   {{ end }}
+
    <div class="row">
       <div class="col">
          <h3>Profile information</h3>

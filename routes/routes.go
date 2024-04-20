@@ -40,6 +40,7 @@ func LoadRoutes(r *chi.Mux) {
 	r.Post("/profile", welcome.Profile)
 	r.Get("/login", login.Index)
 	r.Post("/login", login.Login)
+	r.Post("/password", login.Password)
 
 	r.Get("/hash/{token}", login.ConfirmHash)
 

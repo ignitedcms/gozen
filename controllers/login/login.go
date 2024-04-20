@@ -182,3 +182,28 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/dashboard", http.StatusFound)
 
 }
+
+//profile reset password
+//uses session userid
+
+func Password(w http.ResponseWriter, r *http.Request) {
+
+	v := &validation.Validator{}
+
+	v.Required("password", r.FormValue("password"))
+
+	password := r.FormValue("password")
+
+	postData := templates.PostData(w, r)
+
+	if v.HasErrors() {
+		templates.Errors(w, r, v, postData, "profile")
+		return
+	}
+
+   userid := session.Get(r,"userid")
+   fmt.Print(password)
+   fmt.Print(userid)
+}
+
+

@@ -48,6 +48,20 @@ func Update(id string, name string, email string, password string) error {
 	return nil
 }
 
+// Update the password only
+func UpdatePassword(password string, userid string) error {
+	stmt, err := db.DB.Prepare("UPDATE users SET password = ?  WHERE id = ?")
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(password, userid)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func SetToken(token string, email string) error {
 	stmt, err := db.DB.Prepare("UPDATE users SET token = ? WHERE email = ?")
 	if err != nil {
@@ -130,7 +144,7 @@ func CheckToken(token string) string {
 		// No rows returned
 		return "error"
 	} else {
-      //return userid to set session
+		//return userid to set session
 		return id
 	}
 }

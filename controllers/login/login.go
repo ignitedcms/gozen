@@ -23,14 +23,14 @@ func ConfirmHash(w http.ResponseWriter, r *http.Request) {
 
 	check := users.CheckToken(token)
 	if check == "error" {
-      w.Write([]byte("Invalid token"))
+		w.Write([]byte("Invalid token"))
 	} else {
 		fmt.Print("change password")
 
-	   session.Set(w, r, "loggedin", "1")
-	   session.Set(w, r, "userid", check)
+		session.Set(w, r, "loggedin", "1")
+		session.Set(w, r, "userid", check)
 
-	   http.Redirect(w, r, "/profile", http.StatusFound)
+		http.Redirect(w, r, "/profile", http.StatusFound)
 	}
 
 }
@@ -201,9 +201,8 @@ func Password(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-   userid := session.Get(r,"userid")
-   fmt.Print(password)
-   fmt.Print(userid)
+	userid := session.Get(r, "userid")
+	users.UpdatePassword(password, userid)
+
+	http.Redirect(w, r, "/dashboard", http.StatusFound)
 }
-
-

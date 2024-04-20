@@ -105,6 +105,36 @@ func Read(id string) (*User, error) {
 	return &result, nil
 }
 
+// Checks if a valid token exists
+func CheckToken(token string) string {
+
+	stmt, err := db.DB.Prepare("SELECT * FROM users WHERE token = ?")
+	if err != nil {
+		// Handle error
+		//return
+	}
+	defer stmt.Close()
+
+	// Replace '?' with the actual condition value
+	rows, err := stmt.Query(token)
+	if err != nil {
+		// Handle error
+		//return
+	}
+	defer rows.Close()
+
+	// Check if any rows were returned
+	if rows.Next() {
+		// At least one row was returned
+		// You can process the row data here
+      return "1"
+
+	} else {
+		// No rows were returned
+      return "error"
+	}
+}
+
 //get the hash from email address
 
 func GetHash(email string) (*User, error) {

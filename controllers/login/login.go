@@ -22,6 +22,13 @@ func ConfirmHash(w http.ResponseWriter, r *http.Request) {
 	//password for given email address
 	//if token does not exist throw error
 
+   check := users.CheckToken(token)
+   if check == "error" {
+      fmt.Print("invalid token")
+   } else {
+      fmt.Print("change password")
+   }
+
 }
 
 func Index(w http.ResponseWriter, r *http.Request) {

@@ -43,8 +43,17 @@ func Install(w http.ResponseWriter, r *http.Request) {
 
 func Dashboard(w http.ResponseWriter, r *http.Request) {
 
-	// Render the template and write it to the response
-	templates.Render(w, r, "dashboard", nil)
+	if session.Get(r, "loggedin") != "1" {
+
+		http.Redirect(w, r, "/login", http.StatusFound)
+		return
+	}
+
+	data := map[string]interface{}{
+		"name": session.Get(r, "name"),
+	}
+
+	templates.Render(w, r, "dashboard", data)
 }
 
 func Session(w http.ResponseWriter, r *http.Request) {

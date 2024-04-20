@@ -160,6 +160,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 		Email("email", r.FormValue("email")).
 		Unique("email", r.FormValue("email"), "users", "email").
 		Required("password", r.FormValue("password")).
+		MinLength("password", r.FormValue("password"), 6).
 		Required("name", r.FormValue("name"))
 
 	email := r.FormValue("email")

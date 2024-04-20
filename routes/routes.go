@@ -36,6 +36,8 @@ func LoadRoutes(r *chi.Mux) {
 	r.Get("/session", welcome.Session)
 	r.Get("/destroy", welcome.Destroy) // Should be POST request
 	r.Get("/dashboard", welcome.Dashboard)
+	r.Get("/profile", welcome.ProfileView)
+	r.Post("/profile", welcome.Profile)
 	r.Get("/login", login.Index)
 	r.Post("/login", login.Login)
 

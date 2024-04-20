@@ -14,6 +14,20 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	templates.Render(w, r, "welcome", nil)
 }
 
+func ProfileView(w http.ResponseWriter, r *http.Request) {
+
+   data := map[string]interface{} {
+      "name": session.Get(r,"name"),
+   }
+
+	templates.Render(w, r, "profile", data)
+}
+//Validate
+func Profile(w http.ResponseWriter, r *http.Request) {
+
+   w.Write([]byte("validating"))
+}
+
 func Install(w http.ResponseWriter, r *http.Request) {
 
 	templates.Render(w, r, "install", nil)

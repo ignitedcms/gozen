@@ -5,7 +5,10 @@
          Dashboard
       </div>
       <div>
-         {{.Data.name}}
+         <drop-down button-title="{{.Data.name}}">
+            <item title="Profile" url="/profile"></item>
+            <item title="Logout" url="/destroy"></item>
+         </drop-down>
       </div>
    </div>
 </div>
@@ -13,11 +16,7 @@
    <div class="row">
       <div class="col h-e">
          <div>You are logged in</div>
-         <div>
-            <a href="/destroy" class="text-primary underline">Logout</a>
-         </div>
       </div>
    </div>
-   
 </div>
 {{ template "_footer.html" }}

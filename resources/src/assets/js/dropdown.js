@@ -116,6 +116,7 @@ Vue.component('drop-down', {
 Vue.component('item', {
   props: ['title', 'url'],
   template: `
+   <a :href="url">
     <div
       class="row"
       tabindex="-1"
@@ -133,8 +134,9 @@ Vue.component('item', {
 
       @click="$emit('item-selected', title)"
     >
-      <div :href="url" class="left">{{ title }}</div>
+    {{ title }}
     </div>
+    </a>
   `,
 });
 

@@ -6,11 +6,10 @@ import (
 	"gozen/models/users"
 	"gozen/system/hash"
 	"gozen/system/mail"
+	"gozen/system/session"
 	"gozen/system/templates"
 	"gozen/system/validation"
 	"net/http"
-   "gozen/system/session"
-
 )
 
 func ConfirmHash(w http.ResponseWriter, r *http.Request) {
@@ -124,11 +123,10 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-   //set session to loggedin
-   //set userid
-   session.Set(w,r,"loggedin", "1")
-   session.Set(w,r,"name", "John Doe")
-
+	//set session to loggedin
+	//set userid
+	session.Set(w, r, "loggedin", "1")
+	session.Set(w, r, "name", "John Doe")
 
 	http.Redirect(w, r, "/dashboard", http.StatusFound)
 }

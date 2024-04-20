@@ -36,7 +36,14 @@ func Get(r *http.Request, t string) string {
 	key := os.Getenv("APP_KEY")
 	Store := sessions.NewCookieStore([]byte(key))
 	session, _ := Store.Get(r, "session-name")
-	b := session.Values[t].(string)
+	// Check if the session value exists
+	b, ok := session.Values[t].(string)
+	if !ok || b == "" {
+		// Session value doesn't exist or is an empty string
+		return ""
+	}
+
+	// Session value exists
 	return b
 }
 

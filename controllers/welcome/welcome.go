@@ -16,16 +16,24 @@ func Index(w http.ResponseWriter, r *http.Request) {
 
 func ProfileView(w http.ResponseWriter, r *http.Request) {
 
-   data := map[string]interface{} {
-      "name": session.Get(r,"name"),
-   }
+	//restrict access if not logged in
+	if session.Get(r, "loggedin") != "1" {
+
+		http.Redirect(w, r, "/login", http.StatusFound)
+		return
+	}
+
+	data := map[string]interface{}{
+		"name": session.Get(r, "name"),
+	}
 
 	templates.Render(w, r, "profile", data)
 }
-//Validate
+
+// Validate
 func Profile(w http.ResponseWriter, r *http.Request) {
 
-   w.Write([]byte("validating"))
+	w.Write([]byte("validating"))
 }
 
 func Install(w http.ResponseWriter, r *http.Request) {

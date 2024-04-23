@@ -33,27 +33,32 @@
       <div class="small text-danger">
          {{ .Data.PostDataErrors.email }}
       </div>
-      <label for="title">Numbers</label>
-      <select class="form-select" name="numbers" aria-label="Default select example">
-         <option >Open</option>
-         <option value="1" {{showSelected "1" (printf "%v" .Data.PostData.numbers) }}>1</option>
-         <option value="2" {{showSelected "2" (printf "%v" .Data.PostData.numbers)}}>2</option>
-         <option value="3" {{showSelected "3" (printf "%v" .Data.PostData.numbers)}}>3</option>
-      </select>
-      <label for="title">Animals</label>
       <div>
-         <input type="checkbox" name="animals" value="dog" class="">
-         <label for="the label" class="ml-2">
-         Dog
-         </label>
-         <br>
-         <input type="checkbox" name="animals" value="cat"
-            class="" >
-         <label for="the label" class="ml-2">
-         Cat
-         </label>
+         <label for="title">Numbers</label>
+         <select class="form-select" name="numbers" aria-label="Default select example">
+            <option >Open</option>
+            <option value="1" {{showSelected "1" (printf "%v" .Data.PostData.numbers) }}>1</option>
+            <option value="2" {{showSelected "2" (printf "%v" .Data.PostData.numbers)}}>2</option>
+            <option value="3" {{showSelected "3" (printf "%v" .Data.PostData.numbers)}}>3</option>
+         </select>
       </div>
       <div>
+         <label for="title">Animals</label>
+         <div>
+            <input type="checkbox" name="animals" value="dog" class="">
+            <label for="the label" class="ml-2">
+            Dog
+            </label>
+            <br>
+            <input type="checkbox" name="animals" value="cat"
+               class="" >
+            <label for="the label" class="ml-2">
+            Cat
+            </label>
+         </div>
+      </div>
+      <div>
+         <div>Radio</div>
          <input type="radio" value="c" class=""
          name="foo" {{showChecked "c" (printf "%v" .Data.PostData.foo) }}>
          <label for="c">c </label>

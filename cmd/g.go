@@ -107,6 +107,19 @@ func migrateSql(table string, sql string) {
 	}
 }
 
+func buildRoutes(resource string) string {
+    var sb strings.Builder
+
+    sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s\", %s.Index)\n", resource, resource))
+    sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s/create\", %s.CreateView)\n", resource, resource))
+    sb.WriteString(fmt.Sprintf("\tr.Post(\"/%s/create\", %s.Create)\n", resource, resource))
+    sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s/update/{id}\", %s.UpdateView)\n", resource, resource))
+    sb.WriteString(fmt.Sprintf("\tr.Post(\"/%s/update/{id}\", %s.Update)\n", resource, resource))
+    sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s/delete/{id}\", %s.Destroy)\n", resource, resource))
+
+    return sb.String()
+}
+
 func writeRoutes(table string) {
 
 	existingContent, err := ioutil.ReadFile("routes/routes.go")
@@ -123,7 +136,7 @@ func writeRoutes(table string) {
 	contentStr = strings.Replace(contentStr, "import (", "import ("+newImport, 1)
 
 	// Add a new string before the closing brace
-	newString := "\n\t\"example/newstring\""
+	newString := buildRoutes(table)
 	contentStr = strings.Replace(contentStr, "} //end", newString+"}", 1)
 
 	// Write the updated content back to the file

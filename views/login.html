@@ -1,14 +1,12 @@
 {{ template "_header.html" }}
 <div>
    {{ if .Data.FlashData }}
-   <div class="toasts">
       <div>
          <div class="text-danger">Error</div>
          <div class="text-danger">
             {{ .Data.FlashData }}
          </div>
       </div>
-   </div>
    {{ end }}
    <h4>Login</h4>
    <form method="POST" action="/login">
@@ -35,7 +33,7 @@
       </div>
       <div>
          <button type="submit">
-         Login
+            Submit
          </button>
       </div>
    </form>

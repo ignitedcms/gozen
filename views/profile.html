@@ -1,69 +1,41 @@
 {{ template "_header.html" }}
-<div class="nav bg-white p-6 shadow-sm border-b border-slate-300">
-   <div class="default-container v-a h-e">
-      <div class="font-medium">
-         Dashboard
-      </div>
-      <div>
-         <a href="/profile">profile</a>
-         <a href="/destroy">logout</a>
-      </div>
+<div>
+   Dashboard
+   <div>
+      <a href="/profile">profile</a>
+      <a href="/destroy">logout</a>
    </div>
 </div>
-<div class="gap"></div>
-<div class="default-container">
-
+<div>
    {{ if .Data.FlashData }}
-   <div class="toasts">
-      <toast ref="toast">
-      <div class="p-5">
-         <div class="text-danger dark:text-white">Error</div>
-         <div class="text-danger small dark:text-white">
-            {{ .Data.FlashData }}
-         </div>
+   <div>
+      <div class="text-danger">Error</div>
+      <div class="text-danger">
+         {{ .Data.FlashData }}
       </div>
-      </toast>
    </div>
    {{ end }}
-
-   
-   <div class="row">
-      <div class="col">
-         <h5>Change password</h5>
-         <form action="/password" method="POST">
-            {{.Csrf}}
-            <div class="form-group">
-               <input 
-                 class="form-control" 
-                 type="text"
-                 name="password" 
-                 placeholder="" />
-
-               <div class="small text-danger">{{ .Data.PostDataErrors.password }}</div>
-            </div>
-            
-            <div class="form-group">
-               <button>
-                  submit
-               </button>
-            </div>
-         </form>
+   <h2>Change password</h2>
+   <form action="/password" method="POST">
+      {{.Csrf}}
+      <div>
+         <input
+            class=""
+            type="text"
+            name="password"
+            placeholder="" />
+         <div class=" text-danger">{{ .Data.PostDataErrors.password }}</div>
       </div>
-   </div>
-   <div class="row">
-      <div class="col">
-         <h5>Delete account</h5>
-         <form action="/delete-account" method="POST">
-            {{.Csrf}}
-            
-            <div class="form-group">
-               <button>
-                  submit
-               </button>
-               
-            </div>
-         </form>
-      </div>
-   </div>
+      <button>
+      submit
+      </button>
+   </form>
+   <h2>Delete account</h2>
+   <form action="/delete-account" method="POST">
+      {{.Csrf}}
+      <button>
+      submit
+      </button>
+   </form>
 </div>
 {{ template "_footer.html" }}

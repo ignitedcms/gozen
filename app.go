@@ -115,7 +115,7 @@ func main() {
 	//and serve css and js
 	r.Handle("/resources/*",
 		http.StripPrefix("/resources",
-			http.FileServer(http.Dir("./resources/src/assets"))))
+			http.FileServer(http.Dir("./resources"))))
 
 	// Custom 404 handler
 	r.NotFound(func(w http.ResponseWriter, r *http.Request) {

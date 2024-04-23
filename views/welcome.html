@@ -1,72 +1,53 @@
-{{ template "_header.html" }}
-<div class="h-a lg:bg-[url('/resources/images/graphic.svg')] bg-no-repeat">
-   <dark-mode top="20px"></dark-mode>
-   <div class="px-2 w-[1000px]">
-      
-      <div class="text-2xl lg:text-4xl mt-4 text-black text-center tracking-tighter text-dark">
-         Congratulations it works!
+<!DOCTYPE html>
+<html lang="en">
+
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>title</title>
+
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans&display=swap" rel="stylesheet">
+
+      <style>
+         *{
+            margin:0;
+            padding:0;
+         }
+         body{
+            font-family:'Plus Jakarta Sans';
+            height:100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+         }
+         .mascot{
+            position:absolute;
+            bottom:0;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+         }
+         .title{
+            font-size:48px;
+            color:#DC4F62;
+            display:flex;
+            text-align:center;
+         }
+         .version{
+            color:#666;
+            text-align:center;
+         }
+
+      </style>
+   </head>
+   <body>
+      <div>
+         <div class="title">GOZEN</div>
+         <div class="version">Version 1.0.1</div>
       </div>
-      <div class="text-primary text-4xl text-center mt-4">
-         午前 (Gozen)
-      </div>
-      <div class="text-lg text-muted text-center mt-4 text-dark">
-         The Go full stack framework
-         {{.Csrf}}
-      </div>
-
-      <div class="mt-8 px-4">
-         <div class="shadow-sm bg-white border border-slate-300 rounded-xl overflow-hidden dark:bg-darker dark:border-slate-600">
-            <div class="row">
-               <div class="col m-0   min-h-[150px]  p-8">
-                  <div>
-                     <h5 class="text-black text-dark">Efficient Development</h5>
-                     <div class="text-sm text-dark">
-                        Gozen streamlines development, allowing you to focus on what matters without unnecessary complexities.
-                     </div>
-                     <a href="#" class="mt-2 text-sm text-primary underline">Read more</a>
-                  </div>
-               </div>
-               <div class="col m-0  min-h-[150px] rounded-tr-xl p-8">
-                  <div>
-                     <h5 class="text-black text-dark">Speed and Performance</h5>
-                     <div class="text-sm text-dark">
-                        Experience lightning-fast performance optimized for maximum efficiency, ensuring a seamless user experience.
-                     </div>
-                     <a href="#" class="mt-2 text-sm text-primary underline">Read more</a>
-                  </div>
-
-               </div>
-
-
-            </div>
-            <div class="row">
-               <div class="col m-0  min-h-[150px]  p-8">
-                  <div>
-                     <h5 class="text-black text-dark">Seamless Scalability</h5>
-                     <div class="text-sm text-dark">
-                        Gozen effortlessly scales to meet the demands of your growing user base, adapting to your business needs.
-                     </div>
-                     <a href="#" class="mt-2 text-sm text-primary underline">Read more</a>
-                  </div>
-               </div>
-               <div class="col m-0   min-h-[150px] p-8">
-                  <div>
-                     <h5 class="text-black text-dark">Community-Driven Innovation</h5>
-                     <div class="text-sm text-dark">
-                        Join our open-source community and be part of shaping the future of 
-                        go development. 
-                     </div>
-                     <a href="#" class="mt-2 text-sm text-primary underline">Read more</a>
-                  </div>
-               </div>
-
-
-            </div>
-         </div>
-      </div>
-      
-   </div>
-</div>
-
-{{ template "_footer.html" }}
-
+      <img class="mascot" src="/resources/images/gopher.jpg"></img>
+   </body>
+</html>

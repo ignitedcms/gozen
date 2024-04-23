@@ -37,7 +37,7 @@ func FormValidate(w http.ResponseWriter, r *http.Request) {
 
 	//get checkbox postdata
 	fmt.Println(r.FormValue("numbers"))
-	fmt.Println(r.FormValue("foo"))
+	fmt.Println(r.FormValue("bar"))
 	//we NEED to use just Form for checkboxes
 	arr := r.Form["animals"]
 

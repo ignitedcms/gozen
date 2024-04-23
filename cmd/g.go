@@ -84,8 +84,12 @@ func getFieldType(fieldType string) string {
 		return "INTEGER"
 	case "string":
 		return "VARCHAR(255)"
+	case "text":
+		return "TEXT"
 	case "datetime":
 		return "DATETIME"
+	case "date":
+		return "DATE"
 	default:
 		return fieldType
 	}

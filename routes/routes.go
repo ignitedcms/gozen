@@ -19,6 +19,7 @@ import (
 	"gozen/controllers/mail"
 	"gozen/controllers/upload"
 	"gozen/controllers/welcome"
+	"gozen/controllers/dashboard"
 )
 
 func LoadRoutes(r *chi.Mux) {
@@ -27,15 +28,15 @@ func LoadRoutes(r *chi.Mux) {
 	r.Get("/examples", examples.Index)
 	r.Get("/forms", examples.Form)
 	r.Post("/forms", examples.FormValidate)
-	r.Get("/session", welcome.Session)
-	r.Get("/destroy", welcome.Destroy) // Should be POST request
-	r.Get("/dashboard", welcome.Dashboard)
-	r.Get("/profile", welcome.ProfileView)
-	r.Post("/profile", welcome.Profile)
+	r.Get("/session", dashboard.Session)
+	r.Get("/destroy", dashboard.Destroy) // Should be POST request
+	r.Get("/dashboard", dashboard.Dashboard)
+	r.Get("/profile", dashboard.ProfileView)
+	r.Post("/profile", dashboard.Profile)
 	r.Get("/login", login.Index)
 	r.Post("/login", login.Login)
 	r.Post("/password", login.Password)
-	r.Post("/delete-account", welcome.DeleteAccount)
+	r.Post("/delete-account", dashboard.DeleteAccount)
 
 	r.Get("/hash/{token}", login.ConfirmHash)
 

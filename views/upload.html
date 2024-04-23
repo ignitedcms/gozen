@@ -1,14 +1,11 @@
 {{ template "_header.html" }}
-<div class="">
-   <div class="gap"></div>
-   <div class="default-container">
-      <h4>Simple file upload</h4>
-      <form action="/upload" method="post" enctype="multipart/form-data">
-         {{ .Csrf }}
-
-         <input type="file"  name="file">
-         <input type="submit">
-      </form>
-   </div>
+<div>
+   <h4>Simple file upload</h4>
+   <form action="/upload" method="post" enctype="multipart/form-data">
+      {{ .Csrf }}
+      <input type="file"  name="file">
+      <input type="submit">
+   </form>
 </div>
+
 {{ template "_footer.html" }}

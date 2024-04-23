@@ -8,7 +8,6 @@
       </div>
    </div>
    {{end}}
-   <!--.Data.PostData.name-->
    {{ .Data.Foo }}
    <form action="/forms" method="post">
       {{ .Csrf }}
@@ -18,7 +17,7 @@
          class="form-control"
          name="name"
          value="{{ .Data.PostData.name }}" autocomplete="off"
-         >
+         />
       <div class="small text-danger">
          {{ .Data.PostDataErrors.name }}
       </div>
@@ -29,7 +28,7 @@
          name="email"
          value="{{ .Data.PostData.email }}"
          autocomplete="off"
-         >
+         />
       <div class="small text-danger">
          {{ .Data.PostDataErrors.email }}
       </div>

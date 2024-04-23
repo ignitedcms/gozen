@@ -119,7 +119,7 @@ func writeRoutes(table string) {
 	contentStr := string(existingContent)
 
 	// Add a new import statement
-	newImport := "\n\t\"example/newpackage\""
+	newImport := "\n\t\"gozen/controllers/"+ table +"\""
 	contentStr = strings.Replace(contentStr, "import (", "import ("+newImport, 1)
 
 	// Add a new string before the closing brace

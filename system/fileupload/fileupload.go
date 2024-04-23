@@ -1,4 +1,12 @@
-// fileupload/fileupload.go
+/*                                                                          
+|---------------------------------------------------------------            
+| File upload
+|---------------------------------------------------------------            
+|
+| @license: MIT
+| @version: 1.0
+| @since: 1.0
+*/       
 package fileupload
 
 import (

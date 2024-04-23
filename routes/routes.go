@@ -23,7 +23,6 @@ import (
 
 func LoadRoutes(r *chi.Mux) {
 
-
 	r.Get("/", welcome.Index)
 	r.Get("/examples", examples.Index)
 	r.Get("/forms", examples.Form)

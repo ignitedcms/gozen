@@ -19,7 +19,7 @@ func DeleteAccount(w http.ResponseWriter, r *http.Request) {
 
 	userid := session.Get(r, "userid")
 
-   users.Delete(userid)
+	users.Delete(userid)
 	http.Redirect(w, r, "/", http.StatusFound)
 
 }

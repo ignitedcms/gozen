@@ -10,7 +10,7 @@ import (
 	"gozen/system/templates"
 	"gozen/system/validation"
 	"net/http"
-    "strconv"
+	"strconv"
 )
 
 func ConfirmHash(w http.ResponseWriter, r *http.Request) {
@@ -178,16 +178,15 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 
 	p, _ := hash.HashPassword(password)
 
-   //get the insert id as int64
-   //remember to convert to string to save in session
+	//get the insert id as int64
+	//remember to convert to string to save in session
 	t, _ := users.Create(name, email, p)
 	fmt.Print(t)
 
-   b := strconv.FormatInt(t, 10)
+	b := strconv.FormatInt(t, 10)
 
-   session.Set(w,r,"userid",b)
-   session.Set(w,r,"loggedin","1")
-
+	session.Set(w, r, "userid", b)
+	session.Set(w, r, "loggedin", "1")
 
 	http.Redirect(w, r, "/dashboard", http.StatusFound)
 

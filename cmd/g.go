@@ -296,7 +296,7 @@ func main() {
 
 	// Submit button
 	builder.WriteString("                <div class=\"form-group\">\n")
-	builder.WriteString("                    <button-component variant=\"primary\">Save</button-component>\n")
+	builder.WriteString("                    <button>Save</button>\n")
 	builder.WriteString("                </div>\n")
 
 	builder.WriteString("            </form>\n")
@@ -353,7 +353,7 @@ func main() {
 
 	// Submit button
 	builder.WriteString("                <div class=\"form-group\">\n")
-	builder.WriteString("                    <button-component variant=\"primary\">Update</button-component>\n")
+	builder.WriteString("                    <button>Update</button>\n")
 	builder.WriteString("                </div>\n")
 
 	builder.WriteString("            </form>\n")

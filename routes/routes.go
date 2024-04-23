@@ -25,21 +25,22 @@ import (
 func LoadRoutes(r *chi.Mux) {
 
 	r.Get("/", welcome.Index)
+
 	r.Get("/examples", examples.Index)
 	r.Get("/forms", examples.Form)
 	r.Post("/forms", examples.FormValidate)
+
 	r.Get("/session", dashboard.Session)
 	r.Get("/destroy", dashboard.Destroy) // Should be POST request
 	r.Get("/dashboard", dashboard.Dashboard)
 	r.Get("/profile", dashboard.ProfileView)
 	r.Post("/profile", dashboard.Profile)
+	r.Post("/delete-account", dashboard.DeleteAccount)
+
 	r.Get("/login", login.Index)
 	r.Post("/login", login.Login)
 	r.Post("/password", login.Password)
-	r.Post("/delete-account", dashboard.DeleteAccount)
-
 	r.Get("/hash/{token}", login.ConfirmHash)
-
 	r.Get("/signup", login.SignupView)
 	r.Post("/signup", login.Signup)
 	r.Get("/forgot", login.ForgotView)

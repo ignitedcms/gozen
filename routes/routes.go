@@ -14,12 +14,12 @@ package routes
 
 import (
 	"github.com/go-chi/chi/v5"
+	"gozen/controllers/dashboard"
 	"gozen/controllers/examples"
 	"gozen/controllers/login"
 	"gozen/controllers/mail"
 	"gozen/controllers/upload"
 	"gozen/controllers/welcome"
-	"gozen/controllers/dashboard"
 )
 
 func LoadRoutes(r *chi.Mux) {

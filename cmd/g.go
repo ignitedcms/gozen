@@ -3,10 +3,10 @@
 package main
 
 import (
-	//"flag"
 	"fmt"
 	"github.com/joho/godotenv"
 	"gozen/db"
+	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -107,6 +107,36 @@ func migrateSql(table string, sql string) {
 	}
 }
 
+func writeRoutes(table string) {
+
+	existingContent, err := ioutil.ReadFile("routes/routes.go")
+	if err != nil {
+		fmt.Println("Error reading file:", err)
+		return
+	}
+
+	// Convert the byte slice to a string
+	contentStr := string(existingContent)
+
+	// Add a new import statement
+	newImport := "\n\t\"example/newpackage\""
+	contentStr = strings.Replace(contentStr, "import (", "import ("+newImport, 1)
+
+	// Add a new string before the closing brace
+	newString := "\n\t\"example/newstring\""
+	contentStr = strings.Replace(contentStr, "}", newString+"}", 1)
+
+	// Write the updated content back to the file
+	err = ioutil.WriteFile("routes.go", []byte(contentStr), 0644)
+	if err != nil {
+		fmt.Println("Error writing file:", err)
+		return
+	}
+
+	fmt.Println("File overwritten successfully!")
+
+}
+
 func main() {
 
 	if len(os.Args) < 4 {
@@ -117,6 +147,12 @@ func main() {
 	table := os.Args[1]
 	structName := os.Args[2]
 	fieldsStr := os.Args[3]
+
+	//Here we will write to the routes file
+
+	writeRoutes(table)
+
+	//End
 
 	fields := parseFields(fieldsStr)
 	fields2 := parseFields2(fieldsStr) //for migrations

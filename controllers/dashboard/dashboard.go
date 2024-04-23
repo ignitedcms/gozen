@@ -38,7 +38,6 @@ func Profile(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("validating"))
 }
 
-
 func Dashboard(w http.ResponseWriter, r *http.Request) {
 
 	if session.Get(r, "loggedin") != "1" {
@@ -66,6 +65,3 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 
 	http.Redirect(w, r, "/login", http.StatusFound)
 }
-
-
-

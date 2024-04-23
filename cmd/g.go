@@ -124,10 +124,10 @@ func writeRoutes(table string) {
 
 	// Add a new string before the closing brace
 	newString := "\n\t\"example/newstring\""
-	contentStr = strings.Replace(contentStr, "}", newString+"}", 1)
+	contentStr = strings.Replace(contentStr, "} //end", newString+"}", 1)
 
 	// Write the updated content back to the file
-	err = ioutil.WriteFile("routes.go", []byte(contentStr), 0644)
+	err = ioutil.WriteFile("routes/routes.go", []byte(contentStr), 0644)
 	if err != nil {
 		fmt.Println("Error writing file:", err)
 		return

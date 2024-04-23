@@ -60,4 +60,5 @@ func LoadRoutes(r *chi.Mux) {
 	//r.Get("/users/update/{id}", users.UpdateView)
 	//r.Post("/users/update/{id}", users.Update)
 	//r.Get("/users/delete/{id}", users.Destroy)
-}
+
+} //end

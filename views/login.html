@@ -1,59 +1,46 @@
 {{ template "_header.html" }}
-<div class="gap"></div>
-<div class="gap"></div>
-<div class="small-container">
+<div>
    {{ if .Data.FlashData }}
    <div class="toasts">
-      <toast ref="toast">
-      <div class="p-5">
-         <div class="text-danger dark:text-white">Error</div>
-         <div class="text-danger small dark:text-white">
+      <div>
+         <div class="text-danger">Error</div>
+         <div class="text-danger">
             {{ .Data.FlashData }}
          </div>
       </div>
-      </toast>
    </div>
    {{ end }}
-   <div class="panel">
-      <div class="row">
-         <div class="col">
-            <h4 class="text-center">Login</h4>
-            <form method="POST" action="/login">
-               {{ .Csrf }}
-               <div class="form-group">
-                  <label for="title">Email</label>
-                  <div class="small text-muted">Enter a valid email address</div>
-                  <input 
-                       class="form-control" 
-                       type="text"
-                       name="email" 
-                       value="{{ .Data.PostData.email }}"
-                       placeholder="" />
-                  <div class="small text-danger">{{ .Data.PostDataErrors.email }}</div>
-               </div>
-               <div class="form-group">
-                  <label for="title">password</label>
-                  <div class="small text-muted">password</div>
-                    <input
-                     class="form-control"
-                     type="password"
-                     name="password"
-                     placeholder="" />
-
-               </div>
-               <div class="form-group">
-                  <button type="submit">
-                     Login
-                  </button>
-                  
-               </div>
-            </form>
-         </div>
+   <h4>Login</h4>
+   <form method="POST" action="/login">
+      {{ .Csrf }}
+      <div>
+         <label for="email">Email</label>
+         <div >Enter a valid email address</div>
+         <input
+            class=""
+            type="text"
+            name="email"
+            value="{{ .Data.PostData.email }}"
+            placeholder="" />
+         <div class="text-danger">{{ .Data.PostDataErrors.email }}</div>
       </div>
-      <div class="text-center">
-         <a href="/forgot" class="text-primary underline">Forgot password</a>
+      <div>
+         <label for="password">password</label>
+         <div>password</div>
+         <input
+            class=""
+            type="password"
+            name="password"
+            placeholder="" />
       </div>
+      <div>
+         <button type="submit">
+         Login
+         </button>
+      </div>
+   </form>
+   <div>
+      <a href="/forgot">Forgot password</a>
    </div>
-
 </div>
 {{ template "_footer.html" }}

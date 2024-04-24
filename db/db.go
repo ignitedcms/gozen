@@ -16,6 +16,7 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql" // MySQL driver
+   _ "github.com/mattn/go-sqlite3" // Import the SQLite3 driver
 	"log"
 	"os"
 	"time"
@@ -52,6 +53,38 @@ func InitDB() {
 	createTables2()
 	insertMigrations()
 }
+
+func InitDB2(){
+   var err error
+   DB, err = sql.Open("sqlite3", "database.db")
+    if err != nil {
+        log.Fatal(err)
+    }
+    //defer DB.Close()
+
+    // Create the "user" table
+    createTableQuery := `
+
+   CREATE TABLE IF NOT EXISTS users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name VARCHAR(255),
+      email VARCHAR(255),
+      password VARCHAR(512),
+      token VARCHAR(512),
+      created_at DATETIME,
+      updated_at DATETIME  
+   )
+    `
+
+    _, err = DB.Exec(createTableQuery)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    fmt.Println("Table 'user' created successfully!")
+}
+
+
 
 // Auto increment needs underscore!
 // This probably needs to be refactored

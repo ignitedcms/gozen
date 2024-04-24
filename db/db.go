@@ -81,7 +81,7 @@ func InitDB2(){
         log.Fatal(err)
     }
 
-    fmt.Println("Table 'user' created successfully!")
+    fmt.Println("Table 'users' created successfully!")
 }
 
 

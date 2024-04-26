@@ -86,8 +86,8 @@ func (v *Validator) MaxLength(field, value string, maxLength int) *Validator {
 
 // This broken use mail.ParseAddress(email)
 func (v *Validator) Email(field, value string) *Validator {
-	emailRegex := regexp.MustCompile(`^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$`)
-	if !emailRegex.MatchString(value) {
+	_, err := mail.ParseAddress(value)
+	if err != nil {
 		v.errors = append(v.errors, ValidationError{Field: field, Message: "This field must be a valid email address."})
 	}
 	return v
@@ -128,6 +128,14 @@ func (v *Validator) Float(field string, value string) *Validator {
 	_, err := strconv.ParseFloat(value, 64)
 	if err != nil {
 		v.errors = append(v.errors, ValidationError{Field: field, Message: "This field must be a decimal number."})
+	}
+	return v
+}
+
+func (v *Validator) Date(field, value string) *Validator {
+	_, err := time.Parse("2006-01-02", value)
+	if err != nil {
+		v.errors = append(v.errors, ValidationError{Field: field, Message: "This field must be a valid date in the format YYYY-MM-DD."})
 	}
 	return v
 }

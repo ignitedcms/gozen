@@ -140,6 +140,46 @@ func (v *Validator) Date(field, value string) *Validator {
 	return v
 }
 
+func (v *Validator) DateLessThan(field, value, maxDate string) *Validator {
+	date, err := time.Parse("2006-01-02", value)
+	if err != nil {
+		v.errors = append(v.errors, ValidationError{Field: field, Message: "This field must be a valid date in the format YYYY-MM-DD."})
+		return v
+	}
+
+	max, err := time.Parse("2006-01-02", maxDate)
+	if err != nil {
+		v.errors = append(v.errors, ValidationError{Field: field, Message: "Invalid maximum date format. Expected YYYY-MM-DD."})
+		return v
+	}
+
+	if date.After(max) {
+		v.errors = append(v.errors, ValidationError{Field: field, Message: fmt.Sprintf("This date must be less than %s.", maxDate)})
+	}
+
+	return v
+}
+
+func (v *Validator) DateGreaterThan(field, value, minDate string) *Validator {
+	date, err := time.Parse("2006-01-02", value)
+	if err != nil {
+		v.errors = append(v.errors, ValidationError{Field: field, Message: "This field must be a valid date in the format YYYY-MM-DD."})
+		return v
+	}
+
+	min, err := time.Parse("2006-01-02", minDate)
+	if err != nil {
+		v.errors = append(v.errors, ValidationError{Field: field, Message: "Invalid minimum date format. Expected YYYY-MM-DD."})
+		return v
+	}
+
+	if date.Before(min) {
+		v.errors = append(v.errors, ValidationError{Field: field, Message: fmt.Sprintf("This date must be greater than %s.", minDate)})
+	}
+
+	return v
+}
+
 func (v *Validator) HasErrors() bool {
 	return len(v.errors) > 0
 }

@@ -33,7 +33,7 @@ func UploadFile(w http.ResponseWriter, r *http.Request) {
 	randomFilename, err := fileupload.New().
 		File(file, handler).
 		MaxFileSize("5mb"). // 5 MB limit
-		AllowedTypes("image/jpeg", "image/png", "application/pdf", "application/zip", "svg", "image/svg+xml", "text/xml").
+		AllowedTypes("image/jpeg", "image/png", "application/pdf", "application/zip",  "image/svg+xml", "text/xml").
 		DestinationFolder("./uploads").
 		Upload()
 

@@ -14,11 +14,12 @@ import (
 	"github.com/google/uuid"
 	"io"
 	"mime/multipart"
-	"net/http"
+	//"net/http"
 	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
+	"mime"
 )
 
 // FileUpload provides methods for handling file uploads
@@ -121,16 +122,10 @@ func (fu *FileUpload) Upload() (string, error) {
 
 func (fu *FileUpload) isValidFileType() bool {
 	// Detect the MIME type of the file
-	buffer := make([]byte, 512)
-	_, err := fu.file.Read(buffer)
-	if err != nil {
-		return false
-	}
-	_, err = fu.file.Seek(0, io.SeekStart)
-	if err != nil {
-		return false
-	}
-	mimeType := http.DetectContentType(buffer)
+   ext := filepath.Ext(fu.handler.Filename)
+
+    // Detect the MIME type based on the file extension
+    mimeType := mime.TypeByExtension(ext)
 
 	// Check if the MIME type is allowed
 	for _, allowedType := range fu.allowedTypes {

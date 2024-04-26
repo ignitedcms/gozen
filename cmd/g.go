@@ -90,6 +90,16 @@ func getFieldType(fieldType string) string {
 		return "DATETIME"
 	case "date":
 		return "DATE"
+	case "boolean":
+		return "BOOLEAN"
+	case "time":
+		return "TIME"
+	case "timestamp":
+		return "TIMESTAMP"
+	case "float":
+		return "FLOAT"
+	case "decimal":
+		return "DECIMAL"
 	default:
 		return fieldType
 	}

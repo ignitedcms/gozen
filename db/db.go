@@ -164,6 +164,36 @@ func loadPostgres() {
 
 func loadSqlsvr() {
 
+	dbHost := os.Getenv("DB_HOST")
+	dbUser := os.Getenv("DB_USER")
+	dbPort := os.Getenv("DB_PORT")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
+
+   connStr := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%s;database=%s",dbHost,dbUser,dbPassword,dbPort,dbName)
+	DB, err := sql.Open("sqlserver", connStr)
+	if err != nil {
+		log.Fatal("Error connecting to database: ", err.Error())
+	}
+
+    createTableQuery := `
+        CREATE TABLE IF NOT EXISTS dbo.users (
+            id INT IDENTITY(1,1) PRIMARY KEY,
+            name NVARCHAR(255),
+            email NVARCHAR(255),
+            password NVARCHAR(512),
+            token NVARCHAR(512),
+            created_at DATETIME,
+            updated_at DATETIME  
+        );
+    `
+
+    _, err = DB.Exec(createTableQuery)
+    if err != nil {
+        panic(err)
+    }
+
+    fmt.Println("Using Sqlsvr")
 }
 
 /*

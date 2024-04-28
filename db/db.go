@@ -17,6 +17,8 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql" // MySQL driver
    _ "github.com/mattn/go-sqlite3" // Import the SQLite3 driver
+   _ "github.com/denisenkom/go-mssqldb" // Import the microsoft sqlsvr driver
+   _ "github.com/lib/pq" // Import the postgres driver
 	"log"
 	"os"
 	"time"

@@ -34,13 +34,13 @@ func InitDB() {
 
 	switch dbConnection {
 	case "sqlite":
-		//do something
+      loadSqlite()
 	case "mysql":
-		//do something
+      loadMysql()
 	case "pgsql":
-		//do something
+      loadPostgres()
 	case "sqlsvr":
-		//do something
+      loadSqlsvr()
 	default:
 		fmt.Print("Error database driver not recognised")
 	}
@@ -121,7 +121,7 @@ func loadMysql() {
 		return
 
 	}
-	fmt.Println("Using sqlite")
+	fmt.Println("Using mysql")
 }
 
 func loadPostgres() {

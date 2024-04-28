@@ -1,3 +1,16 @@
+/*                                                                          
+|---------------------------------------------------------------            
+| dbconvertor
+|---------------------------------------------------------------            
+|
+| A utility library for handling the different grammers
+| of the four major database engines, mysql, pgsql, sqlite, sqlsvr
+| 
+|
+| @license: MIT
+| @version: 1.0
+| @since: 1.0
+*/       
 package dbconvertor
 
 import (

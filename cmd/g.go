@@ -122,16 +122,16 @@ func migrateSql(table string, sql string) {
 }
 
 func buildRoutes(resource string) string {
-    var sb strings.Builder
+	var sb strings.Builder
 
-    sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s\", %s.Index)\n", resource, resource))
-    sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s/create\", %s.CreateView)\n", resource, resource))
-    sb.WriteString(fmt.Sprintf("\tr.Post(\"/%s/create\", %s.Create)\n", resource, resource))
-    sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s/update/{id}\", %s.UpdateView)\n", resource, resource))
-    sb.WriteString(fmt.Sprintf("\tr.Post(\"/%s/update/{id}\", %s.Update)\n", resource, resource))
-    sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s/delete/{id}\", %s.Destroy)\n", resource, resource))
+	sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s\", %s.Index)\n", resource, resource))
+	sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s/create\", %s.CreateView)\n", resource, resource))
+	sb.WriteString(fmt.Sprintf("\tr.Post(\"/%s/create\", %s.Create)\n", resource, resource))
+	sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s/update/{id}\", %s.UpdateView)\n", resource, resource))
+	sb.WriteString(fmt.Sprintf("\tr.Post(\"/%s/update/{id}\", %s.Update)\n", resource, resource))
+	sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s/delete/{id}\", %s.Destroy)\n", resource, resource))
 
-    return sb.String()
+	return sb.String()
 }
 
 func writeRoutes(table string) {
@@ -146,7 +146,7 @@ func writeRoutes(table string) {
 	contentStr := string(existingContent)
 
 	// Add a new import statement
-	newImport := "\n\t\"gozen/controllers/"+ table +"\""
+	newImport := "\n\t\"gozen/controllers/" + table + "\""
 	contentStr = strings.Replace(contentStr, "import (", "import ("+newImport, 1)
 
 	// Add a new string before the closing brace

@@ -1,25 +1,25 @@
-/*                                                                          
-|---------------------------------------------------------------            
+/*
+|---------------------------------------------------------------
 | Inspire
-|---------------------------------------------------------------            
+|---------------------------------------------------------------
 |
-| Generates a random inspirational quote 
-| 
+| Generates a random inspirational quote
+|
 |
 | @license: MIT
 | @version: 1.0
 | @since: 1.0
-*/       
+*/
 package main
 
-import(
-   "fmt"
-   "math/rand"
-   "time"
+import (
+	"fmt"
+	"math/rand"
+	"time"
 )
 
-func main(){
-   // Slice of quotes
+func main() {
+	// Slice of quotes
 	quotes := []string{
 		"The only way to do great work is to love what you do. - Steve Jobs",
 		"Believe you can and you're halfway there. - Theodore Roosevelt",

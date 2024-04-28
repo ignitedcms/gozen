@@ -84,7 +84,7 @@ func main() {
 	// Get environment variables
 	port := os.Getenv("APP_PORT")
 
-	db.InitDB2()
+	db.InitDB()
 
 	err = templates.LoadTemplates()
 	if err != nil {

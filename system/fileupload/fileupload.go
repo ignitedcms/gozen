@@ -15,11 +15,11 @@ import (
 	"io"
 	"mime/multipart"
 	//"net/http"
+	"mime"
 	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
-	"mime"
 )
 
 // FileUpload provides methods for handling file uploads
@@ -122,10 +122,10 @@ func (fu *FileUpload) Upload() (string, error) {
 
 func (fu *FileUpload) isValidFileType() bool {
 	// Detect the MIME type of the file
-   ext := filepath.Ext(fu.handler.Filename)
+	ext := filepath.Ext(fu.handler.Filename)
 
-    // Detect the MIME type based on the file extension
-    mimeType := mime.TypeByExtension(ext)
+	// Detect the MIME type based on the file extension
+	mimeType := mime.TypeByExtension(ext)
 
 	// Check if the MIME type is allowed
 	for _, allowedType := range fu.allowedTypes {

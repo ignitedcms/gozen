@@ -15,11 +15,11 @@ package validation
 import (
 	"fmt"
 	"gozen/db"
+	"net/mail"
 	"regexp"
 	"strconv"
 	"strings"
 	"time"
-	"net/mail"
 )
 
 type ValidationError struct {

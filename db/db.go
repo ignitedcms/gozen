@@ -3,7 +3,8 @@
 | Database setup
 |---------------------------------------------------------------
 |
-| Test database connection (mySQL only)
+| Added support for the main four db drivers
+| MySQL, SQLite, MsSQl, Postgres
 | If necessary load db setup
 |
 | @license: MIT
@@ -15,18 +16,69 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql" // MySQL driver
-   _ "github.com/mattn/go-sqlite3" // Import the SQLite3 driver
-   _ "github.com/denisenkom/go-mssqldb" // Import the microsoft sqlsvr driver
-   _ "github.com/lib/pq" // Import the postgres driver
+	_ "github.com/denisenkom/go-mssqldb" // Import the microsoft sqlsvr driver
+	_ "github.com/go-sql-driver/mysql"   // MySQL driver
+	_ "github.com/lib/pq"                // Import the postgres driver
+	_ "github.com/mattn/go-sqlite3"      // Import the SQLite3 driver
 	"log"
 	"os"
-	"time"
+	//"time"
 )
 
 var DB *sql.DB // Exported database connection that can be used globally
 
 func InitDB() {
+
+	//First let's set the sql driver as specified from the .env file
+	dbConnection := os.Getenv("DB_CONNECTION")
+
+	switch dbConnection {
+	case "sqlite":
+		//do something
+	case "mysql":
+		//do something
+	case "pgsql":
+		//do something
+	case "sqlsvr":
+		//do something
+	default:
+		fmt.Print("Error database driver not recognised")
+	}
+
+}
+
+func loadSqlite() {
+
+	var err error
+	DB, err = sql.Open("sqlite3", "database.db")
+	if err != nil {
+		log.Fatal(err)
+	}
+	//defer DB.Close()
+
+	// Create the "user" table
+	createTableQuery := `
+
+   CREATE TABLE IF NOT EXISTS users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name VARCHAR(255),
+      email VARCHAR(255),
+      password VARCHAR(512),
+      token VARCHAR(512),
+      created_at DATETIME,
+      updated_at DATETIME  
+   )
+    `
+	_, err = DB.Exec(createTableQuery)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Using sqlite")
+
+}
+
+func loadMysql() {
 
 	dbHost := os.Getenv("DB_HOST")
 	dbUser := os.Getenv("DB_USER")
@@ -51,48 +103,6 @@ func InitDB() {
 		log.Fatalf("Failed to ping database: %v", err)
 	}
 
-	createTables()
-	createTables2()
-	insertMigrations()
-}
-
-func InitDB2(){
-   var err error
-   DB, err = sql.Open("sqlite3", "database.db")
-    if err != nil {
-        log.Fatal(err)
-    }
-    //defer DB.Close()
-
-    // Create the "user" table
-    createTableQuery := `
-
-   CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name VARCHAR(255),
-      email VARCHAR(255),
-      password VARCHAR(512),
-      token VARCHAR(512),
-      created_at DATETIME,
-      updated_at DATETIME  
-   )
-    `
-
-    _, err = DB.Exec(createTableQuery)
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    fmt.Println("Table 'users' created successfully!")
-}
-
-
-
-// Auto increment needs underscore!
-// This probably needs to be refactored
-// to somewhere else
-func createTables() {
-
 	createTable := `
    CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -104,14 +114,25 @@ func createTables() {
       updated_at DATETIME  
    )
    `
-	_, err := DB.Exec(createTable)
+	_, err = DB.Exec(createTable)
 
 	if err != nil {
 		log.Println("Error creating table:", err)
+		return
 
 	}
+	fmt.Println("Using sqlite")
 }
 
+func loadPostgres() {
+
+}
+
+func loadSqlsvr() {
+
+}
+
+/*
 func createTables2() {
 
 	createTable := `
@@ -119,7 +140,7 @@ func createTables2() {
       id INTEGER PRIMARY KEY AUTO_INCREMENT,
       table_name VARCHAR(255),
       created_at DATETIME,
-      updated_at DATETIME  
+      updated_at DATETIME
    )
    `
 	_, err := DB.Exec(createTable)
@@ -157,3 +178,4 @@ func insertMigrations() {
 		fmt.Println("Row already exists!")
 	}
 }
+*/

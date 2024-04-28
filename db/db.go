@@ -126,6 +126,40 @@ func loadMysql() {
 
 func loadPostgres() {
 
+	dbHost := os.Getenv("DB_HOST")
+	dbUser := os.Getenv("DB_USER")
+	dbPort := os.Getenv("DB_PORT")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
+
+   connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", dbHost, dbPort, dbUser, dbPassword, dbName)
+
+    // Open the connection
+    DB, err := sql.Open("postgres", connStr)
+    if err != nil {
+        panic(err)
+    }
+    //defer db.Close()
+
+    // Create a table
+    createTableQuery := `
+        CREATE TABLE IF NOT EXISTS users (
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(255),
+            email VARCHAR(255),
+            password VARCHAR(512),
+            token VARCHAR(512),
+            created_at TIMESTAMP,
+            updated_at TIMESTAMP  
+        );
+    `
+
+    _, err = DB.Exec(createTableQuery)
+    if err != nil {
+        panic(err)
+    }
+
+    fmt.Println("Using Postgres")
 }
 
 func loadSqlsvr() {

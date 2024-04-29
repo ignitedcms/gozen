@@ -135,7 +135,8 @@ func loadPostgres() {
    connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", dbHost, dbPort, dbUser, dbPassword, dbName)
 
     // Open the connection
-    DB, err := sql.Open("postgres", connStr)
+	 var err error
+    DB, err = sql.Open("postgres", connStr)
     if err != nil {
         panic(err)
     }
@@ -171,7 +172,10 @@ func loadSqlsvr() {
 	dbName := os.Getenv("DB_NAME")
 
    connStr := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%s;database=%s",dbHost,dbUser,dbPassword,dbPort,dbName)
-	DB, err := sql.Open("sqlserver", connStr)
+
+   // Open the connection
+	var err error
+	DB, err = sql.Open("sqlserver", connStr)
 	if err != nil {
 		log.Fatal("Error connecting to database: ", err.Error())
 	}

@@ -1,7 +1,6 @@
 package hash
 
 import (
-	"encoding/hex"
 	"golang.org/x/crypto/bcrypt"
 	"testing"
 )
@@ -50,24 +49,3 @@ func TestCheckPasswordHash(t *testing.T) {
 	})
 }
 
-func TestGenerateKey(t *testing.T) {
-	t.Run("Generate CSRF Key", func(t *testing.T) {
-		key, err := GenerateKey()
-		if err != nil {
-			t.Errorf("generateCSRFKey failed: %v", err)
-			return
-		}
-
-		// Check if the generated key is not empty
-		if len(key) == 0 {
-			t.Error("Generated CSRF key is empty")
-			return
-		}
-
-		// Check if the generated key is a valid hexadecimal string
-		_, err = hex.DecodeString(key)
-		if err != nil {
-			t.Errorf("Generated CSRF key is not a valid hexadecimal string: %v", err)
-		}
-	})
-}

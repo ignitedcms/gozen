@@ -16,7 +16,7 @@ package hash
 
 import (
 	"crypto/rand"
-	"encoding/hex"
+    "encoding/base64"
 	"golang.org/x/crypto/bcrypt"
 	"math/big"
 )
@@ -31,14 +31,13 @@ func CheckPasswordHash(password, hash string) bool {
 	return err == nil
 }
 
-// generate 32 byte key for sessions and csrf
-func GenerateKey() (string, error) {
-	key := make([]byte, 32) // 32 bytes = 256 bits
-	_, err := rand.Read(key)
+func GenerateKey(length int) (string, error) {
+	bytes := make([]byte, length)
+	_, err := rand.Read(bytes)
 	if err != nil {
 		return "", err
 	}
-	return hex.EncodeToString(key), nil
+	return base64.StdEncoding.EncodeToString(bytes), nil
 }
 
 func RandomString() string {

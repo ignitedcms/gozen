@@ -48,4 +48,3 @@ func TestCheckPasswordHash(t *testing.T) {
 		}
 	})
 }
-

@@ -16,7 +16,7 @@ package hash
 
 import (
 	"crypto/rand"
-    "encoding/base64"
+	"encoding/base64"
 	"golang.org/x/crypto/bcrypt"
 	"math/big"
 )

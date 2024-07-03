@@ -22,7 +22,7 @@ import (
 func main() {
 	key, err := hash.GenerateKey(32)
 	if err != nil {
-		fmt.Print("erro")
+		fmt.Print("An error occured")
 	}
 	fmt.Print(key)
 }

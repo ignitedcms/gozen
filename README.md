@@ -25,7 +25,8 @@ Gozen only relies on 'go-chi' and a few 'gorilla' repositories
 
 ### Installation
 Please ensure you have at least go version 1.22
-Git clone the repository
+
+First Git clone the repository
 
 ```
 go run -v .

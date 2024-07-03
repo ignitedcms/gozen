@@ -1,8 +1,8 @@
 # Gozen
 
-<img src="https://github.com/ignitedcms/gozen/blob/main/resources/images/goph.svg" width="200">
+<img src="https://github.com/ignitedcms/gozen/blob/main/resources/images/goph.svg" width="250">
 
-Gozen full stack framework for Go with a ridiculously low dependency chain.
+Gozen is full stack framework for Golang with a ridiculously low dependency chain.
 
 ## About
 Go developers are traditionally very picky when it comes to what and what 

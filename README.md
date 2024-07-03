@@ -23,3 +23,17 @@ sql builders, cors, testing, csrf protection, flash data, file uploads
 ### Small dependency chain
 Gozen only relies on 'go-chi' and a few 'gorilla' repositories
 
+### Installation
+Please ensure you have at least go version 1.22
+Git clone the repository
+
+```
+go run -v .
+```
+
+Please note, it may take some time to download and compile the initial repository.
+It can take upto 5 minutes. Please be patient. Subsequent execution will be fast,
+typically less than 3 seconds.
+
+We recommend using 'go air' if you wish to do continuous development with hotreloading.
+

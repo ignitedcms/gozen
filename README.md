@@ -26,7 +26,7 @@ Gozen only relies on 'go-chi' and a few 'gorilla' repositories
 ### Installation
 Please ensure you have at least go version 1.22
 
-First Git clone the repository
+First Git clone the repository, then cd into that directory and run
 
 ```
 go run -v .
@@ -36,7 +36,13 @@ Please note, it may take some time to download and compile the initial repositor
 It can take upto 5 minutes. Please be patient. Subsequent execution will be fast,
 typically less than 3 seconds.
 
-We recommend using 'go air' if you wish to do continuous development with hotreloading.
+This will spin up a server on
+
+```
+http://localhost:3000
+```
+
+We recommend using [Go Air](https://github.com/air-verse/air) if you wish to do continuous development with hotreloading.
 
 After, your first compilation use
 

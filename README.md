@@ -37,3 +37,8 @@ typically less than 3 seconds.
 
 We recommend using 'go air' if you wish to do continuous development with hotreloading.
 
+After, your first compilation use
+
+```
+air app.go
+```

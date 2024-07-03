@@ -1,6 +1,6 @@
 # Gozen
 
-<img src="https://github.com/ignitedcms/gozen/blob/main/resources/images/goph.svg">
+<img src="https://github.com/ignitedcms/gozen/blob/main/resources/images/goph.svg" width="200">
 
 Gozen full stack framework for Go with a ridiculously low dependency chain.
 

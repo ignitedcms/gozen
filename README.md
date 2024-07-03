@@ -1,5 +1,8 @@
 # Gozen
 
+![Alt text](https://github.com/ignitedcms/gozen/blob/main/resources/images/goph.svg)
+<img src="https://github.com/ignitedcms/gozen/blob/main/resources/images/goph.svg">
+
 Gozen full stack framework for Go with a ridiculously low dependency chain.
 
 ## About
@@ -9,5 +12,11 @@ a super lightweight Go router and a few Gorilla pacakges.
 Zero ORMs or any other third party libraries. Ensuring Gozen
 is lightweight and giving you confidence that things won't break in the future.
 
-![Alt text](test)
-<img src="https://github.com/ignitedcms/gozen/blob/main/resources/images/goph.svg">
+### Features
+Scaffolding, middleware, templating, controllers, models, emails,
+authentication, form validation, web sockets, sessions, rate limiting,
+sql builders, cors, testing, csrf protection, flash data, file uploads
+
+### Small dependency chain
+Gozen only relies on 'go-chi' and a few 'gorilla' repositories
+

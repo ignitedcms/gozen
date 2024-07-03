@@ -35,13 +35,13 @@ func InitDB() {
 
 	switch dbConnection {
 	case "sqlite":
-      loadSqlite()
+		loadSqlite()
 	case "mysql":
-      loadMysql()
+		loadMysql()
 	case "pgsql":
-      loadPostgres()
+		loadPostgres()
 	case "sqlsvr":
-      loadSqlsvr()
+		loadSqlsvr()
 	default:
 		fmt.Print("Error database driver not recognised")
 	}
@@ -56,7 +56,6 @@ func loadSqlite() {
 		log.Fatal(err)
 	}
 	//defer DB.Close()
-
 
 	fmt.Println("Using sqlite")
 
@@ -98,17 +97,17 @@ func loadPostgres() {
 	dbPassword := os.Getenv("DB_PASSWORD")
 	dbName := os.Getenv("DB_NAME")
 
-   connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", dbHost, dbPort, dbUser, dbPassword, dbName)
+	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", dbHost, dbPort, dbUser, dbPassword, dbName)
 
-    // Open the connection
-	 var err error
-    DB, err = sql.Open("postgres", connStr)
-    if err != nil {
-        panic(err)
-    }
-    //defer db.Close()
+	// Open the connection
+	var err error
+	DB, err = sql.Open("postgres", connStr)
+	if err != nil {
+		panic(err)
+	}
+	//defer db.Close()
 
-    fmt.Println("Using Postgres")
+	fmt.Println("Using Postgres")
 }
 
 func loadSqlsvr() {
@@ -119,16 +118,14 @@ func loadSqlsvr() {
 	dbPassword := os.Getenv("DB_PASSWORD")
 	dbName := os.Getenv("DB_NAME")
 
-   connStr := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%s;database=%s",dbHost,dbUser,dbPassword,dbPort,dbName)
+	connStr := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%s;database=%s", dbHost, dbUser, dbPassword, dbPort, dbName)
 
-   // Open the connection
+	// Open the connection
 	var err error
 	DB, err = sql.Open("sqlserver", connStr)
 	if err != nil {
 		log.Fatal("Error connecting to database: ", err.Error())
 	}
 
-
-    fmt.Println("Using Sqlsvr")
+	fmt.Println("Using Sqlsvr")
 }
-

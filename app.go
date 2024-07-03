@@ -28,7 +28,6 @@ import (
 	"os"
 )
 
-
 func main() {
 
 	// Load environment variables from .env file
@@ -63,7 +62,6 @@ func main() {
 
 	//Use Gorilla CSRF middleware
 	r.Use(csrfMiddleware)
-
 
 	//create an alias to the resources
 	//and serve css and js

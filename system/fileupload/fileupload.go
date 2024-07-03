@@ -1,6 +1,6 @@
 /*
 |---------------------------------------------------------------
-| File upload
+| fileupload
 |---------------------------------------------------------------
 |
 | A file utility to handle uploads, set upload directory,

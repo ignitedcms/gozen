@@ -1,16 +1,16 @@
-/*                                                                          
-|---------------------------------------------------------------            
+/*
+|---------------------------------------------------------------
 | Gozen command line scaffolding utility
-|---------------------------------------------------------------            
+|---------------------------------------------------------------
 |
-| Generates crud 
-| 
+| Generates crud
+|
 | @author: IgnitedCMS
 | @license: MIT
 | @version: 1.0
-| @since: 1.0 
+| @since: 1.0
 |
-*/       
+*/
 // go run % students student name:string,email:string
 // omit the id,created_at,updated_at as these are generated automatically
 package main

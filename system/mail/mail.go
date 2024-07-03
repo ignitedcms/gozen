@@ -1,6 +1,6 @@
 /*
 |---------------------------------------------------------------
-| Mail helper
+| Mail
 |---------------------------------------------------------------
 |
 | Mail utility helper file for easily configuring your email

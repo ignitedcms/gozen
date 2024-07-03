@@ -23,5 +23,4 @@ func LoadRoutes(r *chi.Mux) {
 
 	r.Get("/", welcome.Index)
 
-
 } //end

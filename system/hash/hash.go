@@ -1,10 +1,11 @@
 /*
 |---------------------------------------------------------------
-| Hash utility helper
+| hash
 |---------------------------------------------------------------
 |
-| Helper for password management
-| and generating random keys for sessions/tokens
+| Helper for password management, generating hashes and
+| validating hashes
+| Also generates random keys for sessions/tokens
 |
 | @author: IgnitedCMS
 | @license: MIT

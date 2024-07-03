@@ -5,7 +5,7 @@
 |
 | A helper for rendering server side templates
 |
-|
+| @author: IgnitedCMS
 | @license: MIT
 | @version: 1.0
 | @since: 1.0
@@ -30,7 +30,7 @@ type TemplateData struct {
 
 var Template *template.Template
 
-// Define your template functions here
+// Define your  custom template functions here
 func upperCase(str string) string {
 	return strings.ToUpper(str)
 }
@@ -50,6 +50,8 @@ func showSelected(a string, b string) string {
 		return ""
 	}
 }
+
+//End, do NOT edit below this line!!
 
 // LoadTemplates loads all the templates from the views directory
 func LoadTemplates() error {

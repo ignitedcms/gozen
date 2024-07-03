@@ -6,6 +6,7 @@
 | First load .env variables, register session, csrf middleware
 | Load mysql db and finally register routes
 |
+| @author: IgnitedCMS
 | @license: MIT
 | @version: 1.0
 | @since: 1.0
@@ -18,7 +19,6 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/gorilla/csrf"
 	"github.com/gorilla/sessions"
-	"github.com/gorilla/websocket"
 	"github.com/joho/godotenv"
 	"gozen/db"
 	"gozen/routes"
@@ -28,50 +28,6 @@ import (
 	"os"
 )
 
-var (
-	upgrader = websocket.Upgrader{
-		ReadBufferSize:  1024,
-		WriteBufferSize: 1024,
-		CheckOrigin: func(r *http.Request) bool {
-			return true
-		},
-	}
-	clients = make(map[*websocket.Conn]bool)
-)
-
-func handleWebSocket(w http.ResponseWriter, r *http.Request) {
-	// Upgrade the HTTP connection to a WebSocket connection.
-	conn, err := upgrader.Upgrade(w, r, nil)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	defer conn.Close()
-
-	// Add new client to the map
-	clients[conn] = true
-
-	// Handle WebSocket messages here
-	for {
-		messageType, data, err := conn.ReadMessage()
-		if err != nil {
-			fmt.Println(err)
-			delete(clients, conn) // Remove the client from the map
-			return
-		}
-
-		fmt.Printf("Received message: %s\n", data)
-
-		// Broadcast the message to all connected clients
-		for client := range clients {
-			if err := client.WriteMessage(messageType, data); err != nil {
-				fmt.Println(err)
-				client.Close()
-				delete(clients, client) // Remove the client from the map
-			}
-		}
-	}
-}
 
 func main() {
 
@@ -108,8 +64,6 @@ func main() {
 	//Use Gorilla CSRF middleware
 	r.Use(csrfMiddleware)
 
-	// Handle WebSocket requests
-	r.HandleFunc("/ws", handleWebSocket)
 
 	//create an alias to the resources
 	//and serve css and js
@@ -125,14 +79,14 @@ func main() {
 	// Load all routes separately
 	routes.LoadRoutes(r)
 
-	foo := `
+	msg := `
    ____  ____  ____  ___  ____
   / __  / __ \/_  / / _ \/ __ \
  / /_/ / /_/ / / /_/  __/ / / /
  \__, /\____/ /___/\___/_/ /_/
 /____/
 `
-	fmt.Print(foo)
+	fmt.Print(msg)
 	fmt.Println("Starting on http://localhost:" + port)
 	// Start the HTTP server
 	http.ListenAndServe(":"+port, r)

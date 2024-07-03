@@ -6,6 +6,7 @@
 | Helper for password management
 | and generating random keys for sessions/tokens
 |
+| @author: IgnitedCMS
 | @license: MIT
 | @version: 1.0
 | @since: 1.0

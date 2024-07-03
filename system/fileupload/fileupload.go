@@ -3,6 +3,10 @@
 | File upload
 |---------------------------------------------------------------
 |
+| A file utility to handle uploads, set upload directory,
+| maxiumum file size, and file types
+|
+| @author: IgnitedCMS
 | @license: MIT
 | @version: 1.0
 | @since: 1.0

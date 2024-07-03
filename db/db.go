@@ -7,6 +7,7 @@
 | MySQL, SQLite, MsSQl, Postgres
 | If necessary load db setup
 |
+| @author: IgnitedCMS
 | @license: MIT
 | @version: 1.0
 | @since: 1.0
@@ -56,23 +57,6 @@ func loadSqlite() {
 	}
 	//defer DB.Close()
 
-	// Create the "user" table
-	createTableQuery := `
-
-   CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name VARCHAR(255),
-      email VARCHAR(255),
-      password VARCHAR(512),
-      token VARCHAR(512),
-      created_at DATETIME,
-      updated_at DATETIME  
-   )
-    `
-	_, err = DB.Exec(createTableQuery)
-	if err != nil {
-		log.Fatal(err)
-	}
 
 	fmt.Println("Using sqlite")
 
@@ -103,24 +87,6 @@ func loadMysql() {
 		log.Fatalf("Failed to ping database: %v", err)
 	}
 
-	createTable := `
-   CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY AUTO_INCREMENT,
-      name VARCHAR(255),
-      email VARCHAR(255),
-      password VARCHAR(512),
-      token VARCHAR(512),
-      created_at DATETIME,
-      updated_at DATETIME  
-   )
-   `
-	_, err = DB.Exec(createTable)
-
-	if err != nil {
-		log.Println("Error creating table:", err)
-		return
-
-	}
 	fmt.Println("Using mysql")
 }
 
@@ -142,24 +108,6 @@ func loadPostgres() {
     }
     //defer db.Close()
 
-    // Create a table
-    createTableQuery := `
-        CREATE TABLE IF NOT EXISTS users (
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(255),
-            email VARCHAR(255),
-            password VARCHAR(512),
-            token VARCHAR(512),
-            created_at TIMESTAMP,
-            updated_at TIMESTAMP  
-        );
-    `
-
-    _, err = DB.Exec(createTableQuery)
-    if err != nil {
-        panic(err)
-    }
-
     fmt.Println("Using Postgres")
 }
 
@@ -180,70 +128,7 @@ func loadSqlsvr() {
 		log.Fatal("Error connecting to database: ", err.Error())
 	}
 
-    createTableQuery := `
-        CREATE TABLE IF NOT EXISTS dbo.users (
-            id INT IDENTITY(1,1) PRIMARY KEY,
-            name NVARCHAR(255),
-            email NVARCHAR(255),
-            password NVARCHAR(512),
-            token NVARCHAR(512),
-            created_at DATETIME,
-            updated_at DATETIME  
-        );
-    `
-
-    _, err = DB.Exec(createTableQuery)
-    if err != nil {
-        panic(err)
-    }
 
     fmt.Println("Using Sqlsvr")
 }
 
-/*
-func createTables2() {
-
-	createTable := `
-   CREATE TABLE IF NOT EXISTS migrations (
-      id INTEGER PRIMARY KEY AUTO_INCREMENT,
-      table_name VARCHAR(255),
-      created_at DATETIME,
-      updated_at DATETIME
-   )
-   `
-	_, err := DB.Exec(createTable)
-
-	if err != nil {
-		log.Println("Error creating table:", err)
-
-	}
-}
-
-func insertMigrations() {
-	// Check if the row exists
-	var count int
-	err := DB.QueryRow("SELECT COUNT(*) FROM migrations WHERE table_name = ?", "users").Scan(&count)
-	if err != nil {
-		panic(err.Error())
-	}
-
-	// If the row doesn't exist, execute the INSERT statement
-	if count == 0 {
-		// Prepare the INSERT statement
-		stmt, err := DB.Prepare("INSERT INTO migrations(table_name, created_at, updated_at) VALUES(?, ?, ?)")
-		if err != nil {
-			panic(err.Error())
-		}
-		defer stmt.Close()
-
-		// Execute the INSERT statement
-		result, err := stmt.Exec("users", time.Now(), time.Now())
-		if err != nil {
-			panic(err.Error())
-		}
-		fmt.Println("Row inserted successfully:", result)
-	} else {
-		fmt.Println("Row already exists!")
-	}
-}
-*/

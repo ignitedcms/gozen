@@ -6,6 +6,7 @@
 | Custom validation helper with no third party dependencies
 | Work needs to be done on email and date validation
 |
+| @author: IgnitedCMS
 | @license: MIT
 | @version: 1.0
 | @since: 1.0

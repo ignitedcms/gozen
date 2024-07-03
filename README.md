@@ -11,6 +11,10 @@ a super lightweight Go router and a few Gorilla pacakges.
 Zero ORMs or any other third party libraries. Ensuring Gozen
 is lightweight and giving you confidence that things won't break in the future.
 
+## Who is this for?
+If you're itching for a Laravel, Ruby on Rails or Django python like development
+experience in Go, you'll fall in love with Gozen.
+
 ### Features
 Scaffolding, middleware, templating, controllers, models, emails,
 authentication, form validation, web sockets, sessions, rate limiting,

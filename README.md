@@ -2,9 +2,9 @@
 
 <img src="https://github.com/ignitedcms/gozen/blob/main/resources/images/goph.svg" width="250">
 
+## About
 Gozen is full stack framework for Golang with a ridiculously low dependency chain.
 
-## About
 Go developers are traditionally very picky when it comes to what and what 
 they don't want. We've built Gozen with this in mind. It only uses go-chi,
 a super lightweight Go router and a few Gorilla pacakges. 
@@ -42,3 +42,6 @@ After, your first compilation use
 ```
 air app.go
 ```
+
+### Important
+This project is currently in development, so is subject to frequent changes

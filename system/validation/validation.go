@@ -6,6 +6,9 @@
 | Custom validation helper with no third party dependencies
 | Work needs to be done on email and date validation
 |
+| Notes, database validation is tied to only MySQL and SQLite,
+| We need to eventually support PostgreSQL and MsSQL
+|
 | @author: IgnitedCMS
 | @license: MIT
 | @version: 1.0

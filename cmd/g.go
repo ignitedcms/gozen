@@ -5,12 +5,15 @@
 |
 | Generates crud
 |
+| Notes, still needs work to support PostgreSQL and MsSQL
+|
 | @author: IgnitedCMS
 | @license: MIT
 | @version: 1.0
 | @since: 1.0
 |
 */
+// Example of usage
 // go run % students student name:string,email:string
 // omit the id,created_at,updated_at as these are generated automatically
 package main

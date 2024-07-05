@@ -4,7 +4,7 @@
 |---------------------------------------------------------------
 |
 | First load .env variables, register session, csrf middleware
-| Load mysql db and finally register routes
+| Load database and finally register routes
 |
 | @author: IgnitedCMS
 | @license: MIT
@@ -39,6 +39,7 @@ func main() {
 	// Get environment variables
 	port := os.Getenv("APP_PORT")
 
+	// Initialise database from the .env file
 	db.InitDB()
 
 	err = templates.LoadTemplates()
@@ -65,9 +66,7 @@ func main() {
 
 	//create an alias to the resources
 	//and serve css and js
-	r.Handle("/resources/*",
-		http.StripPrefix("/resources",
-			http.FileServer(http.Dir("./resources"))))
+	r.Handle("/resources/*", http.StripPrefix("/resources", http.FileServer(http.Dir("./resources"))))
 
 	// Custom 404 handler
 	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
@@ -116,7 +115,7 @@ func sessionMiddleware(next http.Handler) http.Handler {
 // CSRF middleware loads on EVERY route
 func csrfMiddleware(next http.Handler) http.Handler {
 
-	//get this from env
+	//get this from .env
 	key := os.Getenv("APP_KEY")
 	csrfKey := []byte(key)
 

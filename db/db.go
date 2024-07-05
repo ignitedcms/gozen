@@ -4,7 +4,7 @@
 |---------------------------------------------------------------
 |
 | Added support for the main four db drivers
-| MySQL, SQLite, MsSQl, Postgres
+| MySQL, SQLite, MsSQl, PostgreSQL
 | If necessary load db setup
 |
 | @author: IgnitedCMS
@@ -55,7 +55,6 @@ func loadSqlite() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	//defer DB.Close()
 
 	fmt.Println("Using sqlite")
 
@@ -105,7 +104,6 @@ func loadPostgres() {
 	if err != nil {
 		panic(err)
 	}
-	//defer db.Close()
 
 	fmt.Println("Using Postgres")
 }

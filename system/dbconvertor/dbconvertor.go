@@ -4,7 +4,7 @@
 |---------------------------------------------------------------
 |
 | A utility library for handling the different grammers
-| of the four major database engines, mysql, pgsql, sqlite, sqlsvr
+| of the four major database engines, MySQL, PostgreSQL, SQLite, MsSQL
 |
 | @author: IgnitedCMS
 | @license: MIT

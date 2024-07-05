@@ -17,7 +17,7 @@ import "net/http"
 import "log"
 import "os"
 
-// Simply set a session variable
+// Set the session
 func Set(w http.ResponseWriter, r *http.Request, n string, t string) {
 
 	key := os.Getenv("APP_KEY")

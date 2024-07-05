@@ -4,7 +4,7 @@
 |---------------------------------------------------------------
 |
 | A file utility to handle uploads, set upload directory,
-| maxiumum file size, and file types
+| set maxiumum file size, and file type restrictions
 |
 | @author: IgnitedCMS
 | @license: MIT
@@ -17,9 +17,8 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	"io"
-	"mime/multipart"
-	//"net/http"
 	"mime"
+	"mime/multipart"
 	"os"
 	"path/filepath"
 	"strconv"

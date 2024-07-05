@@ -29,6 +29,8 @@ Please ensure you have at least go version 1.22
 First Git clone the repository, then cd into that directory and run
 
 ```
+git clone https://github.com/ignitedcms/gozen.git
+cd gozen
 go run -v .
 ```
 
@@ -42,7 +44,7 @@ This will spin up a server on
 http://localhost:3000
 ```
 
-We recommend using [Go Air](https://github.com/air-verse/air) if you wish to do continuous development with hotreloading.
+We recommend using [Go Air](https://github.com/air-verse/air) if you wish to do continuous development with hot reloading.
 
 After, your first compilation use
 
@@ -51,4 +53,4 @@ air app.go
 ```
 
 ### Important
-This project is currently in development, so is subject to frequent changes
+This project is currently in development, so is subject to frequent changes.

@@ -27,7 +27,7 @@ fmt.Println("Encrypted:", encryptedValue)
 
 decryptedValue, err := e.Decrypt(encryptedValue)
 if err != nil {
-    log.Fatal(err)
+    fmt.Println("Error during decryption:", err)
 }
 fmt.Println("Decrypted:", decryptedValue)
 */

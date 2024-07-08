@@ -16,9 +16,24 @@ If you're itching for a Laravel, Ruby on Rails or Django python like development
 experience in Go, you'll fall in love with Gozen.
 
 ### Features
-Scaffolding, middleware, templating, controllers, models, emails,
-authentication, form validation, web sockets, sessions, rate limiting,
-sql builders, cors, testing, csrf protection, flash data, file uploads
+- Scaffolding 
+- Middleware
+- Templating
+- Controllers 
+- Models 
+- Emails
+- Authentication 
+- Form validation 
+- Web sockets
+- Sessions
+- Rate limiting
+- Sql builders
+- Cors
+- API only mode (for usage with SPAs)
+- Testing
+- CSRF protection
+- Flash data
+- File uploads
 
 ### Small dependency chain
 Gozen only relies on 'go-chi' and a few 'gorilla' repositories

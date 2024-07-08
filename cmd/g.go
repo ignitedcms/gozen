@@ -36,150 +36,6 @@ type StructField struct {
 	Type string
 }
 
-func parseFields(fieldsStr string) []StructField {
-	var fields []StructField
-
-	// Split the string by comma to get each field
-	for _, field := range strings.Split(fieldsStr, ",") {
-		// Split each field by colon to get the name and type
-		parts := strings.Split(field, ":")
-		if len(parts) != 2 {
-			continue
-		}
-		fields = append(fields, StructField{
-			Name: parts[0],
-			//Type: parts[1],
-			Type: "string",
-		})
-	}
-
-	return fields
-}
-
-func parseFields2(fieldsStr string) []StructField {
-	var fields []StructField
-
-	// Split the string by comma to get each field
-	for _, field := range strings.Split(fieldsStr, ",") {
-		// Split each field by colon to get the name and type
-		parts := strings.Split(field, ":")
-		if len(parts) != 2 {
-			continue
-		}
-		fields = append(fields, StructField{
-			Name: parts[0],
-			Type: parts[1],
-		})
-	}
-
-	return fields
-}
-
-func generateCreateTableSQL(tableName string, fields []StructField) string {
-	var sb strings.Builder
-	sb.WriteString(fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (\n", tableName))
-
-	for i, field := range fields {
-		fieldType := getFieldType(field.Type)
-		sb.WriteString(fmt.Sprintf("    %s %s", field.Name, fieldType))
-		if field.Name == "id" {
-			sb.WriteString(" PRIMARY KEY AUTO_INCREMENT")
-		}
-		if i < len(fields)-1 {
-			sb.WriteString(",\n")
-		}
-	}
-
-	sb.WriteString("\n)")
-	return sb.String()
-}
-
-func getFieldType(fieldType string) string {
-	switch fieldType {
-	case "integer":
-		return "INTEGER"
-	case "string":
-		return "VARCHAR(255)"
-	case "text":
-		return "TEXT"
-	case "datetime":
-		return "DATETIME"
-	case "date":
-		return "DATE"
-	case "boolean":
-		return "BOOLEAN"
-	case "time":
-		return "TIME"
-	case "timestamp":
-		return "TIMESTAMP"
-	case "float":
-		return "FLOAT"
-	case "decimal":
-		return "DECIMAL"
-	default:
-		return fieldType
-	}
-}
-
-func migrateSql(table string, sql string) {
-
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-	db.InitDB()
-
-	_, err = db.DB.Exec(sql)
-
-	if err != nil {
-		fmt.Println("Error creating table:", err)
-
-	}
-}
-
-func buildRoutes(resource string) string {
-	var sb strings.Builder
-
-	sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s\", %s.Index)\n", resource, resource))
-	sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s/create\", %s.CreateView)\n", resource, resource))
-	sb.WriteString(fmt.Sprintf("\tr.Post(\"/%s/create\", %s.Create)\n", resource, resource))
-	sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s/update/{id}\", %s.UpdateView)\n", resource, resource))
-	sb.WriteString(fmt.Sprintf("\tr.Post(\"/%s/update/{id}\", %s.Update)\n", resource, resource))
-	sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s/delete/{id}\", %s.Destroy)\n", resource, resource))
-
-	return sb.String()
-}
-
-func writeRoutes(table string) {
-
-	existingContent, err := ioutil.ReadFile("routes/routes.go")
-	if err != nil {
-		fmt.Println("Error reading file:", err)
-		return
-	}
-
-	// Convert the byte slice to a string
-	contentStr := string(existingContent)
-
-	// Add a new import statement
-	newImport := "\n\t\"gozen/controllers/" + table + "\""
-	contentStr = strings.Replace(contentStr, "import (", "import ("+newImport, 1)
-
-	// Add a new string before the closing brace
-	newString := buildRoutes(table)
-	contentStr = strings.Replace(contentStr, "} //end", newString+"}", 1)
-
-	// Write the updated content back to the file
-	err = ioutil.WriteFile("routes/routes.go", []byte(contentStr), 0644)
-	if err != nil {
-		fmt.Println("Error writing file:", err)
-		return
-	}
-
-	fmt.Println("File overwritten successfully!")
-
-}
-
 func main() {
 
 	if len(os.Args) < 4 {
@@ -586,6 +442,150 @@ func main() {
 	}
 
 	fmt.Println("Controller file generated successfully:", fileName)
+}
+
+func parseFields(fieldsStr string) []StructField {
+	var fields []StructField
+
+	// Split the string by comma to get each field
+	for _, field := range strings.Split(fieldsStr, ",") {
+		// Split each field by colon to get the name and type
+		parts := strings.Split(field, ":")
+		if len(parts) != 2 {
+			continue
+		}
+		fields = append(fields, StructField{
+			Name: parts[0],
+			//Type: parts[1],
+			Type: "string",
+		})
+	}
+
+	return fields
+}
+
+func parseFields2(fieldsStr string) []StructField {
+	var fields []StructField
+
+	// Split the string by comma to get each field
+	for _, field := range strings.Split(fieldsStr, ",") {
+		// Split each field by colon to get the name and type
+		parts := strings.Split(field, ":")
+		if len(parts) != 2 {
+			continue
+		}
+		fields = append(fields, StructField{
+			Name: parts[0],
+			Type: parts[1],
+		})
+	}
+
+	return fields
+}
+
+func generateCreateTableSQL(tableName string, fields []StructField) string {
+	var sb strings.Builder
+	sb.WriteString(fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (\n", tableName))
+
+	for i, field := range fields {
+		fieldType := getFieldType(field.Type)
+		sb.WriteString(fmt.Sprintf("    %s %s", field.Name, fieldType))
+		if field.Name == "id" {
+			sb.WriteString(" PRIMARY KEY AUTO_INCREMENT")
+		}
+		if i < len(fields)-1 {
+			sb.WriteString(",\n")
+		}
+	}
+
+	sb.WriteString("\n)")
+	return sb.String()
+}
+
+func getFieldType(fieldType string) string {
+	switch fieldType {
+	case "integer":
+		return "INTEGER"
+	case "string":
+		return "VARCHAR(255)"
+	case "text":
+		return "TEXT"
+	case "datetime":
+		return "DATETIME"
+	case "date":
+		return "DATE"
+	case "boolean":
+		return "BOOLEAN"
+	case "time":
+		return "TIME"
+	case "timestamp":
+		return "TIMESTAMP"
+	case "float":
+		return "FLOAT"
+	case "decimal":
+		return "DECIMAL"
+	default:
+		return fieldType
+	}
+}
+
+func migrateSql(table string, sql string) {
+
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+	db.InitDB()
+
+	_, err = db.DB.Exec(sql)
+
+	if err != nil {
+		fmt.Println("Error creating table:", err)
+
+	}
+}
+
+func buildRoutes(resource string) string {
+	var sb strings.Builder
+
+	sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s\", %s.Index)\n", resource, resource))
+	sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s/create\", %s.CreateView)\n", resource, resource))
+	sb.WriteString(fmt.Sprintf("\tr.Post(\"/%s/create\", %s.Create)\n", resource, resource))
+	sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s/update/{id}\", %s.UpdateView)\n", resource, resource))
+	sb.WriteString(fmt.Sprintf("\tr.Post(\"/%s/update/{id}\", %s.Update)\n", resource, resource))
+	sb.WriteString(fmt.Sprintf("\tr.Get(\"/%s/delete/{id}\", %s.Destroy)\n", resource, resource))
+
+	return sb.String()
+}
+
+func writeRoutes(table string) {
+
+	existingContent, err := ioutil.ReadFile("routes/routes.go")
+	if err != nil {
+		fmt.Println("Error reading file:", err)
+		return
+	}
+
+	// Convert the byte slice to a string
+	contentStr := string(existingContent)
+
+	// Add a new import statement
+	newImport := "\n\t\"gozen/controllers/" + table + "\""
+	contentStr = strings.Replace(contentStr, "import (", "import ("+newImport, 1)
+
+	// Add a new string before the closing brace
+	newString := buildRoutes(table)
+	contentStr = strings.Replace(contentStr, "} //end", newString+"}", 1)
+
+	// Write the updated content back to the file
+	err = ioutil.WriteFile("routes/routes.go", []byte(contentStr), 0644)
+	if err != nil {
+		fmt.Println("Error writing file:", err)
+		return
+	}
+
+	fmt.Println("File overwritten successfully!")
+
 }
 
 // GenerateCRUD generates CRUD operations for a given struct

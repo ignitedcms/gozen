@@ -18,7 +18,8 @@ experience in Go, you'll fall in love with Gozen.
 ## How is this different?
 Typically, most golang frameworks come with a lot of bloat, or very specific 
 ways to go about handling web traffic. Gozen is different because it is super
-lightweight, with the majority of the core files written from scratch.
+lightweight, with the majority of the core files written from scratch with 
+just the go standard library.
 
 ### Features
 - Scaffolding 

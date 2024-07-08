@@ -595,7 +595,7 @@ func writeRoutes(table string) {
 
 	// Add a new string before the closing brace
 	newString := buildRoutes(table)
-	contentStr = strings.Replace(contentStr, "} //end", newString+"}", 1)
+	contentStr = strings.Replace(contentStr, "} //end", newString+"} //end", 1)
 
 	// Write the updated content back to the file
 	err = ioutil.WriteFile("routes/routes.go", []byte(contentStr), 0644)

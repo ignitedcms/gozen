@@ -19,16 +19,18 @@ import (
     "fmt"
     "gozen/system/encrypt"
 )
-e := encrypt.New()
+func main() {
+    e := encrypt.New()
 
-encryptedValue := e.Encrypt("Hello, World!")
-fmt.Println("Encrypted:", encryptedValue)
+    encryptedValue := e.Encrypt("Hello, World!")
+    fmt.Println("Encrypted:", encryptedValue)
 
-decryptedValue, err := e.Decrypt(encryptedValue)
-if err != nil {
-    fmt.Println("Error during decryption:", err)
+    decryptedValue, err := e.Decrypt(encryptedValue)
+    if err != nil {
+        fmt.Println("Error during decryption:", err)
+    }
+    fmt.Println("Decrypted:", decryptedValue)
 }
-fmt.Println("Decrypted:", decryptedValue)
 */
 
 package encrypt

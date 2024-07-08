@@ -27,7 +27,7 @@ experience in Go, you'll fall in love with Gozen.
 - Web sockets
 - Sessions
 - Rate limiting
-- Sql builders
+- SQL support for SQLite, MySQL, PostgreSQL, MsSQL
 - Cors
 - API only mode (for usage with SPAs)
 - Testing

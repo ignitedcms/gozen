@@ -2,7 +2,6 @@
 
 - Get scaffold to work with sqlite
 - Test also with mysql
-
 - Load and test postgres and mysql on linux
 - Ammend scaffold to support different grammars
 - Test new grammars
@@ -10,16 +9,13 @@
 
 ## Add more detailed examples 
 - Add more detailed examples to docs
-- Get search on docs working
-- do backup
-- document CORS and api settings
 - requests, add POST example with radio, selects and checkboxes
 - Show how to add custom validation rules
 - Show how to add custom middleware
 - Show how to add custom template functions (separate)
-- Separate all three so end user isn't ammending system files
+- Move any parts that require user editing outside of system 
 - Start add vim snippets
-- Test how document pass data to view is working with templates
+- Document passing data to view when working with templates
 - How to compile and build for deployment
 - Show how to add SSL certificates
 - Consider GUI sql builder with joins

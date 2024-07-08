@@ -78,7 +78,16 @@ func main() {
 		StructField{Name: "updated_at", Type: "datetime"},
 	)
 
-	sql := generateCreateTableSQL(table, allFields2)
+    //Lets load the .env file to retrieve our db type
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+	dbConnection := os.Getenv("DB_CONNECTION")
+
+    //Now let's pass it into our function
+
+	sql := generateCreateTableSQL(table, allFields2, dbConnection)
 
 	migrateSql(table, sql)
 
@@ -483,7 +492,17 @@ func parseFields2(fieldsStr string) []StructField {
 	return fields
 }
 
-func generateCreateTableSQL(tableName string, fields []StructField) string {
+func generateCreateTableSQL(tableName string, fields []StructField, dbConnection string) string {
+
+
+    //Do a db check to build grammar specific sql
+    foo := ""
+    if dbConnection == "sqlite" {
+        foo = " PRIMARY KEY"
+    }else {
+        foo = " PRIMARY KEY AUTO_INCREMENT"
+    }
+
 	var sb strings.Builder
 	sb.WriteString(fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (\n", tableName))
 
@@ -491,7 +510,8 @@ func generateCreateTableSQL(tableName string, fields []StructField) string {
 		fieldType := getFieldType(field.Type)
 		sb.WriteString(fmt.Sprintf("    %s %s", field.Name, fieldType))
 		if field.Name == "id" {
-			sb.WriteString(" PRIMARY KEY AUTO_INCREMENT")
+			//sb.WriteString(" PRIMARY KEY AUTO_INCREMENT")
+			sb.WriteString(foo)
 		}
 		if i < len(fields)-1 {
 			sb.WriteString(",\n")

@@ -1,6 +1,6 @@
 /*
 |---------------------------------------------------------------
-| dbconvertor
+| Dbconvertor
 |---------------------------------------------------------------
 |
 | A utility library for handling the different grammers

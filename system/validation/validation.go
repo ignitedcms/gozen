@@ -1,6 +1,6 @@
 /*
 |---------------------------------------------------------------
-| Validation utility helper
+| Validation
 |---------------------------------------------------------------
 |
 | Custom validation helper with no third party dependencies
@@ -35,6 +35,7 @@ type Validator struct {
 	errors []ValidationError
 }
 
+// Relies on the database
 func (v *Validator) Unique(field, value, table, column string) *Validator {
 	// Check if the value is unique in the given table and column
 	query := fmt.Sprintf("SELECT COUNT(*) FROM %s WHERE %s = ?", table, column)
@@ -52,6 +53,7 @@ func (v *Validator) Unique(field, value, table, column string) *Validator {
 	return v
 }
 
+// Relies on the database
 func (v *Validator) Exists(field, value, table, column string) *Validator {
 	// Check if the value exists in the given table and column
 	query := fmt.Sprintf("SELECT COUNT(*) FROM %s WHERE %s = ?", table, column)

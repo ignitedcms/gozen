@@ -1,6 +1,6 @@
 /*
 |---------------------------------------------------------------
-| Templating
+| Templates
 |---------------------------------------------------------------
 |
 | A helper for rendering server side templates
@@ -25,12 +25,14 @@ type TemplateData struct {
 	PostData       map[string]interface{}
 	PostDataErrors map[string]interface{}
 	FlashData      string
-	Foo            string
+	Foo            string //Change this to something sensible
 }
 
 var Template *template.Template
 
 // Define your  custom template functions here
+// Look at moving this outside of system as modding system
+// files is kinda gross
 func upperCase(str string) string {
 	return strings.ToUpper(str)
 }
@@ -51,10 +53,9 @@ func showSelected(a string, b string) string {
 	}
 }
 
-//End, do NOT edit below this line!!
-
 // LoadTemplates loads all the templates from the views directory
 func LoadTemplates() error {
+	//Same move this outside of system
 	funcMap := template.FuncMap{
 		"upperCase":    upperCase,
 		"showChecked":  showChecked,
@@ -67,6 +68,8 @@ func LoadTemplates() error {
 	Template = t
 	return nil
 }
+
+//End, do NOT edit below this line!!
 
 // GetTemplate returns the loaded template
 func GetTemplate() *template.Template {

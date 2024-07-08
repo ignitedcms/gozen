@@ -1,6 +1,6 @@
 /*
 |---------------------------------------------------------------
-| Session helpers
+| Session
 |---------------------------------------------------------------
 |
 | A session utility helper that extends 'gorilla' for easy use

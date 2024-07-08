@@ -1,9 +1,10 @@
 /*
 |---------------------------------------------------------------
-| A math utility library
+| Math
 |---------------------------------------------------------------
 |
-| Still a wip
+| Still a wip, utility helper for easy mathematical operations
+| in go.
 |
 | @author: IgnitedCMS
 | @license: MIT

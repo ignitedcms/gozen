@@ -496,17 +496,17 @@ func generateCreateTableSQL(tableName string, fields []StructField, dbConnection
 
 
     //Do a db check to build grammar specific sql
-    foo := ""
+    idString := ""
 
 	switch dbConnection {
 	case "sqlite":
-        foo = " PRIMARY KEY"
+        idString = " PRIMARY KEY"
 	case "mysql":
-        foo = " PRIMARY KEY AUTO_INCREMENT"
+        idString = " PRIMARY KEY AUTO_INCREMENT"
 	case  "pgsql":
-        foo = " SERIAL PRIMARY KEY"
+        idString = " SERIAL PRIMARY KEY"
 	case  "sqlsvr":
-        foo = " IDENTITY(1,1) PRIMARY KEY"
+        idString = " IDENTITY(1,1) PRIMARY KEY"
 	default:
 		return "Invalid database type"
 	}
@@ -519,7 +519,7 @@ func generateCreateTableSQL(tableName string, fields []StructField, dbConnection
 		sb.WriteString(fmt.Sprintf("    %s %s", field.Name, fieldType))
 		if field.Name == "id" {
 			//sb.WriteString(" PRIMARY KEY AUTO_INCREMENT")
-			sb.WriteString(foo)
+			sb.WriteString(idString)
 		}
 		if i < len(fields)-1 {
 			sb.WriteString(",\n")

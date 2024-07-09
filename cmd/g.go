@@ -497,11 +497,19 @@ func generateCreateTableSQL(tableName string, fields []StructField, dbConnection
 
     //Do a db check to build grammar specific sql
     foo := ""
-    if dbConnection == "sqlite" {
+
+	switch dbConnection {
+	case "sqlite":
         foo = " PRIMARY KEY"
-    }else {
+	case "mysql":
         foo = " PRIMARY KEY AUTO_INCREMENT"
-    }
+	case  "pgsql":
+        foo = " SERIAL PRIMARY KEY"
+	case  "sqlsvr":
+        foo = " IDENTITY(1,1) PRIMARY KEY"
+	default:
+		return "Invalid database type"
+	}
 
 	var sb strings.Builder
 	sb.WriteString(fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (\n", tableName))

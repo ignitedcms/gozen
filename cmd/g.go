@@ -492,8 +492,29 @@ func parseFields2(fieldsStr string) []StructField {
 	return fields
 }
 
-func generateCreateTableSQL(tableName string, fields []StructField, dbConnection string) string {
+type DataType struct {
+    GoType   string
+    SQLite   string
+    MySQL    string
+    PostgreSQL string
+    SQLServer string
+}
 
+//Let's handle the different db grammars
+var dataTypes = []DataType{
+    {"integer", "INTEGER", "INT", "INT", "INT"},
+    {"float", "REAL", "FLOAT", "FLOAT", "FLOAT"},
+    {"string", "TEXT", "VARCHAR(255)", "VARCHAR(255)", "NVARCHAR(255)"},
+    {"text", "TEXT", "TEXT", "TEXT", "NVARCHAR(MAX)"},
+    {"boolean", "INTEGER", "TINYINT(1)", "BOOLEAN", "BIT"},
+    {"date", "TEXT", "DATE", "DATE", "DATE"},
+    {"datetime", "TEXT", "DATETIME", "TIMESTAMP", "DATETIME"},
+    {"time", "TEXT", "TIME", "TIME", "TIME"},
+    {"timestamp", "TEXT", "TIMESTAMP", "TIMESTAMP", "DATETIME"},
+}
+
+
+func generateCreateTableSQL(tableName string, fields []StructField, dbConnection string) string {
 
     //Do a db check to build grammar specific sql
     idString := ""
@@ -515,7 +536,7 @@ func generateCreateTableSQL(tableName string, fields []StructField, dbConnection
 	sb.WriteString(fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (\n", tableName))
 
 	for i, field := range fields {
-		fieldType := getFieldType(field.Type)
+		fieldType := getFieldType(field.Type, dbConnection)
 		sb.WriteString(fmt.Sprintf("    %s %s", field.Name, fieldType))
 		if field.Name == "id" {
 			//sb.WriteString(" PRIMARY KEY AUTO_INCREMENT")
@@ -530,32 +551,24 @@ func generateCreateTableSQL(tableName string, fields []StructField, dbConnection
 	return sb.String()
 }
 
-func getFieldType(fieldType string) string {
-	switch fieldType {
-	case "integer":
-		return "INTEGER"
-	case "string":
-		return "VARCHAR(255)"
-	case "text":
-		return "TEXT"
-	case "datetime":
-		return "DATETIME"
-	case "date":
-		return "DATE"
-	case "boolean":
-		return "BOOLEAN"
-	case "time":
-		return "TIME"
-	case "timestamp":
-		return "TIMESTAMP"
-	case "float":
-		return "FLOAT"
-	case "decimal":
-		return "DECIMAL"
-	default:
-		return fieldType
-	}
+func getFieldType(fieldType string, dbType string) string {
+    for _, dt := range dataTypes {
+        if dt.GoType == fieldType {
+            switch dbType {
+            case "sqlite":
+                return dt.SQLite
+            case "mysql":
+                return dt.MySQL
+            case "pgsql":
+                return dt.PostgreSQL
+            case "sqlsvr":
+                return dt.SQLServer
+            }
+        }
+    }
+    return fieldType // Default case if no match is found
 }
+
 
 func migrateSql(table string, sql string) {
 

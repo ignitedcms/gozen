@@ -640,10 +640,10 @@ func GenerateCRUD(structName string, table string, fields []StructField, dbConne
     // Postgres uses $1,$2 for prepared statements
     // Mssql uses @name, @email for prepared statements
 
-    if dbConnection == {
-
+    if dbConnection == "hey" {
+        fmt.Print("")
     } else {
-
+        fmt.Print("")
     }
 
 

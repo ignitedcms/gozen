@@ -281,7 +281,8 @@ func main() {
 	//finish html
 
 	// Generate the CRUD operations code
-	generatedCode := GenerateCRUD(structName, table, allFields)
+    // We need to pass in dbtype obtained from .env file
+	generatedCode := GenerateCRUD(structName, table, allFields, dbConnection)
 
 	// Write the generated code to a file
 	fileName = "models/" + table + "/" + table + ".go"
@@ -630,7 +631,22 @@ func writeRoutes(table string) {
 }
 
 // GenerateCRUD generates CRUD operations for a given struct
-func GenerateCRUD(structName string, table string, fields []StructField) string {
+func GenerateCRUD(structName string, table string, fields []StructField, dbConnection string) string {
+
+    // Here we need to use the dbConnection type to dynamically change our
+    // SQL grammar so it supports the four databases. In general, sqlite and
+    // mysql are largely the same, postgres and mssql have the main differences
+    //
+    // Postgres uses $1,$2 for prepared statements
+    // Mssql uses @name, @email for prepared statements
+
+    if dbConnection == {
+
+    } else {
+
+    }
+
+
 	var builder strings.Builder
 
 	// Generate package and imports

@@ -5,7 +5,7 @@
 |
 | Added support for the main four db drivers
 | MySQL, SQLite, MsSQl, PostgreSQL
-| If necessary load db setup
+| Notes: Need to add better db error messages for ALL databases
 |
 | @author: IgnitedCMS
 | @license: MIT
@@ -45,7 +45,6 @@ func InitDB() {
 	default:
 		fmt.Print("Error database driver not recognised")
 	}
-
 }
 
 func loadSqlite() {
@@ -57,7 +56,6 @@ func loadSqlite() {
 	}
 
 	fmt.Println("Using sqlite")
-
 }
 
 func loadMysql() {
@@ -105,6 +103,11 @@ func loadPostgres() {
 		panic(err)
 	}
 
+	// Test the connection
+	err = DB.Ping()
+	if err != nil {
+		log.Fatalf("Failed to ping database: %v", err)
+	}
 	fmt.Println("Using Postgres")
 }
 
@@ -125,5 +128,10 @@ func loadSqlsvr() {
 		log.Fatal("Error connecting to database: ", err.Error())
 	}
 
+	// Test the connection
+	err = DB.Ping()
+	if err != nil {
+		log.Fatalf("Failed to ping database: %v", err)
+	}
 	fmt.Println("Using Sqlsvr")
 }

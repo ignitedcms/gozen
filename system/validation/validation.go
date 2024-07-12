@@ -195,35 +195,3 @@ func (v *Validator) HasErrors() bool {
 func (v *Validator) GetErrors() []ValidationError {
 	return v.errors
 }
-
-/*
-Usage----
-formData := FormData{
-   Name:     r.FormValue("name"),
-   Email:    r.FormValue("email"),
-   Age:      0, // You might need to parse the age from string to int
-   Salary:   0, // You might need to parse the salary from string to float64
-   Username: r.FormValue("username"),
-}
-
-validator := &validation.Validator{}
-
-validator.Required("Name", formData.Name).
-MinLength("Name", formData.Name, 3).
-MaxLength("Name", formData.Name, 50).
-Required("Email", formData.Email).
-Email("Email", formData.Email).
-Min("Age", formData.Age, 18).
-Required("Salary", fmt.Sprintf("%.2f", formData.Salary)).
-Float("Salary", fmt.Sprintf("%.2f", formData.Salary)).
-Required("Username", formData.Username).
-AlphaNum("Username", formData.Username)
-
-if validator.HasErrors() {
-   // Handle validation errors
-   for _, err := range validator.GetErrors() {
-      fmt.Fprintf(w, "%s: %s\n", err.Field, err.Message)
-   }
-   return
-}
-*/

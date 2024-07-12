@@ -106,19 +106,3 @@ func (m *Mail) Send() []byte {
 	log.Println("Email sent successfully!")
 	return []byte("Email sent successfully!")
 }
-
-/*
-----Usage----
-recipientEmail := "test@mail.com"
-    templatePath := "mail/email_template.html"
-
-    result := mail.New().
-        SetRecipient(recipientEmail).
-        SetTemplatePath(templatePath).
-        LoadTemplate().
-        BuildMessage().
-        Send()
-
-   w.Write(result)
-
-*/

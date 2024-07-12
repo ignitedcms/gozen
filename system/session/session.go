@@ -62,6 +62,7 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Used for form validation
 func SetOldPostData(w http.ResponseWriter, r *http.Request) {
 
 	//we need to skip the CSRF token
@@ -75,6 +76,7 @@ func SetOldPostData(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Used for form validation
 func GetOldPostData(w http.ResponseWriter, r *http.Request) map[string]interface{} {
 
 	//init empty map interface

@@ -78,14 +78,14 @@ func main() {
 		StructField{Name: "updated_at", Type: "datetime"},
 	)
 
-    //Lets load the .env file to retrieve our db type
+	//Lets load the .env file to retrieve our db type
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
 	dbConnection := os.Getenv("DB_CONNECTION")
 
-    //Now let's pass it into our function
+	//Now let's pass it into our function
 
 	sql := generateCreateTableSQL(table, allFields2, dbConnection)
 
@@ -281,7 +281,7 @@ func main() {
 	//finish html
 
 	// Generate the CRUD operations code
-    // We need to pass in dbtype obtained from .env file
+	// We need to pass in dbtype obtained from .env file
 	generatedCode := GenerateCRUD(structName, table, allFields, dbConnection)
 
 	// Write the generated code to a file
@@ -494,41 +494,40 @@ func parseFields2(fieldsStr string) []StructField {
 }
 
 type DataType struct {
-    GoType   string
-    SQLite   string
-    MySQL    string
-    PostgreSQL string
-    SQLServer string
+	GoType     string
+	SQLite     string
+	MySQL      string
+	PostgreSQL string
+	SQLServer  string
 }
 
-//Let's handle the different db grammars
+// Let's handle the different db grammars
 var dataTypes = []DataType{
-    {"integer", "INTEGER", "INT", "INT", "INT"},
-    {"float", "REAL", "FLOAT", "FLOAT", "FLOAT"},
-    {"string", "TEXT", "VARCHAR(255)", "VARCHAR(255)", "NVARCHAR(255)"},
-    {"text", "TEXT", "TEXT", "TEXT", "NVARCHAR(MAX)"},
-    {"boolean", "INTEGER", "TINYINT(1)", "BOOLEAN", "BIT"},
-    {"date", "TEXT", "DATE", "DATE", "DATE"},
-    {"datetime", "TEXT", "DATETIME", "TIMESTAMP", "DATETIME"},
-    {"time", "TEXT", "TIME", "TIME", "TIME"},
-    {"timestamp", "TEXT", "TIMESTAMP", "TIMESTAMP", "DATETIME"},
+	{"integer", "INTEGER", "INT", "INT", "INT"},
+	{"float", "REAL", "FLOAT", "FLOAT", "FLOAT"},
+	{"string", "TEXT", "VARCHAR(255)", "VARCHAR(255)", "NVARCHAR(255)"},
+	{"text", "TEXT", "TEXT", "TEXT", "NVARCHAR(MAX)"},
+	{"boolean", "INTEGER", "TINYINT(1)", "BOOLEAN", "BIT"},
+	{"date", "TEXT", "DATE", "DATE", "DATE"},
+	{"datetime", "TEXT", "DATETIME", "TIMESTAMP", "DATETIME"},
+	{"time", "TEXT", "TIME", "TIME", "TIME"},
+	{"timestamp", "TEXT", "TIMESTAMP", "TIMESTAMP", "DATETIME"},
 }
-
 
 func generateCreateTableSQL(tableName string, fields []StructField, dbConnection string) string {
 
-    //Do a db check to build grammar specific sql
-    idString := ""
+	//Do a db check to build grammar specific sql
+	idString := ""
 
 	switch dbConnection {
 	case "sqlite":
-        idString = " PRIMARY KEY"
+		idString = " PRIMARY KEY"
 	case "mysql":
-        idString = " PRIMARY KEY AUTO_INCREMENT"
-	case  "pgsql":
-        idString = " SERIAL PRIMARY KEY"
-	case  "sqlsvr":
-        idString = " IDENTITY(1,1) PRIMARY KEY"
+		idString = " PRIMARY KEY AUTO_INCREMENT"
+	case "pgsql":
+		idString = " SERIAL PRIMARY KEY"
+	case "sqlsvr":
+		idString = " IDENTITY(1,1) PRIMARY KEY"
 	default:
 		return "Invalid database type"
 	}
@@ -553,23 +552,22 @@ func generateCreateTableSQL(tableName string, fields []StructField, dbConnection
 }
 
 func getFieldType(fieldType string, dbType string) string {
-    for _, dt := range dataTypes {
-        if dt.GoType == fieldType {
-            switch dbType {
-            case "sqlite":
-                return dt.SQLite
-            case "mysql":
-                return dt.MySQL
-            case "pgsql":
-                return dt.PostgreSQL
-            case "sqlsvr":
-                return dt.SQLServer
-            }
-        }
-    }
-    return fieldType // Default case if no match is found
+	for _, dt := range dataTypes {
+		if dt.GoType == fieldType {
+			switch dbType {
+			case "sqlite":
+				return dt.SQLite
+			case "mysql":
+				return dt.MySQL
+			case "pgsql":
+				return dt.PostgreSQL
+			case "sqlsvr":
+				return dt.SQLServer
+			}
+		}
+	}
+	return fieldType // Default case if no match is found
 }
-
 
 func migrateSql(table string, sql string) {
 
@@ -633,19 +631,18 @@ func writeRoutes(table string) {
 // GenerateCRUD generates CRUD operations for a given struct
 func GenerateCRUD(structName string, table string, fields []StructField, dbConnection string) string {
 
-    // Here we need to use the dbConnection type to dynamically change our
-    // SQL grammar so it supports the four databases. In general, sqlite and
-    // mysql are largely the same, postgres and mssql have the main differences
-    //
-    // Postgres uses $1,$2 for prepared statements
-    // Mssql uses @name, @email for prepared statements
+	// Here we need to use the dbConnection type to dynamically change our
+	// SQL grammar so it supports the four databases. In general, sqlite and
+	// mysql are largely the same, postgres and mssql have the main differences
+	//
+	// Postgres uses $1,$2 for prepared statements
+	// Mssql uses @name, @email for prepared statements
 
-    if dbConnection == "hey" {
-        fmt.Print("")
-    } else {
-        fmt.Print("")
-    }
-
+	if dbConnection == "hey" {
+		fmt.Print("")
+	} else {
+		fmt.Print("")
+	}
 
 	var builder strings.Builder
 

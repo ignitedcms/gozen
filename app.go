@@ -3,8 +3,8 @@
 | Main entry point
 |---------------------------------------------------------------
 |
-| First load .env variables, register session, csrf middleware
-| Load database and finally register routes
+| First load .env variables, load database, register session, csrf middleware
+| and finally register routes
 |
 | @author: IgnitedCMS
 | @license: MIT

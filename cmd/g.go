@@ -6,6 +6,8 @@
 | Generates crud
 |
 | Notes, still needs work to support PostgreSQL and MsSQL
+| PostgreSQL and MsSQL do NOT work yet!!!
+|
 |
 | @author: IgnitedCMS
 | @license: MIT
@@ -531,6 +533,17 @@ func generateCreateTableSQL(tableName string, fields []StructField, dbConnection
 	default:
 		return "Invalid database type"
 	}
+
+
+    /*                                                                          
+    |---------------------------------------------------------------            
+    | Bug with pgsql
+    |---------------------------------------------------------------            
+    |
+    | We need to omit the int/ integer type when creating a primary
+    | key for postgres
+    |
+    */       
 
 	var sb strings.Builder
 	sb.WriteString(fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (\n", tableName))

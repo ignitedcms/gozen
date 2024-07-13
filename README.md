@@ -1,6 +1,6 @@
 # Gozen
 
-<img src="https://github.com/ignitedcms/gozen/blob/main/resources/images/goph.svg" width="250">
+<img src="https://github.com/ignitedcms/gozen/blob/main/resources/images/gopher.svg" width="250">
 
 ## About
 Gozen is full stack minimalistic framework for golang.

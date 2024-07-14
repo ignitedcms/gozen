@@ -550,7 +550,16 @@ func generateCreateTableSQL(tableName string, fields []StructField, dbConnection
 
 	for i, field := range fields {
 		fieldType := getFieldType(field.Type, dbConnection)
-		sb.WriteString(fmt.Sprintf("    %s %s", field.Name, fieldType))
+
+        //fix pgsql bug
+        if dbConnection == "pgsql" && field.Name == "id" {
+                sb.WriteString(fmt.Sprintf("    %s ", field.Name))
+            } else {
+                sb.WriteString(fmt.Sprintf("    %s %s", field.Name, fieldType))
+            }
+
+
+
 		if field.Name == "id" {
 			//sb.WriteString(" PRIMARY KEY AUTO_INCREMENT")
 			sb.WriteString(idString)

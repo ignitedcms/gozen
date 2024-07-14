@@ -534,16 +534,15 @@ func generateCreateTableSQL(tableName string, fields []StructField, dbConnection
 		return "Invalid database type"
 	}
 
-
-    /*                                                                          
-    |---------------------------------------------------------------            
-    | Bug with pgsql
-    |---------------------------------------------------------------            
-    |
-    | We need to omit the int/ integer type when creating a primary
-    | key for postgres
-    |
-    */       
+	/*
+	   |---------------------------------------------------------------
+	   | Bug with pgsql
+	   |---------------------------------------------------------------
+	   |
+	   | We need to omit the int/ integer type when creating a primary
+	   | key for postgres
+	   |
+	*/
 
 	var sb strings.Builder
 	sb.WriteString(fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (\n", tableName))
@@ -551,14 +550,12 @@ func generateCreateTableSQL(tableName string, fields []StructField, dbConnection
 	for i, field := range fields {
 		fieldType := getFieldType(field.Type, dbConnection)
 
-        //fix pgsql bug
-        if dbConnection == "pgsql" && field.Name == "id" {
-                sb.WriteString(fmt.Sprintf("    %s ", field.Name))
-            } else {
-                sb.WriteString(fmt.Sprintf("    %s %s", field.Name, fieldType))
-            }
-
-
+		//fix pgsql bug
+		if dbConnection == "pgsql" && field.Name == "id" {
+			sb.WriteString(fmt.Sprintf("    %s ", field.Name))
+		} else {
+			sb.WriteString(fmt.Sprintf("    %s %s", field.Name, fieldType))
+		}
 
 		if field.Name == "id" {
 			//sb.WriteString(" PRIMARY KEY AUTO_INCREMENT")

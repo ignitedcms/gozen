@@ -1064,6 +1064,189 @@ func GenerateCRUDPgsql(structName string, table string, fields []StructField ) s
     return builder.String()
 }
 
+func GenerateCRUDSqlsvr(structName string, table string, fields []StructField ) string {
+    var builder strings.Builder
+
+    // Generate package and imports
+    builder.WriteString(fmt.Sprintf("package %s\n\n", table))
+    builder.WriteString("import (\n")
+    builder.WriteString("\t\"gozen/db\"\n")
+    builder.WriteString("\t\"time\"\n")
+    builder.WriteString("\t\"database/sql\"\n")
+    builder.WriteString("\t_ \"github.com/denisenkom/go-mssqldb\"\n")
+    builder.WriteString(")\n\n")
+
+    // Generate struct type
+    builder.WriteString(fmt.Sprintf("// %s represents a %s in the system\n", structName, structName))
+    builder.WriteString(fmt.Sprintf("type %s struct {\n", structName))
+    for _, field := range fields {
+        builder.WriteString(fmt.Sprintf("\t%s %s\n", capitalize(field.Name), field.Type))
+    }
+    builder.WriteString("}\n\n")
+
+    // Generate Insert function
+    builder.WriteString(fmt.Sprintf("// Insert inserts a new %s into the database\n", structName))
+    builder.WriteString(fmt.Sprintf("func Create("))
+    firstField := true
+    for _, field := range fields {
+        if field.Name != "id" && field.Name != "created_at" && field.Name != "updated_at" {
+            if !firstField {
+                builder.WriteString(", ")
+            } else {
+                firstField = false
+            }
+            builder.WriteString(fmt.Sprintf("%s %s", strings.ToLower(field.Name), field.Type))
+        }
+    }
+    builder.WriteString(") (int64, error) {\n")
+    builder.WriteString("\tquery := \"INSERT INTO " + table + "(")
+    var insertFields []string
+    for _, field := range fields {
+        if field.Name != "id" && field.Name != "created_at" && field.Name != "updated_at" {
+            insertFields = append(insertFields, field.Name)
+        }
+    }
+    builder.WriteString(strings.Join(insertFields, ", "))
+    builder.WriteString(", created_at, updated_at) OUTPUT INSERTED.id VALUES(")
+    for i := range insertFields {
+        builder.WriteString(fmt.Sprintf("@p%d", i+1))
+        if i < len(insertFields)-1 {
+            builder.WriteString(", ")
+        }
+    }
+    builder.WriteString(", @p" + fmt.Sprintf("%d", len(insertFields)+1))
+    builder.WriteString(", @p" + fmt.Sprintf("%d", len(insertFields)+2) + ")\"\n")
+
+    builder.WriteString("\tvar lastInsertID int64\n")
+    builder.WriteString("\terr := db.DB.QueryRow(query")
+    for _, field := range fields {
+        if field.Name != "id" && field.Name != "created_at" && field.Name != "updated_at" {
+            builder.WriteString(", sql.Named(\"" + strings.ToLower(field.Name) + "\", " + strings.ToLower(field.Name) + ")")
+        }
+    }
+    builder.WriteString(", sql.Named(\"created_at\", time.Now()), sql.Named(\"updated_at\", time.Now())).Scan(&lastInsertID)\n")
+    builder.WriteString("\tif err != nil {\n")
+    builder.WriteString("\t\treturn 0, err\n")
+    builder.WriteString("\t}\n")
+    builder.WriteString("\treturn lastInsertID, nil\n")
+    builder.WriteString("}\n\n")
+
+    // Generate Update function
+    builder.WriteString(fmt.Sprintf("// Update updates an existing %s in the database\n", structName))
+    builder.WriteString(fmt.Sprintf("func Update(id string, "))
+    firstField = true
+    for _, field := range fields {
+        if field.Name != "id" && field.Name != "created_at" && field.Name != "updated_at" {
+            if !firstField {
+                builder.WriteString(", ")
+            } else {
+                firstField = false
+            }
+            builder.WriteString(fmt.Sprintf("%s %s", strings.ToLower(field.Name), field.Type))
+        }
+    }
+    builder.WriteString(") error {\n")
+    builder.WriteString("\tquery := \"UPDATE " + table + " SET ")
+    var updateFields []string
+    for _, field := range fields {
+        if field.Name != "id" && field.Name != "created_at" && field.Name != "updated_at" {
+            updateFields = append(updateFields, fmt.Sprintf("%s = @%s", field.Name, strings.ToLower(field.Name)))
+        }
+    }
+    builder.WriteString(strings.Join(updateFields, ", "))
+    builder.WriteString(", updated_at = @updated_at WHERE id = @id\"\n")
+    builder.WriteString("\t_, err := db.DB.Exec(query")
+    for _, field := range fields {
+        if field.Name != "id" && field.Name != "created_at" && field.Name != "updated_at" {
+            builder.WriteString(", sql.Named(\"" + strings.ToLower(field.Name) + "\", " + strings.ToLower(field.Name) + ")")
+        }
+    }
+    builder.WriteString(", sql.Named(\"updated_at\", time.Now()), sql.Named(\"id\", id))\n")
+    builder.WriteString("\tif err != nil {\n")
+    builder.WriteString("\t\treturn err\n")
+    builder.WriteString("\t}\n")
+    builder.WriteString("\treturn nil\n")
+    builder.WriteString("}\n\n")
+
+    // Generate Delete function
+    builder.WriteString(fmt.Sprintf("// Delete deletes an existing %s from the database\n", structName))
+    builder.WriteString(fmt.Sprintf("func Delete(id string) error {\n"))
+    builder.WriteString("\tquery := \"DELETE FROM " + table + " WHERE id = @id\"\n")
+    builder.WriteString("\t_, err := db.DB.Exec(query, sql.Named(\"id\", id))\n")
+    builder.WriteString("\tif err != nil {\n")
+    builder.WriteString("\t\treturn err\n")
+    builder.WriteString("\t}\n")
+    builder.WriteString("\treturn nil\n")
+    builder.WriteString("}\n\n")
+
+    // Generate All function
+    builder.WriteString(fmt.Sprintf("// All returns all %ss from the database\n", structName))
+    builder.WriteString(fmt.Sprintf("func All() ([]%s, error) {\n", structName))
+    builder.WriteString("\trows, err := db.DB.Query(\"SELECT ")
+    for i, field := range fields {
+        builder.WriteString(field.Name)
+        if i < len(fields)-1 {
+            builder.WriteString(", ")
+        }
+    }
+    builder.WriteString(" FROM " + table + "\")\n")
+    builder.WriteString("\tif err != nil {\n")
+    builder.WriteString("\t\treturn nil, err\n")
+    builder.WriteString("\t}\n")
+    builder.WriteString("\tdefer rows.Close()\n")
+    builder.WriteString("\tvar result []")
+    builder.WriteString(structName)
+    builder.WriteString("\n")
+    builder.WriteString("\tfor rows.Next() {\n")
+    builder.WriteString("\t\tvar u ")
+    builder.WriteString(structName)
+    builder.WriteString("\n")
+    builder.WriteString("\t\terr := rows.Scan(")
+    for i, field := range fields {
+        builder.WriteString("&u.")
+        builder.WriteString(capitalize(field.Name))
+        if i < len(fields)-1 {
+            builder.WriteString(", ")
+        }
+    }
+    builder.WriteString(")\n")
+    builder.WriteString("\t\tif err != nil {\n")
+    builder.WriteString("\t\t\treturn nil, err\n")
+    builder.WriteString("\t\t}\n")
+    builder.WriteString("\t\tresult = append(result, u)\n")
+    builder.WriteString("\t}\n")
+    builder.WriteString("\treturn result, nil\n")
+    builder.WriteString("}\n\n")
+
+    // Generate Read function
+    builder.WriteString(fmt.Sprintf("// Read%s reads a single %s from the database by its ID\n", structName, structName))
+    builder.WriteString(fmt.Sprintf("func Read(id string) (*%s, error) {\n", structName))
+    builder.WriteString("\tvar result " + structName + "\n")
+    builder.WriteString("\tquery := \"SELECT ")
+    for i, field := range fields {
+        builder.WriteString(field.Name)
+        if i < len(fields)-1 {
+            builder.WriteString(", ")
+        }
+    }
+    builder.WriteString(" FROM " + table + " WHERE id = @id\"\n")
+    builder.WriteString("\terr := db.DB.QueryRow(query, sql.Named(\"id\", id)).Scan(")
+    for i, field := range fields {
+        builder.WriteString("&result." + capitalize(field.Name))
+        if i < len(fields)-1 {
+            builder.WriteString(", ")
+        }
+    }
+    builder.WriteString(")\n")
+    builder.WriteString("\tif err != nil {\n")
+    builder.WriteString("\t\treturn nil, err\n")
+    builder.WriteString("\t}\n")
+    builder.WriteString("\treturn &result, nil\n")
+    builder.WriteString("}\n\n")
+
+    return builder.String()
+}
+
 func capitalize(s string) string {
 	if len(s) == 0 {
 		return s

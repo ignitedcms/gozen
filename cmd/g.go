@@ -284,6 +284,8 @@ func main() {
 
 	// Generate the CRUD operations code
 	// We need to pass in dbtype obtained from .env file
+    generatedCode := ""
+
 	switch dbConnection {
 	case "sqlite":
 	    generatedCode = GenerateCRUDSqlite(structName, table, allFields )
@@ -295,7 +297,7 @@ func main() {
 	case  "sqlsvr":
 	    generatedCode = GenerateCRUDSqlsvr(structName, table, allFields )
 	default:
-		return "Invalid database type"
+		fmt.Print("Invalid database type")
 	}
 
 	// Write the generated code to a file

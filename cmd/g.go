@@ -1078,10 +1078,11 @@ func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) s
 	var builder strings.Builder
 
     //Quick and dirty way to add table schema, which is usual 'dbo'
+    tableNoPrefix = table
     table = "dbo." + table
 
 	// Generate package and imports
-	builder.WriteString(fmt.Sprintf("package %s\n\n", table))
+	builder.WriteString(fmt.Sprintf("package %s\n\n", tableNoPrefix))
 	builder.WriteString("import (\n")
 	builder.WriteString("\t\"gozen/db\"\n")
 	builder.WriteString("\t\"time\"\n")

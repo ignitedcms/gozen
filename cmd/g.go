@@ -1112,7 +1112,7 @@ func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) s
 		}
 	}
 	builder.WriteString(") (int64, error) {\n")
-	builder.WriteString("\tquery := \"INSERT INTO " + table + "(")
+	builder.WriteString("\tstmt, err := db.DB.Prepare(\"INSERT INTO " + table + "(")
 	var insertFields []string
 	for _, field := range fields {
 		if field.Name != "id" && field.Name != "created_at" && field.Name != "updated_at" {
@@ -1120,29 +1120,41 @@ func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) s
 		}
 	}
 	builder.WriteString(strings.Join(insertFields, ", "))
-	builder.WriteString(", created_at, updated_at) OUTPUT INSERTED.id VALUES(")
+	builder.WriteString(", created_at, updated_at) VALUES(")
 	for i := range insertFields {
-		builder.WriteString(fmt.Sprintf("@p%d", i+1))
+		builder.WriteString(fmt.Sprintf("@p%d",i+1))
 		if i < len(insertFields)-1 {
 			builder.WriteString(", ")
 		}
 	}
-	builder.WriteString(", @p" + fmt.Sprintf("%d", len(insertFields)+1))
-	builder.WriteString(", @p" + fmt.Sprintf("%d", len(insertFields)+2) + ")\"\n")
 
-	builder.WriteString("\tvar lastInsertID int64\n")
-	builder.WriteString("\terr := db.DB.QueryRow(query")
-	for _, field := range fields {
+    //NEEDS FIXING
+	builder.WriteString(", ?, ?)\")") // Add created_at and updated_at
+	builder.WriteString("\n\tif err != nil {\n")
+	builder.WriteString("\t\treturn 0, err\n")
+	builder.WriteString("\t}\n")
+	builder.WriteString("\tdefer stmt.Close()\n")
+	builder.WriteString("\tresult, err := stmt.Exec(")
+	for i, field := range fields {
 		if field.Name != "id" && field.Name != "created_at" && field.Name != "updated_at" {
-			builder.WriteString(", sql.Named(\"" + strings.ToLower(field.Name) + "\", " + strings.ToLower(field.Name) + ")")
+			builder.WriteString(strings.ToLower(field.Name))
+			if i < len(fields)-1 && (fields[i+1].Name != "created_at" && fields[i+1].Name != "updated_at") {
+				builder.WriteString(", ")
+			}
 		}
 	}
-	builder.WriteString(", sql.Named(\"created_at\", time.Now()), sql.Named(\"updated_at\", time.Now())).Scan(&lastInsertID)\n")
+	builder.WriteString(", time.Now(), time.Now())") // Add created_at and updated_at
+	builder.WriteString("\n\tif err != nil {\n")
+	builder.WriteString("\t\treturn 0, err\n")
+	builder.WriteString("\t}\n")
+	builder.WriteString("\tlastInsertID, err := result.LastInsertId()\n")
 	builder.WriteString("\tif err != nil {\n")
 	builder.WriteString("\t\treturn 0, err\n")
 	builder.WriteString("\t}\n")
 	builder.WriteString("\treturn lastInsertID, nil\n")
 	builder.WriteString("}\n\n")
+    // END FIXES
+
 
 	// Generate Update function
 	builder.WriteString(fmt.Sprintf("// Update updates an existing %s in the database\n", structName))

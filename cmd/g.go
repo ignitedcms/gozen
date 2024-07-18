@@ -562,7 +562,12 @@ func generateCreateTableSQL(tableName string, fields []StructField, dbConnection
 	//sb.WriteString(fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (\n", tableName))
 
     // for 'sqlsvr' every table is prefixed by dbo??
-	sb.WriteString(fmt.Sprintf("CREATE TABLE  %s (\n", tableName))
+	if dbConnection == "sqlsvr"  {
+        tableName = "dbo." + tableName
+	    sb.WriteString(fmt.Sprintf("CREATE TABLE  %s (\n", tableName))
+    } else {
+	    sb.WriteString(fmt.Sprintf("CREATE TABLE  %s (\n", tableName))
+    }
 
 	for i, field := range fields {
 		fieldType := getFieldType(field.Type, dbConnection)

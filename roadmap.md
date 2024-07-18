@@ -1,10 +1,9 @@
 # Roadmap
 
 -Add postgres and mssql support
--mssql remove if table exists
 -mssql add prefix dbo.
 -generated sql looks to be malformed
--issue with datetime
+-issue with datetime?
 -sql named needs import
 -postgres getlastid bug
 

@@ -92,7 +92,8 @@ func (v *Validator) MaxLength(field, value string, maxLength int) *Validator {
 	return v
 }
 
-// This broken use mail.ParseAddress(email)
+// This uses mail.ParseAddress(email)
+// Which is considered accurate
 func (v *Validator) Email(field, value string) *Validator {
 	_, err := mail.ParseAddress(value)
 	if err != nil {

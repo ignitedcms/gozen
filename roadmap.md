@@ -6,6 +6,7 @@
 -generated sql looks to be malformed
 -issue with datetime
 -sql named needs import
+-postgres getlastid bug
 
 ## Add more detailed examples 
 - Add more detailed examples to docs

@@ -1077,6 +1077,9 @@ func GenerateCRUDPgsql(structName string, table string, fields []StructField) st
 func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) string {
 	var builder strings.Builder
 
+    //Quick and dirty way to add table schema, which is usual 'dbo'
+    table = "dbo." + table
+
 	// Generate package and imports
 	builder.WriteString(fmt.Sprintf("package %s\n\n", table))
 	builder.WriteString("import (\n")

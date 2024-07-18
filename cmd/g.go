@@ -1086,6 +1086,7 @@ func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) s
 	builder.WriteString("import (\n")
 	builder.WriteString("\t\"gozen/db\"\n")
 	builder.WriteString("\t\"time\"\n")
+	builder.WriteString("\t\"database/sql\"\n")
 	builder.WriteString(")\n\n")
 
 	// Generate struct type

@@ -1079,6 +1079,7 @@ func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) s
 	var builder strings.Builder
 
     //Quick and dirty way to add table schema, which is usual 'dbo'
+    //Todo: Retrieve this from .env file instead!!!! 
     tableNoPrefix := table
     table = "dbo." + table
 
@@ -1133,7 +1134,6 @@ func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) s
     builder.WriteString(", @p" + fmt.Sprintf("%d", len(insertFields)+2) + ")\"\n")
 
     //NEEDS FIXING
-	//builder.WriteString(", ?, ?)\")") // Add created_at and updated_at
 	builder.WriteString("\n\tif err != nil {\n")
 	builder.WriteString("\t\treturn 0, err\n")
 	builder.WriteString("\t}\n")
@@ -1145,8 +1145,13 @@ func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) s
             builder.WriteString(" sql.Named(\"" + "@p" + strconv.Itoa(i) + "\", " + strings.ToLower(field.Name) + ")")
 		}
 	}
-	//builder.WriteString(", time.Now(), time.Now())") // Add created_at and updated_at
-    builder.WriteString(", sql.Named(\"created_at\", time.Now()), sql.Named(\"updated_at\", time.Now()))\n")
+
+    // last two end parameters eg. p4, p5
+    p1 := strconv.Itoa(len(insertFields)+1)
+    p2 := strconv.Itoa(len(insertFields)+2)
+
+    //builder.WriteString(", sql.Named(\"created_at\", time.Now()), sql.Named(\"updated_at\", time.Now()))\n")
+    builder.WriteString(", sql.Named(\"@p\", time.Now()), sql.Named(\"@p\", time.Now()))\n")
 	builder.WriteString("\n\tif err != nil {\n")
 	builder.WriteString("\t\treturn 0, err\n")
 	builder.WriteString("\t}\n")

@@ -1078,7 +1078,7 @@ func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) s
 	var builder strings.Builder
 
     //Quick and dirty way to add table schema, which is usual 'dbo'
-    tableNoPrefix = table
+    tableNoPrefix := table
     table = "dbo." + table
 
 	// Generate package and imports

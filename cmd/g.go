@@ -1131,7 +1131,7 @@ func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) s
 	}
 
     builder.WriteString(", @p" + fmt.Sprintf("%d", len(insertFields)+1))
-    builder.WriteString(", @p" + fmt.Sprintf("%d", len(insertFields)+2) + ")\"\n")
+    builder.WriteString(", @p" + fmt.Sprintf("%d", len(insertFields)+2) + "))\"\n")
 
     //NEEDS FIXING
 	builder.WriteString("\n\tif err != nil {\n")
@@ -1142,7 +1142,7 @@ func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) s
 	for i, field := range fields {
 		if field.Name != "id" && field.Name != "created_at" && field.Name != "updated_at" {
             //NEED to swap out for @p1,@p2 etc
-            builder.WriteString(" sql.Named(\"" + "@p" + strconv.Itoa(i) + "\", " + strings.ToLower(field.Name) + ")")
+            builder.WriteString(", sql.Named(\"" + "p" + strconv.Itoa(i) + "\", " + strings.ToLower(field.Name) + ")")
 		}
 	}
 
@@ -1151,7 +1151,7 @@ func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) s
     x2 := strconv.Itoa(len(insertFields)+2)
 
     //builder.WriteString(", sql.Named(\"created_at\", time.Now()), sql.Named(\"updated_at\", time.Now()))\n")
-    builder.WriteString(", sql.Named(\"@p" + x1 + "\", time.Now()), sql.Named(\"@p" + x2 + "\", time.Now()))\n")
+    builder.WriteString(", sql.Named(\"p" + x1 + "\", time.Now()), sql.Named(\"p" + x2 + "\", time.Now()))\n")
 	builder.WriteString("\n\tif err != nil {\n")
 	builder.WriteString("\t\treturn 0, err\n")
 	builder.WriteString("\t}\n")

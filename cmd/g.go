@@ -1131,7 +1131,7 @@ func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) s
 	}
 
     builder.WriteString(", @p" + fmt.Sprintf("%d", len(insertFields)+1))
-    builder.WriteString(", @p" + fmt.Sprintf("%d", len(insertFields)+2) + "))\"\n")
+    builder.WriteString(", @p" + fmt.Sprintf("%d", len(insertFields)+2) + ")\")\n")
 
     //NEEDS FIXING
 	builder.WriteString("\n\tif err != nil {\n")

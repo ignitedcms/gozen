@@ -1128,8 +1128,11 @@ func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) s
 		}
 	}
 
+    builder.WriteString(", @p" + fmt.Sprintf("%d", len(insertFields)+1))
+    builder.WriteString(", @p" + fmt.Sprintf("%d", len(insertFields)+2) + ")\"\n")
+
     //NEEDS FIXING
-	builder.WriteString(", ?, ?)\")") // Add created_at and updated_at
+	//builder.WriteString(", ?, ?)\")") // Add created_at and updated_at
 	builder.WriteString("\n\tif err != nil {\n")
 	builder.WriteString("\t\treturn 0, err\n")
 	builder.WriteString("\t}\n")

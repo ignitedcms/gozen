@@ -1140,10 +1140,7 @@ func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) s
 	builder.WriteString("\tresult, err := stmt.Exec(")
 	for i, field := range fields {
 		if field.Name != "id" && field.Name != "created_at" && field.Name != "updated_at" {
-			builder.WriteString(strings.ToLower(field.Name))
-			if i < len(fields)-1 && (fields[i+1].Name != "created_at" && fields[i+1].Name != "updated_at") {
-				builder.WriteString(", ")
-			}
+            builder.WriteString(", sql.Named(\"" + strings.ToLower(field.Name) + "\", " + strings.ToLower(field.Name) + ")")
 		}
 	}
 	builder.WriteString(", time.Now(), time.Now())") // Add created_at and updated_at

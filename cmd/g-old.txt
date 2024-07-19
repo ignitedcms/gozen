@@ -45,3 +45,22 @@
 	builder.WriteString("\treturn lastInsertID, nil\n")
 	builder.WriteString("}\n\n")
 
+
+// Insert inserts a new student into the database
+func Create(name string, age string, wage string) (int64, error) {
+	stmt, err := db.DB.Prepare("INSERT INTO dbo.students(name, age, wage, created_at, updated_at) VALUES(@p1, @p2, @p3, @p4, @p5)")
+	if err != nil {
+		return 0, err
+	}
+	defer stmt.Close()
+	result, err := stmt.Exec(sql.Named("p1", name), sql.Named("p2", age), sql.Named("p3", wage), sql.Named("p4", time.Now()), sql.Named("p5", time.Now()))
+	if err != nil {
+		return 0, err
+	}
+	lastInsertID, err := result.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+	return lastInsertID, nil
+}
+

@@ -1147,11 +1147,11 @@ func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) s
 	}
 
     // last two end parameters eg. p4, p5
-    p1 := strconv.Itoa(len(insertFields)+1)
-    p2 := strconv.Itoa(len(insertFields)+2)
+    x1 := strconv.Itoa(len(insertFields)+1)
+    x2 := strconv.Itoa(len(insertFields)+2)
 
     //builder.WriteString(", sql.Named(\"created_at\", time.Now()), sql.Named(\"updated_at\", time.Now()))\n")
-    builder.WriteString(", sql.Named(\"@p\", time.Now()), sql.Named(\"@p\", time.Now()))\n")
+    builder.WriteString(", sql.Named(\"@p" + x1 + "\", time.Now()), sql.Named(\"@p" + x2 + "\", time.Now()))\n")
 	builder.WriteString("\n\tif err != nil {\n")
 	builder.WriteString("\t\treturn 0, err\n")
 	builder.WriteString("\t}\n")

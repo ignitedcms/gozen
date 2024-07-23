@@ -197,6 +197,12 @@ func (v *Validator) GetErrors() []ValidationError {
 	return v.errors
 }
 
+/*
+|---------------------------------------------------------------
+| All methods underneath needs full testing
+|---------------------------------------------------------------
+*/
+
 // New method to parse and apply validation rules
 func (v *Validator) ApplyRules(field, value, rules string) *Validator {
 	ruleParts := strings.Split(rules, "|")

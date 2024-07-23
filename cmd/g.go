@@ -28,9 +28,9 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"unicode"
-	"strconv"
 )
 
 // StructField represents a field in a struct
@@ -1078,10 +1078,10 @@ func GenerateCRUDPgsql(structName string, table string, fields []StructField) st
 func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) string {
 	var builder strings.Builder
 
-    //Quick and dirty way to add table schema, which is usual 'dbo'
-    //Todo: Retrieve this from .env file instead!!!! 
-    tableNoPrefix := table
-    table = "dbo." + table
+	//Quick and dirty way to add table schema, which is usual 'dbo'
+	//Todo: Retrieve this from .env file instead!!!!
+	tableNoPrefix := table
+	table = "dbo." + table
 
 	// Generate package and imports
 	builder.WriteString(fmt.Sprintf("package %s\n\n", tableNoPrefix))
@@ -1124,16 +1124,16 @@ func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) s
 	builder.WriteString(strings.Join(insertFields, ", "))
 	builder.WriteString(", created_at, updated_at) VALUES(")
 	for i := range insertFields {
-		builder.WriteString(fmt.Sprintf("@p%d",i+1))
+		builder.WriteString(fmt.Sprintf("@p%d", i+1))
 		if i < len(insertFields)-1 {
 			builder.WriteString(", ")
 		}
 	}
 
-    builder.WriteString(", @p" + fmt.Sprintf("%d", len(insertFields)+1))
-    builder.WriteString(", @p" + fmt.Sprintf("%d", len(insertFields)+2) + ")\")\n")
+	builder.WriteString(", @p" + fmt.Sprintf("%d", len(insertFields)+1))
+	builder.WriteString(", @p" + fmt.Sprintf("%d", len(insertFields)+2) + ")\")\n")
 
-    //NEEDS FIXING
+	//NEEDS FIXING
 	builder.WriteString("\n\tif err != nil {\n")
 	builder.WriteString("\t\treturn 0, err\n")
 	builder.WriteString("\t}\n")
@@ -1141,17 +1141,17 @@ func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) s
 	builder.WriteString("\tresult, err := stmt.Exec(")
 	for i, field := range fields {
 		if field.Name != "id" && field.Name != "created_at" && field.Name != "updated_at" {
-            //NEED to swap out for @p1,@p2 etc
-            builder.WriteString(" sql.Named(\"" + "p" + strconv.Itoa(i) + "\", " + strings.ToLower(field.Name) + "),")
+			//NEED to swap out for @p1,@p2 etc
+			builder.WriteString(" sql.Named(\"" + "p" + strconv.Itoa(i) + "\", " + strings.ToLower(field.Name) + "),")
 		}
 	}
 
-    // last two end parameters eg. p4, p5
-    x1 := strconv.Itoa(len(insertFields)+1)
-    x2 := strconv.Itoa(len(insertFields)+2)
+	// last two end parameters eg. p4, p5
+	x1 := strconv.Itoa(len(insertFields) + 1)
+	x2 := strconv.Itoa(len(insertFields) + 2)
 
-    //builder.WriteString(", sql.Named(\"created_at\", time.Now()), sql.Named(\"updated_at\", time.Now()))\n")
-    builder.WriteString(" sql.Named(\"p" + x1 + "\", time.Now()), sql.Named(\"p" + x2 + "\", time.Now()))\n")
+	//builder.WriteString(", sql.Named(\"created_at\", time.Now()), sql.Named(\"updated_at\", time.Now()))\n")
+	builder.WriteString(" sql.Named(\"p" + x1 + "\", time.Now()), sql.Named(\"p" + x2 + "\", time.Now()))\n")
 	builder.WriteString("\n\tif err != nil {\n")
 	builder.WriteString("\t\treturn 0, err\n")
 	builder.WriteString("\t}\n")
@@ -1161,8 +1161,7 @@ func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) s
 	builder.WriteString("\t}\n")
 	builder.WriteString("\treturn lastInsertID, nil\n")
 	builder.WriteString("}\n\n")
-    // END FIXES
-
+	// END FIXES
 
 	// Generate Update function
 	builder.WriteString(fmt.Sprintf("// Update updates an existing %s in the database\n", structName))

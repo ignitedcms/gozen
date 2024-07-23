@@ -196,3 +196,63 @@ func (v *Validator) HasErrors() bool {
 func (v *Validator) GetErrors() []ValidationError {
 	return v.errors
 }
+
+// New method to parse and apply validation rules
+func (v *Validator) ApplyRules(field, value, rules string) *Validator {
+	ruleParts := strings.Split(rules, "|")
+	for _, rule := range ruleParts {
+		v.applyRule(field, value, rule)
+	}
+	return v
+}
+
+// Helper method to apply individual rules
+func (v *Validator) applyRule(field, value, rule string) {
+	parts := strings.SplitN(rule, ":", 2)
+	ruleName := parts[0]
+
+	switch ruleName {
+	case "required":
+		v.Required(field, value)
+	case "unique":
+		if len(parts) == 2 {
+			v.Unique(field, value, parts[1], field)
+		}
+	case "exists":
+		if len(parts) == 2 {
+			v.Exists(field, value, parts[1], field)
+		}
+	case "min":
+		if len(parts) == 2 {
+			if minLength, err := strconv.Atoi(parts[1]); err == nil {
+				v.MinLength(field, value, minLength)
+			}
+		}
+	case "max":
+		if len(parts) == 2 {
+			if maxLength, err := strconv.Atoi(parts[1]); err == nil {
+				v.MaxLength(field, value, maxLength)
+			}
+		}
+	case "email":
+		v.Email(field, value)
+	case "alpha":
+		v.Alpha(field, value)
+	case "alphanum":
+		v.AlphaNum(field, value)
+	case "int":
+		v.Int(field, value)
+	case "float":
+		v.Float(field, value)
+	case "date":
+		v.Date(field, value)
+	case "date_less_than":
+		if len(parts) == 2 {
+			v.DateLessThan(field, value, parts[1])
+		}
+	case "date_greater_than":
+		if len(parts) == 2 {
+			v.DateGreaterThan(field, value, parts[1])
+		}
+	}
+}

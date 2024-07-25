@@ -199,12 +199,12 @@ func (v *Validator) GetErrors() []ValidationError {
 
 /*
 |---------------------------------------------------------------
-| All methods underneath needs full testing
+| All methods underneath needs to be tested completely!
 |---------------------------------------------------------------
 */
 
 // New method to parse and apply validation rules
-func (v *Validator) ApplyRules(field, value, rules string) *Validator {
+func (v *Validator) Rules(field, value, rules string) *Validator {
 	ruleParts := strings.Split(rules, "|")
 	for _, rule := range ruleParts {
 		v.applyRule(field, value, rule)

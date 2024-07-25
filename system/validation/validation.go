@@ -246,7 +246,7 @@ func (v *Validator) applyRule(field, value, rule string) {
 		v.Alpha(field, value)
 	case "alphanum":
 		v.AlphaNum(field, value)
-	case "int":
+	case "integer":
 		v.Int(field, value)
 	case "float":
 		v.Float(field, value)

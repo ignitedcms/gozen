@@ -25,7 +25,6 @@ type TemplateData struct {
 	PostData       map[string]interface{}
 	PostDataErrors map[string]interface{}
 	FlashData      string
-	Foo            string //Change this to something sensible
 }
 
 var Template *template.Template

@@ -402,7 +402,7 @@ func main() {
 	builder2.WriteString("\t\t// Handle error\n")
 	builder2.WriteString("\t\treturn\n")
 	builder2.WriteString("\t}\n")
-	builder2.WriteString("\tdata := map[interface{}]interface{}{\n")
+	builder2.WriteString("\tdata := map[string]interface{}{\n")
 	builder2.WriteString("\t\t\"Id\":   id,\n")
 	builder2.WriteString("\t\t\"" + capitalize(structName) + "\": " + structName + ",\n")
 	builder2.WriteString("\t}\n")

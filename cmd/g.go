@@ -297,7 +297,7 @@ func main() {
 	case "pgsql":
 		generatedCode = GenerateCRUDPgsql(structName, table, allFields)
 	case "sqlsvr":
-		generatedCode = GenerateCRUDSqlsvr(structName, table, allFields)
+		generatedCode = GenerateCRUDSqlsvr(structName, table, allFields, dbSchema)
 	default:
 		fmt.Print("Invalid database type")
 	}
@@ -1079,13 +1079,12 @@ func GenerateCRUDPgsql(structName string, table string, fields []StructField) st
 }
 
 // Warning this is broken
-func GenerateCRUDSqlsvr(structName string, table string, fields []StructField) string {
+func GenerateCRUDSqlsvr(structName string, table string, fields []StructField, dbSchema string) string {
 	var builder strings.Builder
 
-	//Quick and dirty way to add table schema, which is usual 'dbo'
-	//Todo: Retrieve this from .env file instead!!!!
+	// Retrieve 'schema' from .env file instead!!!!
 	tableNoPrefix := table
-	table = "dbo." + table
+	table = dbSchema + "." + table
 
 	// Generate package and imports
 	builder.WriteString(fmt.Sprintf("package %s\n\n", tableNoPrefix))

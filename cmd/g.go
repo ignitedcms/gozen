@@ -87,10 +87,11 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 	dbConnection := os.Getenv("DB_CONNECTION")
+	dbSchema := os.Getenv("DB_SCHEMA")
 
 	//Now let's pass it into our function
 
-	sql := generateCreateTableSQL(table, allFields2, dbConnection)
+	sql := generateCreateTableSQL(table, allFields2, dbConnection, dbSchema)
 
 	migrateSql(table, sql)
 
@@ -532,7 +533,7 @@ var dataTypes = []DataType{
 	{"timestamp", "TEXT", "TIMESTAMP", "TIMESTAMP", "DATETIME"},
 }
 
-func generateCreateTableSQL(tableName string, fields []StructField, dbConnection string) string {
+func generateCreateTableSQL(tableName string, fields []StructField, dbConnection string, dbSchema string) string {
 
 	//Do a db check to build grammar specific sql
 	idString := ""
@@ -566,7 +567,8 @@ func generateCreateTableSQL(tableName string, fields []StructField, dbConnection
 	// for 'sqlsvr' every table is prefixed by dbo??
    // Retrieve schema from .env file
 	if dbConnection == "sqlsvr" {
-		tableName = "dbo." + tableName
+		//tableName = "dbo." + tableName
+      tableName = dbSchema + "." + tableName
 		sb.WriteString(fmt.Sprintf("CREATE TABLE  %s (\n", tableName))
 	} else {
 		sb.WriteString(fmt.Sprintf("CREATE TABLE  %s (\n", tableName))

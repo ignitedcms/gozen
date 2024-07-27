@@ -17,15 +17,15 @@
 package validation
 
 import (
+	"database/sql"
 	"fmt"
 	"gozen/db"
 	"net/mail"
+	"os"
 	"regexp"
 	"strconv"
 	"strings"
 	"time"
-	"os"
-	"database/sql"
 )
 
 type ValidationError struct {
@@ -40,31 +40,28 @@ type Validator struct {
 // Relies on the database
 func (v *Validator) Unique(field, value, table, column string) *Validator {
 
-   //First get the db_connection
-   dbConnection := os.Getenv("DB_CONNECTION")
+	//First get the db_connection
+	dbConnection := os.Getenv("DB_CONNECTION")
 
-   var query string
+	var query string
 	var count int
 	var err error
 
-   switch dbConnection {
-   case "sqlsvr":
-      query = fmt.Sprintf("SELECT COUNT(*) FROM %s WHERE %s = @p1", table, column)
+	switch dbConnection {
+	case "sqlsvr":
+		query = fmt.Sprintf("SELECT COUNT(*) FROM %s WHERE %s = @p1", table, column)
 		err = db.DB.QueryRow(query, sql.Named("p1", value)).Scan(&count)
-   case "pgsql":
-      query = fmt.Sprintf("SELECT COUNT(*) FROM %s WHERE %s = $1", table, column)
+	case "pgsql":
+		query = fmt.Sprintf("SELECT COUNT(*) FROM %s WHERE %s = $1", table, column)
 		err = db.DB.QueryRow(query, value).Scan(&count)
-   default:
-      //For sqlite and mysql
-   	query = fmt.Sprintf("SELECT COUNT(*) FROM %s WHERE %s = ?", table, column)
-   	err = db.DB.QueryRow(query, value).Scan(&count)
+	default:
+		//For sqlite and mysql
+		query = fmt.Sprintf("SELECT COUNT(*) FROM %s WHERE %s = ?", table, column)
+		err = db.DB.QueryRow(query, value).Scan(&count)
 
-   }
-
+	}
 
 	// Check if the value is unique in the given table and column
-	//query := fmt.Sprintf("SELECT COUNT(*) FROM %s WHERE %s = ?", table, column)
-	//err := db.DB.QueryRow(query, value).Scan(&count)
 	if err != nil {
 		v.errors = append(v.errors, ValidationError{Field: field, Message: "Error checking for uniqueness: " + err.Error()})
 		return v
@@ -80,29 +77,28 @@ func (v *Validator) Unique(field, value, table, column string) *Validator {
 // Relies on the database
 func (v *Validator) Exists(field, value, table, column string) *Validator {
 
-   //First get the db_connection
-   dbConnection := os.Getenv("DB_CONNECTION")
+	//First get the db_connection
+	dbConnection := os.Getenv("DB_CONNECTION")
 
-   var query string
+	var query string
 	var count int
 	var err error
 
-   switch dbConnection {
-   case "sqlsvr":
-      query = fmt.Sprintf("SELECT COUNT(*) FROM %s WHERE %s = @p1", table, column)
+	switch dbConnection {
+	case "sqlsvr":
+		query = fmt.Sprintf("SELECT COUNT(*) FROM %s WHERE %s = @p1", table, column)
 		err = db.DB.QueryRow(query, sql.Named("p1", value)).Scan(&count)
-   case "pgsql":
-      query = fmt.Sprintf("SELECT COUNT(*) FROM %s WHERE %s = $1", table, column)
+	case "pgsql":
+		query = fmt.Sprintf("SELECT COUNT(*) FROM %s WHERE %s = $1", table, column)
 		err = db.DB.QueryRow(query, value).Scan(&count)
-   default:
-      //For sqlite and mysql
-   	query = fmt.Sprintf("SELECT COUNT(*) FROM %s WHERE %s = ?", table, column)
-   	err = db.DB.QueryRow(query, value).Scan(&count)
+	default:
+		//For sqlite and mysql
+		query = fmt.Sprintf("SELECT COUNT(*) FROM %s WHERE %s = ?", table, column)
+		err = db.DB.QueryRow(query, value).Scan(&count)
 
-   }
+	}
 
-
-	// Check if the value is unique in the given table and column
+	// Check if the value exists in the given table and column
 	if err != nil {
 		v.errors = append(v.errors, ValidationError{Field: field, Message: "Error checking for uniqueness: " + err.Error()})
 		return v

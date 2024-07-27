@@ -552,7 +552,7 @@ func generateCreateTableSQL(tableName string, fields []StructField, dbConnection
 
 	/*
 	   |---------------------------------------------------------------
-	   | Bug with pgsql
+	   | Fix issue with pgsql
 	   |---------------------------------------------------------------
 	   |
 	   | We need to omit the int/ integer type when creating a primary
@@ -564,6 +564,7 @@ func generateCreateTableSQL(tableName string, fields []StructField, dbConnection
 	//sb.WriteString(fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (\n", tableName))
 
 	// for 'sqlsvr' every table is prefixed by dbo??
+   // Retrieve schema from .env file
 	if dbConnection == "sqlsvr" {
 		tableName = "dbo." + tableName
 		sb.WriteString(fmt.Sprintf("CREATE TABLE  %s (\n", tableName))

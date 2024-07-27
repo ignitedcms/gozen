@@ -1,12 +1,11 @@
 # Roadmap
 
 - issue with datetime?
-- postgres and sqlsvr getlastid bug needs testing and fixing
+- sort validation 'exists' and 'unique' for postgres and mssql
 
 ## Add more detailed examples 
 - Add more detailed examples to docs
 - Look at revising global db object
-- Amend validation to support all db drivers
 - Add template function to retrieve url from .env
 - requests, add POST example with radio, selects and checkboxes
 - Show how to add custom validation rules

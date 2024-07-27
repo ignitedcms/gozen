@@ -1,11 +1,7 @@
 # Roadmap
 
-- Add postgres and mssql support
-- mssql add prefix dbo.
 - issue with datetime?
-- postgres getlastid bug
-- mssql schema
-- update crud for string based validation "name  alpha:10|integer"
+- postgres and sqlsvr getlastid bug needs testing and fixing
 
 ## Add more detailed examples 
 - Add more detailed examples to docs

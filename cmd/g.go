@@ -1139,7 +1139,7 @@ func GenerateCRUDSqlsvr(structName string, table string, fields []StructField, d
    builder.WriteString("\terr = stmt.QueryRow(")
    for i, field := range fields {
        if field.Name != "id" && field.Name != "created_at" && field.Name != "updated_at" {
-           builder.WriteString("sql.Named(\"p" + strconv.Itoa(i+1) + "\", " + strings.ToLower(field.Name) + "), ")
+           builder.WriteString("sql.Named(\"p" + strconv.Itoa(i) + "\", " + strings.ToLower(field.Name) + "), ")
        }
    }
    // last two end parameters eg. p4, p5

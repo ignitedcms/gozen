@@ -370,7 +370,8 @@ func main() {
 	// Write validation rules dynamically
 	for _, field := range fields {
 		if field.Type == "string" {
-			builder2.WriteString(fmt.Sprintf("\tv.Required(\"%s\", %s)\n", field.Name, field.Name))
+			//builder2.WriteString(fmt.Sprintf("\tv.Required(\"%s\", %s)\n", field.Name, field.Name))
+			builder2.WriteString(fmt.Sprintf("\tv.Rules(\"%s\", %s, \"required\")\n", field.Name, field.Name))
 		}
 	}
 
